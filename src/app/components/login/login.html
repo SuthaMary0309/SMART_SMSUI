@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Smart School Login | EDULink</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-wrapper">
+    <!-- Left Side -->
+    <div class="left-panel">
+      <img src="https://img.freepik.com/premium-photo/children-back-school_1234759-48326.jpg" alt="Illustration">
+      <h2>Welcome to<br><span>Smart School System</span></h2>
+     <p>Your Gateway to a Smarter, Connected School Experience.</p>
+    </div>
+
+    <!-- Right Side -->
+    <div class="right-panel">
+      <div class="logo">
+        <img src="https://images.wuzzuf-data.net/files/company_logo/Smart-School-Egypt-36257-1537730727-og.jpg" alt="Logo">
+        
+      </div>
+      <div>
+        <h3>EDULink</h3>
+      </div>
+
+      <h4>Secure Login</h4>
+
+    <div class="login-form">
+      <div class="input-group">
+    <div class="input-icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" alt="User Icon">
+    </div>
+     <input 
+    type="text" 
+    placeholder="Username" 
+    name="username" 
+    autocomplete="off"
+
+  />
+  </div>
+
+  <div class="input-group">
+    <div class="input-icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/7069/7069204.png" alt="Key Icon">
+    </div>
+     <input 
+    type="password" 
+    placeholder="Password" 
+    name="password" 
+    autocomplete="new-password"
+  />
+  </div>
+        <div class="options">
+          <label><input type="checkbox"> Remember me </label>
+          <a href="#"> Forgot Password?</a>
+        </div>
+      
+        <button type="submit" class="login-btn">LOGIN</button>
+
+        <div class="social-login">
+          <p>or</p>
+          <button class="google-btn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> 
+            Login with Google
+          </button>
+        </div>
+        <div class="signup-label">
+        <p>Don’t have an account?
+        <button routerLink ="/Register">Sign Up</button>
+        </p>         
+        <!-- <p>Already have an account?</p>
+        <button (click)="goToLogin()" class="login-btn">Sign Up</button> -->
+      </div>
+      
+      
