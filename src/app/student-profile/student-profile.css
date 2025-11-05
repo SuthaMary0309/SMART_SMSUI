@@ -1,0 +1,85 @@
+.profile-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.profile-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-4px);
+}
+
+.profile-left {
+  text-align: center;
+  margin-right: 30px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #1976d2;
+  margin-bottom: 10px;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-info p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.profile-info strong {
+  color: #1976d2;
+}
+
+.back-btn {
+  margin-top: 25px;
+  padding: 10px 25px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #125ca3;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

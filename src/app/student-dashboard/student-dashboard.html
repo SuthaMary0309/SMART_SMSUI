@@ -1,0 +1,70 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">EduLink</h2>
+    <nav>
+      <ul>
+        <li class="active">🏠 Student Dashboard</li>
+        <li>📅 Attendance</li>
+        <li>📊 Exams & Results</li>
+        <li>🔔 Notifications</li>
+        <li>📘 Reports</li>
+        <li (click)="goToProfile()">👤 Profile</li>
+        <li>🚪 Logout</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <input type="text" placeholder="Search..." class="search-box" />
+      <div class="icons">
+        <span>👤</span>
+        <span>🔔</span>
+        <span>⚙️</span>
+      </div>
+    </header>
+
+    <section class="welcome-section">
+      <h3>Welcome back, <span></span></h3>
+    </section>
+
+    <section class="stats-section">
+      <div class="card">
+        <h4>Attendance %</h4>
+        <p class="value">92%</p>
+      </div>
+      <div class="card">
+        <h4>Upcoming Exam</h4>
+        <p>Math Test on Friday</p>
+      </div>
+      <div class="card">
+        <h4>Last Result</h4>
+        <p class="grade">A+ in Physics</p>
+      </div>
+    </section>
+
+    <section class="bottom-section">
+      <div class="card-table">
+        <h4>Upcoming Classes</h4>
+        <table>
+          <tr><th>Subject</th><th>Time</th></tr>
+          <tr><td>Math</td><td>12:00 AM</td></tr>
+          <tr><td>Physics</td><td>10:00 AM</td></tr>
+          <tr><td>Chemistry</td><td>1:00 PM</td></tr>
+        </table>
+      </div>
+
+      <div class="card-table">
+        <h4>Recent Grades</h4>
+        <table>
+          <tr><th>Subject</th><th>Grade</th></tr>
+          <tr><td>Math</td><td>A</td></tr>
+          <tr><td>Physics</td><td>A+</td></tr>
+          <tr><td>Chemistry</td><td>B+</td></tr>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
