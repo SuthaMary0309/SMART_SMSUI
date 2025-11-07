@@ -12,6 +12,7 @@ import { StudentDashboardComponent } from "./student-dashboard/student-dashboard
 })
 export class App {
   protected readonly title = signal('smart-sms-school');
+  
 }
 
 
