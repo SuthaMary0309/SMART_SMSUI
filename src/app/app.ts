@@ -13,6 +13,7 @@ import { Attendance } from "./components/student-dashboard/attendance/attendance
 })
 export class App {
   protected readonly title = signal('smart-sms-school');
+  
 }
 
 
