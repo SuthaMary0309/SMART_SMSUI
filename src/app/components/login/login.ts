@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterComponent } from "../register/register";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',

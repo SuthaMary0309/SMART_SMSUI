@@ -4,6 +4,7 @@ import { LoginComponent} from './components/login/login';
 import { RegisterComponent} from './components/register/register';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard';
 import { StudentProfile } from './student-profile/student-profile';
+import { Attendance } from './components/student-dashboard/attendance/attendance';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -11,6 +12,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'student-dasboard', component: StudentDashboardComponent},
   { path: 'student-profile', component: StudentProfile },
+  { path: 'attendance', component: Attendance }
+
 ];
 
 @NgModule({
