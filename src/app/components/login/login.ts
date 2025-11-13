@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RegisterComponent } from "../register/register";
 import { routes } from '../../app.routes';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
