@@ -1,181 +1,162 @@
-/* Container */
-.attendance-container {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 210px;
-  background: #619ad7c1;
-  border-radius: 30px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  font-family: 'Poppins', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Full screen container */
-.attendance-page {
+.attendance-container {
   width: 100%;
   height: 100vh;
-  background-color: #8bb8e8;
+  background-color: #478fe0;
+  padding: 30px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
-/* Page Title */
-.page-title {
-  text-align: center;
-  font-size: 50px;
-  font-weight: 800;
-  margin-bottom: 100px;
-  color: #2c3e50;
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0b2239;
+  margin-bottom: 30px;
 }
 
-/* Filter Section */
 .filter-section {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
   justify-content: center;
-  margin-bottom: 20px;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
-.filter-item {
+.filter-group {
   display: flex;
   flex-direction: column;
 }
 
-.filter-item label {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 4px;
+.filter-group label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-.filter-item input,
-.filter-item select {
-  padding: 6px 10px;
-  border: 1px solid #d8cccc;
+.filter-group input,
+.filter-group select {
+  padding: 16px 24px;
   border-radius: 6px;
-  min-width: 150px;
+  border: 2px solid #ccc;
+  font-size: 0.95rem;
 }
 
-.btn-view {
-  background: #3498db;
-  color: #fff;
+.primary-btn {
+  background-color: #1a73d3c1;
+  color: white;
   border: none;
-  padding: px px;
-  border-radius: 4px;
+  border-radius: 12px;
+  padding: 20px 36px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
+  font-size: 0.95rem;
+  transition: 0.3s;
 }
 
-.btn-view:hover {
-  background: #2980b9;
+.primary-btn:hover {
+  background-color: #034b97c1;
 }
 
-/* Summary Cards */
 .summary-cards {
   display: flex;
-  justify-content: space-around;
+  gap: 15px;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .card {
-  flex: 1;
-  min-width: 180px;
-  padding: 16px;
-  border-radius: 10px;
+  width: 200px;
   text-align: center;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {
-  margin-bottom: 8px;
-  font-size: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
 .card p {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .card.present {
-  background: #d6eed6;
-  border-left: 10px solid #2ecc71;
+  background-color: #d8f8e2;
+  border-left: 8px solid #35b86b;
 }
 
 .card.absent {
-  background: #e9d0d0;
-  border-left: 5px solid #e74c3c;
+  background-color: #fcd8d8;
+  border-left: 8px solid #e05454;
 }
 
 .card.late {
-  background: #ebe3ce;
-  border-left: 5px solid #f1c40f;
+  background-color: #f6e9c0;
+  border-left: 8px solid #f0b22c;
 }
 
-/* Table Section */
 .table-section {
-  overflow-x: auto;
+  width: 100%;
+  max-width: 1500px;
+  background: rgb(206, 200, 200);
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 thead {
-  background:#034b97c1;
-  color: #fff;
+  background-color: #034b97c1;
+  color: white;
 }
 
-th,
-td {
-  padding: 10px 12px;
-  text-align: left;
-}
-
-tbody tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-tbody tr:hover {
-  background: #eef6fc;
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .status {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
 }
 
 .status.present {
-  background: #2ecc71;
-  color: white;
+  background-color: #35b86b;
 }
 
 .status.absent {
-  background: #e74c3c;
-  color: white;
+  background-color: #e05454;
 }
 
 .status.late {
-  background: #f1c40f;
-  color: black;
+  background-color: #f0b22c;
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .filter-section {
-    flex-direction: column;
-    align-items: center;
-  }
   .summary-cards {
     flex-direction: column;
     align-items: center;
   }
-  
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
 }
