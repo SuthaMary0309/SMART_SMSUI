@@ -44,6 +44,21 @@ body {
   font-weight: 600;
 }
 
+button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+
 /* Main Area */
 .main-content {
   flex: 1;
@@ -57,12 +72,18 @@ header {
 }
 
 .search-box {
-  width: 300px;
+  width: 30%;
   padding: 10px 15px;
+  border: 2px solid #0d0d0e;
   border-radius: 10px;
-  border: none;
-  background: #0c191e;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 15px;
+  outline:#0f0f0f;
+  transition: 0.3s;
+}
+
+.search-box:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px rgba(19, 143, 201, 0.4);
 }
 
 .icons span {
@@ -140,3 +161,55 @@ th {
   background:#034b97c1;
   border-radius: 5px;
 }
+
+/* 🔲 Popup styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;  /* 👈 Add this */
+}
+
+
+.popup-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.popup-box h3 {
+  margin-bottom: 25px;
+  color: #333;
+}
+
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cancel-btn {
+  background: #ccc;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ok-btn:hover {
+  background: #0056b3;
+}
+
+.cancel-btn:hover {
+  background: #999;
+}
+
