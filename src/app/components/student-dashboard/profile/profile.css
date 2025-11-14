@@ -70,7 +70,8 @@
 }
 
 .back-btn:hover {
-  background-color: #125ca3;
+
+    background-color: #125ca3;
 }
 
 @keyframes fadeIn {
