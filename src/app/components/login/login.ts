@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterComponent } from "../register/register";
+import { routes } from '../../app.routes';
+
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,14 @@ import { RegisterComponent } from "../register/register";
   imports: [RegisterComponent]
 })
 export class LoginComponent {
-goToRegister() {
-throw new Error('Method not implemented.');
+  router: any;
+  goToRegister() {
+   this.router.navigate('/register');
 }
-goToLogin() {
-throw new Error('Method not implemented.');
+  goToLogin() {
+  throw new Error('Method not implemented.');
 }
   showRegister = false;
 
-  toggleForm() {
-    this.showRegister = !this.showRegister;
-  }
 }
+

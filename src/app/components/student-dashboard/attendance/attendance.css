@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.attendance-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #478fe0;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0b2239;
+  margin-bottom: 30px;
+}
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 16px 24px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.primary-btn {
+  background-color: #1a73d3c1;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 20px 36px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background-color: #034b97c1;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.card {
+  width: 200px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.card.present {
+  background-color: #d8f8e2;
+  border-left: 8px solid #35b86b;
+}
+
+.card.absent {
+  background-color: #fcd8d8;
+  border-left: 8px solid #e05454;
+}
+
+.card.late {
+  background-color: #f6e9c0;
+  border-left: 8px solid #f0b22c;
+}
+
+.table-section {
+  width: 100%;
+  max-width: 1500px;
+  background: rgb(206, 200, 200);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #034b97c1;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.status.present {
+  background-color: #35b86b;
+}
+
+.status.absent {
+  background-color: #e05454;
+}
+
+.status.late {
+  background-color: #f0b22c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
+}

@@ -1,26 +1,45 @@
 <div class="dashboard-container">
+
   <!-- Sidebar -->
   <aside class="sidebar">
     <h2 class="logo">EduLink</h2>
     <nav>
       <ul>
         <li class="active">🏠 Student Dashboard</li>
-        <li>📅 Attendance</li>
-        <li>📊 Exams & Results</li>
-        <li>🔔 Notifications</li>
-        <li>📘 Reports</li>
+        <li (click)="goToAttendance()" >📅 Attendance</li>
+        <li (click)="goToExamResults()">📊 Exams & Results</li>
+        <li (click)="goToNotifications()">🔔 Notifications</li>
+        <li (click)="goToReports()">📘 Reports</li>
         <li (click)="goToProfile()">👤 Profile</li>
-        <li>🚪 Logout</li>
+        <li (click)="openLogoutPopup()">🚪 Logout</li>
       </ul>
     </nav>
   </aside>
 
+   <!-- Logout Confirmation Popup -->
+  <div class="popup-overlay" *ngIf="showLogoutPopup">
+    <div class="popup-box">
+      <h3>Are you sure you want to logout?</h3>
+      <div class="popup-buttons">
+        <button [routerLink]="'/login'">OK</button>
+        <button class="cancel-btn" (click)="cancelLogout()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+
   <!-- Main Content -->
   <main class="main-content">
     <header>
-      <input type="text" placeholder="Search..." class="search-box" />
+      <input type="text" 
+        placeholder="Search..." class="search-box" 
+       
+       (keyup.enter)="searchPage()" 
+       class="search-box"
+      />
       <div class="icons">
-        <span>👤</span>
+        <span (click)="goToProfile">👤</span>
         <span>🔔</span>
         <span>⚙️</span>
       </div>
