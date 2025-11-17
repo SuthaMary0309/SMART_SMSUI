@@ -1,26 +1,27 @@
-
-<div class="profile-section">
-  <h2>Profile</h2>
-  <div class="profile-card">
-    <div class="profile-left">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-        alt="Profile Photo"
-        class="profile-pic"
-        
-      />
-      <p class="student-name">John Doe</p>
+<div class="profile-container">
+  <div class="left-card">
+    <div class="profile-img">
+      <img src="assets/profile.jpg" alt="Student Photo">
     </div>
 
-    <div class="profile-info">
-      <p><strong>Name:</strong> John Doe</p>
-      <p><strong>Email:</strong> john.doe@school.com</p>
-      <p><strong>Class:</strong> 10A</p>
-      <p><strong>Parent Contact:</strong> +123-466-790</p>
-      <p><strong>Admission Date:</strong> 2023-09-01</p>
-      <p><strong>EduLink Academy</strong></p>
-    </div>
+    <h2 class="student-name">John Doe</h2>
+    <p class="student-role">Class: Grade 10 - A</p>
   </div>
 
-    <button [routerLink]="'/student-dasboard'" class="back-btn"> ⬅️ Back to Dashboard</button>
+  <div class="right-card">
+    <h3 class="title">Profile Details</h3>
+
+    <div class="details">
+      <p><span>Name :</span> John Doe</p>
+      <p><span>Class :</span> Grade 10 - A</p>
+      <p><span>Email :</span> john@student.com</p>
+      <p><span>Phone :</span> +94 77XXXXXXX</p>
+      <p><span>Admission Date :</span> 2023-05-12</p>
+    </div>
+  </div>
 </div>
+ <div>
+    <button [routerLink]="'/student-dashboard'" class="back-btn"> ⬅️ Back to Dashboard</button>
+  </div>
+
+
