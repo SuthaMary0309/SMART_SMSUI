@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
+import {  RouterLink } from "@angular/router";
+
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterOutlet],
+  imports: [ RouterLink],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
 export class AdminDashboard {
-
+  Routerlink: any;
+  goBack() {
+    this.Routerlink.navigate(['/login']);
+}
 }
