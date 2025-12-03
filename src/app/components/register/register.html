@@ -1,43 +1,41 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>Student Registration</h2>
+    <h2> Registration </h2>
 
     <form>
       <div class="form-group">
-        <label for="studentName">Full Name</label>
-        <input type="text" id="studentName" placeholder="Enter your full name" />
+        <label for="studentName">User Name</label>
+        <input type="text"[(ngModel)]="userName" name ="name"id="studentName" placeholder="Enter your full name" />
       </div>
 
       <div class="form-group">
-        <label for="phoneNo">Phone Number</label>
-        <input type="tel" id="phoneNo" placeholder="Enter your phone number" />
+        <label for="phoneNo">Role</label>
+        <input type="text" [(ngModel)]="role"name="role"id="phoneNo" placeholder="Enter your role" />
       </div>
 
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" placeholder="Enter your address" />
-      </div>
+     
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email address" />
+        <input type="email"[(ngModel)]="email"name="email" id="email" placeholder="Enter your email address" />
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Create a password" />
+        <input type="password"[(ngModel)]="password" name="password"id="password" placeholder="Create a password" />
       </div>
 
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" placeholder="Re-enter password" />
+        <input type="password" [(ngModel)]="confirmpassword"name="confirmPassword"id="confirmPassword" placeholder="Re-enter password" />
       </div>
 
-      <button [routerLink]="'/login'" style="cursor:pointer;" >Register</button>
+      <button style="cursor:pointer;" (click)="registerButton()">Register</button>
+
 
       <p class="switch-text">
         Already have an account?
-        <a routerLink="/login">Login here</a>
+        <a routerLink="/login"(click)="registerButton()">Login here</a>
       </p>
     </form>
   </div>

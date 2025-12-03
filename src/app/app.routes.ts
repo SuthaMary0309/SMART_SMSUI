@@ -8,6 +8,8 @@ import { Reports } from './components/reports/reports';
 import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
 import { Attendance } from './components/student-dashboard/attendance/attendance';
 import { Home } from './components/home/home';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password';
+import { ResetPasswordComponent } from './components/reset-password/reset-password';
 
 
 
@@ -20,7 +22,9 @@ export const routes: Routes = [
   { path: 'reports', component: Reports},
   { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'attendance', component: Attendance},
-  { path: 'home', component:Home }
-
+  { path: 'home', component:Home },
+  { path: 'forgot-password',component: ForgotPasswordComponent},
+  { path: 'reset-password',component: ResetPasswordComponent}
+  
 ];
 

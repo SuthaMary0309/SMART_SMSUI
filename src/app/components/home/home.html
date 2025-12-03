@@ -29,6 +29,11 @@
           <a class="nav-link nav-text" href="#">Page</a>
         </li>
       </ul>
+      <input type="text"[(ngModel)]="userName"/>
+<input type="number"[(ngModel)]="age"/>
+<input type="text"[(ngModel)]="email"/>
+<input type="text"[(ngModel)]="role"/>
+<button style="width: 150px;"(click)="AddUserButton()">Add User</button>
 
       <!-- RIGHT: LOGIN BUTTON -->
       <button class="btn login-btn" routerLink="/login">Login</button>
@@ -47,5 +52,4 @@
     This div will always use light theme
     <span data-theme="retro">This span will always use retro theme!</span>
   </div>
-
 
