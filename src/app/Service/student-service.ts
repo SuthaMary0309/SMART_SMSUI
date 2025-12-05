@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EditProfileComponent } from '../components/student-dashboard/profile/edit-profile/edit-profile';
 
@@ -6,29 +7,28 @@ import { EditProfileComponent } from '../components/student-dashboard/profile/ed
 })
 export class StudentService {
 
-  private studentData = {
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    phone: "+94 77 123 4567",
-    address: "123, Main Street, Colombo",
-    school: "ABC International School",
-    grade: "10",
-    classroom: "A1",
-    extra: ""
-  };
+ 
+  private api = "http://localhost:5283/api/student";
 
-  private avatar = "https://via.placeholder.com/140";
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  // Get student info
-  getStudent() {
-    return { ...this.studentData, avatar: this.avatar };
+  getAll() {
+    return this.http.get(this.api + "/get-all");
   }
 
-  // Update student info
-  updateStudent(updatedStudent: any, avatar?: string) {
-    this.studentData = { ...updatedStudent };
-    if (avatar) this.avatar = avatar;
+  getById(id: string) {
+    return this.http.get(this.api + "/get/" + id);
+  }
+
+  add(student: any) {
+    return this.http.post(this.api + "/add", student);
+  }
+
+  update(id: string, student: any) {
+    return this.http.put(this.api + "/update/" + id, student);
+  }
+
+  delete(id: string) {
+    return this.http.delete(this.api + "/delete/" + id);
   }
 }
