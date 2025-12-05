@@ -16,12 +16,15 @@ export class EditProfileComponent implements OnInit {
   StudentService: any;
 
   constructor(private router: Router, private studentService: StudentService) { }
-
-  ngOnInit() {
-    const data = this.studentService.getStudent();
-    this.student = { ...data }; // clone object
-    this.studentAvatar = data.avatar || "https://via.placeholder.com/140";
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
+
+  // ngOnInit() {
+  //   const data = this.studentService.getStudent();
+  //   this.student = { ...data }; // clone object
+  //   this.studentAvatar = data.avatar || "https://via.placeholder.com/140";
+  // }
 
   saveChanges() {
     // include avatar in student object

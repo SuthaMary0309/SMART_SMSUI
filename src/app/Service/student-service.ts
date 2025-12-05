@@ -6,6 +6,9 @@ import { EditProfileComponent } from '../components/student-dashboard/profile/ed
   providedIn: 'root'
 })
 export class StudentService {
+  getStudent() {
+    throw new Error('Method not implemented.');
+  }
 
  
   private api = "http://localhost:5283/api/student";
