@@ -9,9 +9,17 @@ export class RegisterService {
   private baseUrl = "http://localhost:5283/api/auth";
 
 
-  register(userName: string, email: string, password: string, confirmpassword:string, role: string) {
-    return this.http.post(`${this.baseUrl}/register`, {
-      userName, email, password, role,confirmpassword
-    });
+  register(userName: string, email: string, password: string, role: string, confirmPassword: string) {
+    const body = {
+      UserName: userName,            // must match C# property
+      Email: email,
+      Password: password,
+      ConfirmPassword: confirmPassword, // match exact case
+      Role: role
+    };
+  
+    return this.http.post("http://localhost:5283/api/auth/register", body);
+  }
+  
 }
-}
+
