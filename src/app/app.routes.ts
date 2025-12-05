@@ -10,6 +10,7 @@ import { Attendance } from './components/student-dashboard/attendance/attendance
 import { Home } from './components/home/home';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password';
 import { ResetPasswordComponent } from './components/reset-password/reset-password';
+import { StudentCrud } from './student-crud/student-crud';
 
 
 
@@ -24,7 +25,9 @@ export const routes: Routes = [
   { path: 'attendance', component: Attendance},
   { path: 'home', component:Home },
   { path: 'forgot-password',component: ForgotPasswordComponent},
-  { path: 'reset-password',component: ResetPasswordComponent}
+  { path: 'reset-password',component: ResetPasswordComponent},
+  { path: 'studentcrud', component: StudentCrud}
+
   
 ];
 
