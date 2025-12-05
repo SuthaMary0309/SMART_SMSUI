@@ -1,0 +1,68 @@
+<div class="edit-bg py-5">
+  <div class="container">
+
+    <!-- Back Button -->
+    <div class="mb-3">
+      <button (click)="goBack()" class="btn btn-outline-light btn-sm">
+        &larr; Back to Profile
+      </button>
+    </div>
+
+    <div class="card edit-card shadow-lg mx-auto p-4">
+
+      <h3 class="fw-bold text-center mb-4 text-primary">Edit Student Profile</h3>
+
+      <form (ngSubmit)="saveChanges()" #editForm="ngForm">
+
+        <div class="mb-3">
+          <label class="form-label text-white">Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="student.name" name="name" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Phone</label>
+          <input type="text" class="form-control" [(ngModel)]="student.phone" name="phone" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="student.email" name="email" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Address</label>
+          <textarea class="form-control" [(ngModel)]="student.address" name="address" rows="3"></textarea>
+        </div>
+
+        <hr class="text-light">
+
+        <h5 class="fw-bold text-primary mb-3">School Details</h5>
+
+        <div class="mb-3">
+          <label class="form-label text-white">School Name</label>
+          <input type="text" class="form-control" [(ngModel)]="student.school" name="school" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Grade / Year</label>
+          <input type="text" class="form-control" [(ngModel)]="student.grade" name="grade" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Class Room</label>
+          <input type="text" class="form-control" [(ngModel)]="student.classroom" name="classroom" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white">Additional Info (Optional)</label>
+          <input type="text" class="form-control" [(ngModel)]="student.extra" name="extra" />
+        </div>
+
+        <button class="btn btn-success w-100 mt-3 py-2 fw-bold" type="submit">
+          Save Changes
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>

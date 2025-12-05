@@ -1,48 +1,41 @@
 .auth-container {
-  background: url(https://lh3.googleusercontent.com/proxy/tzFVcO4anr1Y8d4y8AHzX3nihXnt_zyXaHnUSFK7J1gq_IL39Ezuy6gOXRGSXl1g61CoOI3jbNNuVzneWh0Gu77PnSIlC8NrDb0) no-repeat center center/cover;
+  background: url(https://lh3.googleusercontent.com/proxy/tzFVcO4anr1Y8d4y8AHzX3nihXnt_zyXaHnUSFK7J1gq_IL39Ezuy6gOXRGSXl1g61CoOI3jbNNuVzneWh0Gu77PnSIlC8NrDb0) 
+  no-repeat center center/cover;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  
 }
 
 .auth-container::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
 
-  
-  /* Blue gradient with blur effect */
   background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
-  backdrop-filter: blur(8px); /* subtle blur */
-  -webkit-backdrop-filter: blur(8px)
+  opacity: 0.85;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
+/* ---------- CARD ---------- */
 .auth-card {
-  position: center;
   z-index: 2;
-  width: 80px;
-  padding: 5px;
+  width: 30%;
+  max-width: 450px;
+  padding: 40px 35px;
   border-radius: 20px;
-  background: rgba(9, 31, 65, 0.12);
+  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
   border: 1px solid rgba(15, 61, 92, 0.25);
   backdrop-filter: blur(15px);
   box-shadow: 0 8px 32px rgba(15, 116, 175, 0.4);
   color: #ffffff;
   text-align: center;
-  width: 30%;
-
-  
-  /* Blue gradient with blur effect */
-  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
-  backdrop-filter: blur(8px); /* subtle blur */
-  -webkit-backdrop-filter: blur(8px)
 }
 
+/* ---------- TITLE ---------- */
 .auth-card h2 {
   margin-bottom: 25px;
   font-size: 26px;
@@ -50,13 +43,10 @@
   letter-spacing: 1px;
 }
 
+/* ---------- FORM INPUT GROUP ---------- */
 .form-group {
   text-align: left;
   margin-bottom: 18px;
-
-  
-  /* Blue gradient with blur effect */
- 
 }
 
 .form-group label {
@@ -68,7 +58,7 @@
 
 .form-group input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 14px;
   border: none;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.25);
@@ -79,13 +69,12 @@
 
 .form-group input::placeholder {
   color: #ddd;
-
-  
 }
 
+/* ---------- BUTTON ---------- */
 .btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-top: 10px;
   border: none;
   border-radius: 10px;
@@ -101,6 +90,7 @@
   background: linear-gradient(135deg, #005eff, #4e9af1);
 }
 
+/* ---------- SWITCH TEXT ---------- */
 .switch-text {
   margin-top: 15px;
   font-size: 14px;
@@ -110,4 +100,66 @@
 .switch-text a {
   color: #fff;
   text-decoration: underline;
+}
+
+/* ------------------------------------
+      RESPONSIVE DESIGN 
+------------------------------------- */
+
+/* --- Tablets (768px and below) --- */
+@media (max-width: 768px) {
+  .auth-card {
+    width: 70%;
+    padding: 30px 25px;
+  }
+
+  .auth-card h2 {
+    font-size: 22px;
+  }
+
+  .btn {
+    font-size: 15px;
+  }
+}
+
+/* --- Large Mobiles (600px and below) --- */
+@media (max-width: 600px) {
+  .auth-card {
+    width: 85%;
+    padding: 28px 20px;
+  }
+
+  .form-group input {
+    padding: 11px 12px;
+  }
+}
+
+/* --- Small Mobiles (480px and below) --- */
+@media (max-width: 480px) {
+  .auth-card {
+    width: 90%;
+    padding: 25px 18px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .switch-text {
+    font-size: 13px;
+  }
 }
