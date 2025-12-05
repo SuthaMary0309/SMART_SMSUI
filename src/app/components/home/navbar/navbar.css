@@ -1,0 +1,208 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.custom-navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  padding: 20px 0;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.4s ease;
+}
+
+.custom-navbar.scrolled {
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+}
+
+.navbar-brand:hover .logo-img {
+  transform: scale(1.12);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.7);
+}
+
+.logo-text {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fff, #a0e7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-text span {
+  color: #00f2fe;
+  text-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+}
+
+/* Nav Links - Pill Style */
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 11px 24px !important;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Shine Effect */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.7s;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  left: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Login Button */
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.login-btn:hover {
+  background: rgba(255, 255, 255, 0.38);
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  border-color: #fff;
+}
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.login-btn:hover .arrow-icon {
+  transform: translateX(10px);
+}
+
+/* Toggler */
+.navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* RESPONSIVE FIXES */
+
+/* Tablet & Mobile */
+@media (max-width: 992px) {
+  .custom-navbar {
+    padding: 16px 0;
+  }
+
+  .navbar-nav {
+    margin: 20px 0;
+    gap: 12px;
+  }
+
+  .nav-link {
+    display: block;
+    width: 80%;
+    margin: 8px auto;
+    text-align: center;
+    padding: 14px 20px !important;
+    font-size: 17px;
+  }
+
+  .login-btn {
+    margin: 20px auto;
+    width: 80%;
+    justify-content: center;
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+
+  .logo-img {
+    height: 44px;
+    width: 44px;
+  }
+}
+
+/* Mobile Only */
+@media (max-width: 576px) {
+  .container-fluid {
+    padding: 0 20px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+
+  .logo-img {
+    height: 40px;
+    width: 40px;
+  }
+
+  .nav-link {
+    width: 90%;
+    padding: 16px !important;
+    font-size: 18px;
+  }
+
+  .login-btn {
+    width: 90%;
+    padding: 16px 28px;
+    font-size: 17px;
+  }
+}

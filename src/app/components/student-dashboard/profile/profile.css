@@ -1,100 +1,78 @@
-
-body {
-  background: #0f0f2d;
-  font-family: 'Poppins', sans-serif;
+/* Background Gradient */
+.profile-bg {
+  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
+  min-height: 100vh;
+  padding: 40px 0;
 }
 
-.profile-container {
-  width: 85%;
-  margin: 60px auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 30px;
+/* Profile Card */
+.profile-card {
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 20px;
-  background: linear-gradient(90deg, #0f3d7a, #2c82ff);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.left-card, .right-card {
-  width: 48%;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
-  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
   color: white;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
 
-.profile-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: auto;
-  border: 4px solid #2c82ff;
-  box-shadow: 0 5px 25px rgba(0, 140, 255, 0.6);
-}
-
-.profile-img img {
-  width: 100%;
-  height: 100%;
+/* Profile Avatar */
+.profile-avatar {
+  width: 150px;
+  height: 150px;
   object-fit: cover;
+  border: 4px solid white;
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
-.student-name {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #6bc9ff;
+/* Change Photo Button */
+.change-photo-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
 }
 
-.student-role {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 5px;
-  color: #c7d4ff;
+/* Name & phone (left side) */
+.col-md-4 h4 {
+  color: #ffffff !important;
+  margin-top: 12px;
 }
 
-.right-card .title {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #96d0ff;
+.col-md-4 p {
+  color: #dcdcdc !important;
 }
 
-.details p {
-  font-size: 16px;
-  margin: 12px 0;
-}
-
-.details span {
-  font-weight: 600;
-  color: #6bc9ff;
-}
-.btn-center {
-  width: 500%;
-  display: flex;
-  justify-content:center   /* Center horizontally */
-  margin-top 100x;
-}
-
-.back-btn {
-  background: linear-gradient(90deg, #04080f, #6bc9ff);
+/* Right Panel List styling */
+.list-group-item {
+  background: rgba(255, 255, 255, 0.9);
   border: none;
-  padding: 12px 25px;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 15px;
+}
+
+.list-group {
   border-radius: 10px;
-  font-size: 16px;
+  overflow: hidden;
+}
+
+/* Headings for Right Side */
+h5 {
+  font-weight: bold;
+  border-left: 4px solid #0077ff;
+  padding-left: 10px;
   color: white;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(0, 140, 255, 0.3);
-  transition: 0.3s;
-  justify-content: center;
 }
 
-.back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(3, 15, 24, 0.5);
+/* Back Button Adjust */
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: white;
 }
 
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}

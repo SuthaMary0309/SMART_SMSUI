@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EditProfileComponent } from '../components/student-dashboard/profile/edit-profile/edit-profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
+ 
   private api = "http://localhost:5283/api/student";
 
   constructor(private http: HttpClient) { }
