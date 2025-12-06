@@ -1,0 +1,50 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Send Email</h2>
+
+    <form (ngSubmit)="send()">
+      <!-- Recipient Email -->
+      <div class="form-group">
+        <label for="to">To</label>
+        <input
+          type="email"
+          id="to"
+          name="to"
+          [(ngModel)]="email.to"
+          placeholder="Enter recipient email"
+          required
+        />
+      </div>
+
+      <!-- Subject -->
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          [(ngModel)]="email.subject"
+          placeholder="Enter subject"
+          required
+        />
+      </div>
+
+      <!-- Email Body -->
+      <div class="form-group">
+        <label for="body">Message</label>
+        <textarea
+          id="body"
+          name="body"
+          [(ngModel)]="email.body"
+          placeholder="Type your message here"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Send Button -->
+      <button type="submit" style="cursor:pointer;">Send Email</button>
+    </form>
+  </div>
+</div>
+
