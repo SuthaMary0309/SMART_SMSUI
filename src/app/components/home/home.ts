@@ -1,35 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
-import { UserService } from '../../Service/user-service';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { FormsModule } from '@angular/forms';
+import { About } from "./about/about";
+import { Navbar } from "./navbar/navbar";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink,FormsModule],
+  imports: [FormsModule, RouterLink, Navbar, About],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  private Userservice = inject(UserService);
-  userName:string ="";
-  age:number = 0;
-  email:string = "";
-  role:string ="";
 
-AddUser(){
-  this.Userservice.AddUser(this.userName,this.age,this.email,this.role).subscribe({
-    next :res =>{
-      console.log('Response:,res');
-      alert('User Added');
-    },
-    error:(err) => {
-      console.error('Error:',err);
-      alert('Error Adding User')
+
+  @ViewChild('aboutSection') aboutSection!: ElementRef;
+
+  scrollToAbout() {
+    if(this.aboutSection) {
+      this.aboutSection.nativeElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
     }
-  });
-}
-
-AddUserButton(){
-  this.AddUser()
-}
+  }
 }
