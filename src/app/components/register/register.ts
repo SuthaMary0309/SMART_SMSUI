@@ -35,6 +35,7 @@ export class RegisterComponent {
       error: err => {
         alert("Registration Failed");
       }
+      
     });
   }
 

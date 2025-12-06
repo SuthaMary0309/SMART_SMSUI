@@ -5,11 +5,9 @@ body {
   background: linear-gradient(135deg, #1a4ed1, #5cb8ff);
   height: 100vh;
   overflow: hidden;
-
-  
-  background: linear-gradient(135deg, #1a4ed1, #5cb8ff, #3a7bff, #1c38a6);
   background-size: 400% 400%;
   animation: gradientMove 12s ease infinite;
+  
 }
 
 /* Animated Gradient */
@@ -40,7 +38,7 @@ body {
 /* NAV LINKS */
 .nav-text {
   color: rgb(6, 18, 27) !important;
-  font-size: 26px;
+  font-size: 20px;
   margin: 0 10px;
   transition: 0.3s;
 }
@@ -49,7 +47,14 @@ body {
   color: #051e33 !important;
 }
 
-/* LOGIN BUTTON RIGHT SIDE */
+/* RIGHT SIDE (TEXT + LOGIN) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* LOGIN BUTTON */
 .login-btn {
   background: rgb(8, 25, 34);
   color: #0066ff;
@@ -66,7 +71,7 @@ body {
   transform: scale(1.05);
 }
 
-/* TOGGLER ICON VISIBLE ON BLUE BG */
+/* Navbar toggler border visible */
 .navbar-toggler {
   border-color: white;
 }
@@ -83,9 +88,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgb(9, 18, 37);
+  color: rgb(222, 224, 228);
   text-align: center;
   padding: 0 20px;
+  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
 
   animation: fadeSlide 1.8s ease-out forwards,
              glowPulse 3s ease-in-out infinite;
@@ -125,7 +131,38 @@ body {
   font-size: 50px;
   opacity: 0.9;
 }
+.about-container{ 
 
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(236, 239, 243);
+  text-align: center;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
+}
+
+.about-container h2 {
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+
+.about-container p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.scroll-link {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.scroll-link:hover {
+  color: #00d0ff;
+}
 .home-container {
   height: 100vh;
   width: 100%;
@@ -162,4 +199,58 @@ body {
   0% { filter: brightness(0.9); }
   50% { filter: brightness(1.05); }
   100% { filter: brightness(0.9); }
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .hero h1 { font-size: 48px; }
+  .hero p { font-size: 22px; }
+  .logo-text { font-size: 22px; }
+  .logo-img { height: 42px; width: 42px; }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 42px; }
+  .hero p { font-size: 20px; }
+  .custom-navbar { padding: 14px 16px; }
+
+  .nav-link {
+    width: 85%;
+    margin: 10px auto;
+    padding: 16px !important;
+    font-size: 18px;
+  }
+
+  .login-btn {
+    width: 85%;
+    margin: 20px auto;
+    padding: 16px !important;
+  }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+  .hero p {
+    font-size: 18px;
+  }
+  .logo-text { font-size: 20px; }
+  .logo-img { height: 38px; width: 38px; }
+
+  .nav-link {
+    font-size: 17px;
+    padding: 14px !important;
+  }
+}
+
+/* Extra Small */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 17px; }
 }
