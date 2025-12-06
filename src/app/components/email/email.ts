@@ -1,28 +1,40 @@
-import { Component } from '@angular/core';
-import {  RouterLink } from "@angular/router";
-import { EmailService } from '../../Service/email-service';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { EmailService } from '../../Service/email-service';
 
 @Component({
-  selector: 'app-email',
+  selector: 'app-email-crud',
   templateUrl: './email.html',
-  imports: [FormsModule],
+  styleUrls: ['./email.css'],
+  imports: [FormsModule, CommonModule]
 })
-export class EmailComponent {
+export class EmailCrud {
 
-  email = {
-    to: '',
-    subject: '',
-    body: ''
-  };
+  private emailService = inject(EmailService);
 
-  constructor(private emailService: EmailService) {}
+  email: any = { to: '', subject: '', body: '' };
+  message: string = '';
 
-  send() {
+  sendEmail() {
+    if (!this.email.to || !this.email.subject || !this.email.body) {
+      alert("Please fill all fields.");
+      return;
+    }
+
     this.emailService.sendEmail(this.email).subscribe({
-      next: res => alert("Email Sent!"),
-      error: err => alert("Error sending email")
+      next: (res: any) => {
+        this.message = res.message || 'Email sent successfully!';
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Email sending failed:', err);
+        this.message = 'Email sending failed. Please try again.';
+      }
     });
   }
-}
 
+  resetForm() {
+    this.email = { to: '', subject: '', body: '' };
+  }
+}
