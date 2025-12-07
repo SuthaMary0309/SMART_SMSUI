@@ -1,1 +1,206 @@
-<p>exam works!</p>
+<!-- exam-results.component.html -->
+<section class="exam-results-page">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Exam Results</h1>
+      <p>Track your academic journey with detailed performance reports</p>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav glass-card">
+      <button class="tab-btn active" data-tab="term">Term Exams</button>
+      <button class="tab-btn" data-tab="unit">Unit Tests</button>
+      <button class="tab-btn" data-tab="past">Past Exams</button>
+      <button class="tab-btn" data-tab="upcoming">Upcoming Exams</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content">
+
+      <!-- TERM EXAMS -->
+      <div class="tab-pane active" id="term">
+        <div class="marks-card glass-card">
+          <h2>Term 2 Examination - 2024</h2>
+          <div class="result-summary">
+            <div class="score">93.4%</div>
+            <div class="grade">A+</div>
+            <div class="rank">Rank 2 / 45</div>
+          </div>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Max</th>
+                <th>Obtained</th>
+                <th>%</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="topper"><td>Mathematics</td><td>100</td><td>98</td><td>98%</td><td>A+</td></tr>
+              <tr><td>Physics</td><td>100</td><td>95</td><td>95%</td><td>A+</td></tr>
+              <tr><td>Chemistry</td><td>100</td><td>94</td><td>94%</td><td>A</td></tr>
+              <tr><td>English</td><td>100</td><td>92</td><td>92%</td><td>A</td></tr>
+              <tr><td>Biology</td><td>100</td><td>91</td><td>91%</td><td>A</td></tr>
+            </tbody>
+          </table>
+          <button class="download-btn">Download Report Card</button>
+        </div>
+      </div>
+
+      <!-- UNIT TESTS -->
+      <!-- units-test.component.html -->
+<section class="units-test-page">
+  <div class="container">
+
+    <div class="page-header">
+      <h1>Unit Test Results</h1>
+      <p>View your performance in all unit tests with subject-wise marks</p>
+    </div>
+
+    <div class="unit-tests-container">
+
+      <!-- Unit Test 1 -->
+      <div class="unit-test-card glass-card">
+        <div class="unit-header">
+          <h3>Unit Test 1</h3>
+          <p>October 2024</p>
+          <div class="unit-overall">
+            <span class="score">89%</span>
+            <span class="grade">A</span>
+          </div>
+        </div>
+
+        <table class="unit-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Max</th>
+              <th>Obtained</th>
+              <th>%</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mathematics</td><td>50</td><td>48</td><td>96%</td><td>A+</td></tr>
+            <tr><td>Science</td><td>50</td><td>45</td><td>90%</td><td>A</td></tr>
+            <tr><td>English</td><td>50</td><td>42</td><td>84%</td><td>B+</td></tr>
+            <tr><td>Social Science</td><td>50</td><td>44</td><td>88%</td><td>A</td></tr>
+            <tr><td>Tamil</td><td>50</td><td>43</td><td>86%</td><td>A</td></tr>
+          </tbody>
+        </table>
+        <button class="view-full-btn">View Answer Sheet</button>
+      </div>
+
+      <!-- Unit Test 2 -->
+      <div class="unit-test-card glass-card">
+        <div class="unit-header">
+          <h3>Unit Test 2</h3>
+          <p>November 2024</p>
+          <div class="unit-overall">
+            <span class="score">94%</span>
+            <span class="grade">A+</span>
+          </div>
+        </div>
+
+        <table class="unit-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Max</th>
+              <th>Obtained</th>
+              <th>%</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="topper"><td>Mathematics</td><td>50</td><td>50</td><td>100%</td><td>A+</td></tr>
+            <tr><td>Science</td><td>50</td><td>47</td><td>94%</td><td>A+</td></tr>
+            <tr><td>English</td><td>50</td><td>46</td><td>92%</td><td>A</td></tr>
+            <tr><td>Social Science</td><td>50</td><td>45</td><td>90%</td><td>A</td></tr>
+            <tr><td>Tamil</td><td>50</td><td>47</td><td>94%</td><td>A+</td></tr>
+          </tbody>
+        </table>
+        <button class="view-full-btn">View Answer Sheet</button>
+      </div>
+
+      <!-- Unit Test 3 (Latest) -->
+      <div class="unit-test-card glass-card active">
+        <div class="unit-header">
+          <h3>Unit Test 3</h3>
+          <p>December 2024</p>
+          <div class="unit-overall">
+            <span class="score">97%</span>
+            <span class="grade topper">A+</span>
+          </div>
+          <div class="badge">Latest Result</div>
+        </div>
+
+        <table class="unit-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Max</th>
+              <th>Obtained</th>
+              <th>%</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="topper"><td>Mathematics</td><td>50</td><td>50</td><td>100%</td><td>A+</td></tr>
+            <tr class="topper"><td>Science</td><td>50</td><td>49</td><td>98%</td><td>A+</td></tr>
+            <tr><td>English</td><td>50</td><td>48</td><td>96%</td><td>A+</td></tr>
+            <tr><td>Social Science</td><td>50</td><td>47</td><td>94%</td><td>A+</td></tr>
+            <tr><td>Tamil</td><td>50</td><td>48</td><td>96%</td><td>A+</td></tr>
+          </tbody>
+        </table>
+
+        <div class="performance-note">
+          Congratulations! You are the <strong>Class Topper</strong> in 2 subjects!
+        </div>
+        <button class="view-full-btn premium">Download Answer Sheet PDF</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+      <!-- PAST EXAMS -->
+      <div class="tab-pane" id="past">
+        <div class="past-list">
+          <div class="past-exam glass-card">
+            <h3>Term 1 Exam - 2024</h3>
+            <p>Score: 91.8% | Rank: 3</p>
+            <button class="view-btn">View Details</button>
+          </div>
+          <div class="past-exam glass-card">
+            <h3>Annual Exam 2023-24</h3>
+            <p>Score: 94.2% | Rank: 1</p>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPCOMING EXAMS -->
+      <div class="tab-pane" id="upcoming">
+        <div class="upcoming-card glass-card">
+          <h3>Term 3 Examination</h3>
+          <p>Date: 10 Mar - 20 Mar 2025</p>
+          <div class="countdown">
+            <div><span>45</span> Days Left</div>
+          </div>
+          <div class="subjects">
+            <span>Mathematics</span>
+            <span>Science</span>
+            <span>English</span>
+            <span>Social Science</span>
+          </div>
+          <button class="prepare-btn">Start Revision</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
