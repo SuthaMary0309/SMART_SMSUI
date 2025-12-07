@@ -1,0 +1,46 @@
+.marks-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .marks-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .marks-form input {
+    padding: 6px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 8px 10px;
+    cursor: pointer;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  table th {
+    background: #f0f0f0;
+  }
+  

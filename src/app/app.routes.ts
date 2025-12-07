@@ -54,7 +54,7 @@ export const routes: Routes = [
   { path: 'email', component:ManageEmail},
   { path : 'notification', component:ManageNotification },
   { path: 'parent',component: ManageParents},
-  { path: 'reports',component:ManageReports},
+  { path: 'report',component:ManageReports},
   { path:'profile',component:ManageProfile}
 ];
 

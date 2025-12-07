@@ -4,11 +4,8 @@
     <div class="form-group">
       <label>Student:</label>
       <select [(ngModel)]="selectedStudent">
-        <option value="">--Select Student--</option>
-        <option *ngFor="let s of students" [value]="s.firstName + ' ' + s.lastName">
-          {{ s.firstName }} {{ s.lastName }}
-      </option>
-      
+        <option value="">-- select student --</option>
+        <option *ngFor="let s of students" [value]="s.studentID">{{ s.studentName }}</option>
       </select>
     </div>
   

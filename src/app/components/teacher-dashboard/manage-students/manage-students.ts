@@ -7,7 +7,7 @@ import {  HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage-students',
-  imports: [CommonModule,FormsModule,HttpClientModule],
+  imports:[CommonModule,FormsModule,HttpClientModule],
   templateUrl: './manage-students.html',
   styleUrl: './manage-students.css',
   

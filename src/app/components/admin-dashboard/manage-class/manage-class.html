@@ -5,25 +5,22 @@
     <input placeholder="Class Name" [(ngModel)]="classData.className" name="className" required>
     <input placeholder="Grade" [(ngModel)]="classData.grade" name="grade" required>
 
-    <button type="submit">{{ classData.classID ? 'Update Class' : 'Add Class' }}</button>
-    <button type="button" (click)="resetForm()">Clear</button>
+    <button type="submit">{{ classData.classId ? 'Update' : 'Add' }}</button>
+    <button type="button" class="clear" (click)="resetForm()">Clear</button>
   </form>
 
-  <hr>
-
-  <table border="1" width="100%">
+  <table>
     <tr>
       <th>Class Name</th>
       <th>Grade</th>
-      <th>Actions</th>
+      <th>Action</th>
     </tr>
-
-    <tr *ngFor="let cls of classes">
-      <td>{{ cls.className }}</td>
-      <td>{{ cls.grade }}</td>
+    <tr *ngFor="let c of classes">
+      <td>{{ c.className }}</td>
+      <td>{{ c.grade }}</td>
       <td>
-        <button (click)="edit(cls)">Edit</button>
-        <button (click)="delete(cls.classId)">Delete</button>
+        <button (click)="edit(c)">Edit</button>
+        <button class="del" (click)="delete(c.classId)">Delete</button>
       </td>
     </tr>
   </table>

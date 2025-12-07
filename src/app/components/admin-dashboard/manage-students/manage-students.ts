@@ -10,6 +10,7 @@ import {  HttpClientModule } from '@angular/common/http';
   imports: [CommonModule,FormsModule,HttpClientModule],
   templateUrl: './manage-students.html',
   styleUrl: './manage-students.css',
+  standalone:true
   
   
 })
@@ -35,9 +36,7 @@ export class ManageStudents implements OnInit {
     console.log('Manage ComponentLoaded')
     this.loadStudents();
 
-    // Dummy GUIDs for testing
-    this.student.userID = '11111111-1111-1111-1111-111111111111';
-    this.student.classID = '22222222-2222-2222-2222-222222222222';
+   
   }
 
   loadStudents() {
@@ -125,9 +124,9 @@ export class ManageStudents implements OnInit {
       email: '',
       phoneNo: '',
       address: '',
-      userID: '11111111-1111-1111-1111-111111111111',
-      classID: '22222222-2222-2222-2222-222222222222',
-      studentID: '33333333-3333-3333-3333-333333333333'
+      userID: '',
+      classID: '',
+      studentID: ''
     };
     this.editMode = false;
     this.editID = '';
