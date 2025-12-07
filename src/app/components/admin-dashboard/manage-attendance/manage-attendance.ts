@@ -1,11 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AttendanceService } from '../../../Service/attendance-service';// make sure path is correct
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-manage-attendance',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './manage-attendance.html',
-  styleUrl: './manage-attendance.css',
+  styleUrls: ['./manage-attendance.css'],
 })
-export class ManageAttendance {
+export class ManageAttendance implements OnInit {
 
+  students: any[] = [];
+  selectedStudent: string = '';
+  date: string = new Date().toISOString().split('T')[0]; // default today yyyy-MM-dd
+  status: string = 'Present'; // default value
+
+  constructor(private attendanceService: AttendanceService) {}
+
+  ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  loadStudents() {
+    this.attendanceService.getStudents().subscribe({
+      next: (res) => this.students = res,
+      error: (err) => console.error('Error loading students', err)
+    });
+  }
+
+  markAttendance() {
+    if (!this.selectedStudent) {
+      alert('Please select a student');
+      return;
+    }
+
+    const attendance = {
+      studentName: this.selectedStudent,
+      date: this.date,
+      status: this.status
+    };
+
+    this.attendanceService.markAttendance(attendance).subscribe({
+      next: (res) => alert('Attendance marked successfully'),
+      error: (err) => alert(err.error.message || 'Failed to mark attendance')
+    });
+  }
 }
