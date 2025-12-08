@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Manage Classes</h2>
+
+  <form (ngSubmit)="save()">
+    <input placeholder="Class Name" [(ngModel)]="classData.className" name="className" required>
+    <input placeholder="Grade" [(ngModel)]="classData.grade" name="grade" required>
+
+    <button type="submit">{{ classData.classId ? 'Update' : 'Add' }}</button>
+    <button type="button" class="clear" (click)="resetForm()">Clear</button>
+  </form>
+
+  <table>
+    <tr>
+      <th>Class Name</th>
+      <th>Grade</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let c of classes">
+      <td>{{ c.className }}</td>
+      <td>{{ c.grade }}</td>
+      <td>
+        <button (click)="edit(c)">Edit</button>
+        <button class="del" (click)="delete(c.classId)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div>

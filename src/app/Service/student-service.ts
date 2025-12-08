@@ -4,6 +4,7 @@ import { EditProfileComponent } from '../components/student-dashboard/profile/ed
 
 @Injectable({
   providedIn: 'root'
+  
 })
 export class StudentService {
   getStudent() {
