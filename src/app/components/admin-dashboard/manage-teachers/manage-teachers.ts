@@ -2,14 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TeacherService } from '../../../Service/teacher-service';
+import { AppRoutingModule } from "../../../app-routing.module";
 
 @Component({
   selector: 'app-manage-teachers',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule ],
   templateUrl: './manage-teachers.html',
   styleUrl: './manage-teachers.css',
 })
 export class ManageTeachers implements OnInit {
+searchTeachers($event: Event) {
+throw new Error('Method not implemented.');
+}
 
   private teacherService = inject(TeacherService);
   teachers: any[] = [];
@@ -23,6 +27,7 @@ export class ManageTeachers implements OnInit {
 
   editMode: boolean = false;
   editID: string = '';
+  router: any;
 
   ngOnInit(): void {
     this.loadTeachers();
@@ -102,5 +107,9 @@ export class ManageTeachers implements OnInit {
     };
     this.editMode = false;
     this.editID = '';
+  }
+
+  goBack() {
+    this.router.navigate(['/admin-dashboard']); // 
   }
 }

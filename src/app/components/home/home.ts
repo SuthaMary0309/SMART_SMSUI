@@ -6,7 +6,7 @@ import { Navbar } from "./navbar/navbar";
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, Navbar, About],
+  imports: [FormsModule,Navbar, About],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
