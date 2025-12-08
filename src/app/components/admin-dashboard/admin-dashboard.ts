@@ -9,6 +9,13 @@ import {  RouterLink } from "@angular/router";
   styleUrl: './admin-dashboard.css',
 })
 export class AdminDashboard {
+  name = "";
+
+  ngOnInit() {
+    this.name = localStorage.getItem("name") ?? "";
+  }
+
+
   Routerlink: any;
   goBack() {
     this.Routerlink.navigate(['/login']);

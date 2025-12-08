@@ -20,16 +20,37 @@ export class LoginComponent {
   loginUser() {
     this.loginService.login(this.email, this.password).subscribe({
       next: (res: any) => {
-        localStorage.setItem('token', res.token);
+  
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("role", res.role);   // ✔ Store role
+        localStorage.setItem("name", res.name);   // ✔ Store username
+  
         alert("Login Success");
-        this.router.navigate(['/dashboard']);   // navigate to homepage
+  
+        // ✔ ROLE WISE REDIRECT
+        if (res.role === 'Admin') {
+          this.router.navigate(['/admin-dashboard']);
+        } 
+        else if (res.role === 'Teacher') {
+          this.router.navigate(['/teacher-dashboard']);
+        } 
+        else if (res.role === 'Student') {
+          this.router.navigate(['/student-dashboard']);
+        } 
+        else if (res.role === 'Parent') {
+          this.router.navigate(['/parent-dashboard']);
+        } 
+        else {
+          this.router.navigate(['/login']);
+        }
       },
+  
       error: err => {
         alert("Login Failed");
       }
     });
   }
-
+  
   loginButton() {
     this.loginUser();
   }

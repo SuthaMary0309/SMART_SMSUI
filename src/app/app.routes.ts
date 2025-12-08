@@ -9,7 +9,7 @@ import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
 import { Attendance } from './components/student-dashboard/attendance/attendance';
 import { Home } from './components/home/home';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password';
-import { ResetPasswordComponent } from './components/reset-password/reset-password';
+import { ResetPassword } from './components/reset-password/reset-password';
 import { EditProfileComponent } from './components/student-dashboard/profile/edit-profile/edit-profile';
 import { ManageAttendance } from './components/admin-dashboard/manage-attendance/manage-attendance';
 import { EmailCrud } from './components/email/email';
@@ -25,6 +25,8 @@ import { ManageNotification } from './components/admin-dashboard/manage-notifica
 import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
 import { ManageReports } from './components/admin-dashboard/manage-reports/manage-reports';
 import { ManageProfile } from './components/admin-dashboard/manage-profile/manage-profile';
+import { RoleGuard } from './role-guard';
+import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
 
 
 
@@ -39,7 +41,7 @@ export const routes: Routes = [
   { path: 'attendance', component: Attendance},
   { path: 'home', component:Home },
   { path: 'forgot-password',component: ForgotPasswordComponent},
-  { path: 'reset-password',component: ResetPasswordComponent},
+  { path: 'reset-password',component: ResetPassword},
   { path: 'student-profile', component: StudentProfile },
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'attendance_2', component:ManageAttendance},
@@ -55,7 +57,45 @@ export const routes: Routes = [
   { path : 'notification', component:ManageNotification },
   { path: 'parent',component: ManageParents},
   { path: 'report',component:ManageReports},
-  { path:'profile',component:ManageProfile}
+  { path:'profile',component:ManageProfile},
+   // Login / Register
+   { path: '', redirectTo: 'login', pathMatch: 'full' },
+   { path: 'login', component: LoginComponent },
+   { path: 'register', component: RegisterComponent },
+ 
+   // DASHBOARDS (Paste your code HERE)
+   {
+     path: 'admin-dashboard',
+     component: AdminDashboard,
+     canActivate: [RoleGuard],
+     data: { roles: ['Admin'] }
+   },
+   {
+     path: 'student-dashboard',
+     component: StudentDashboardComponent,
+     canActivate: [RoleGuard],
+     data: { roles: ['Student'] }
+   },
+   {
+     path: 'teacher-dashboard',
+     component: TeacherDashboard,
+     canActivate: [RoleGuard],
+     data: { roles: ['Teacher'] }
+   },
+   {
+     path: 'parent-dashboard',
+     component: ParentDashboard,
+     canActivate: [RoleGuard],
+     data: { roles: ['Parent'] }
+   },
+ 
+   // OTHER MODULE ROUTES (if any)
+   { path: 'manage-students', component: ManageStudents },
+   { path: 'manage-teachers', component: ManageTeachers },
+   { path: 'manage-parents', component: ManageParents },
+ 
+   // Page not found
+   { path: '**', redirectTo: 'login' }
 ];
 
   

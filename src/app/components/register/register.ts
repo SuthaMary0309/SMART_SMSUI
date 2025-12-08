@@ -33,11 +33,17 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: err => {
-        alert("Registration Failed");
+        console.log("FULL ERROR RESPONSE:", err);        // <-- Add this
+        console.log("ERROR BODY:", err.error);           // <-- Add this
+        console.log("VALIDATION ERRORS:", err.error?.errors);  // <-- Add this
+        alert("Registration Failed - check console!");
       }
-      
     });
   }
+  
+      
+    
+  
 
   registerButton() {
     this.registerUser();
