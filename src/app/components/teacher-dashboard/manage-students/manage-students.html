@@ -8,10 +8,13 @@
       <input placeholder="Phone No" [(ngModel)]="student.phoneNo" name="phoneNo" required>
       <input placeholder="Address" [(ngModel)]="student.address" name="address" required>
       <input placeholder="Email" [(ngModel)]="student.email" name="email" required>
-    
+  
       <input placeholder="Class ID" [(ngModel)]="student.classID" name="classID" required>
   
-      <button type="submit"(click)="saveStudent()">{{ editMode ? 'Update Student' : 'Add Student' }}</button>
+      <!-- Hidden UserID -->
+      <input type="hidden" [(ngModel)]="student.userID" name="userID">
+  
+      <button type="submit">{{ editMode ? 'Update Student' : 'Add Student' }}</button>
       <button type="button" (click)="resetForm()">Clear</button>
   
     </form>

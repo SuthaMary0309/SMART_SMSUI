@@ -17,7 +17,9 @@ export class LoginService {
   }
   
   resetPassword(token: string, newPassword: string) {
-    return this.http.post(`${this.baseUrl}/reset-password`, {
+    return this.http.post(`${this.baseUrl}/reset-password`
+    
+    , {
       token,
       newPassword
     });

@@ -1,1 +1,76 @@
-<p>manage-reports works!</p>
+<div class="reports-container">
+    <h2>Reports</h2>
+  
+    <div class="selectors">
+      <div class="box">
+        <h3>Student-wise</h3>
+        <select [(ngModel)]="selectedStudent">
+          <option value="">-- select student --</option>
+          <option *ngFor="let s of students" [value]="s.studentID">{{ s.studentName }}</option>
+        </select>
+        <button (click)="loadStudentReport()">Load</button>
+        <button (click)="exportStudentPDF()">Export PDF</button>
+      </div>
+  
+      <div class="box">
+        <h3>Exam-wise</h3>
+        <select [(ngModel)]="selectedExam">
+          <option value="">-- select exam --</option>
+          <option *ngFor="let e of exams" [value]="e.examID">{{ e.examName }}</option>
+        </select>
+        <button (click)="loadExamReport()">Load</button>
+        <button (click)="exportExamPDF()">Export PDF</button>
+      </div>
+  
+      <div class="box">
+        <h3>Class-wise</h3>
+        <select [(ngModel)]="selectedClass">
+          <option value="">-- select class --</option>
+          <option *ngFor="let c of classes" [value]="c.classId">{{ c.className }}</option>
+        </select>
+  
+        <select [(ngModel)]="selectedExam">
+          <option value="">-- select exam --</option>
+          <option *ngFor="let e of exams" [value]="e.examID">{{ e.examName }}</option>
+        </select>
+  
+        <button (click)="loadClassReport()">Load</button>
+        <button (click)="exportClassPDF()">Export PDF</button>
+      </div>
+    </div>
+  
+    <hr/>
+  
+    <canvas id="reportChart" width="800" height="300"></canvas>
+  
+    <div class="report-table" *ngIf="studentReport">
+      <h3>Student: {{studentReport.studentName}} ({{ studentReport.className }})</h3>
+      <p>Average: {{ studentReport.average | number:'1.0-2' }} | Highest: {{ studentReport.highest }} | Lowest: {{ studentReport.lowest }}</p>
+      <table>
+        <tr><th>Exam/Subject</th><th>Mark</th></tr>
+        <tr *ngFor="let m of studentReport.marks">
+          <td>{{ m.examName || m.subjectName }}</td>
+          <td>{{ m.mark }}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <div *ngIf="examReport">
+      <h3>Exam: {{ examReport.examName }} ({{ examReport.subjectName }})</h3>
+      <p>Average: {{ examReport.average | number:'1.0-2' }} | Highest: {{ examReport.highest }} | Lowest: {{ examReport.lowest }}</p>
+      <table>
+        <tr><th>Student</th><th>Mark</th></tr>
+        <tr *ngFor="let s of examReport.students"><td>{{ s.studentName }}</td><td>{{ s.mark }}</td></tr>
+      </table>
+    </div>
+  
+    <div *ngIf="classReport">
+      <h3>Class: {{ classReport.className }} - Exam: {{ classReport.examName }}</h3>
+      <p>Average: {{ classReport.average | number:'1.0-2' }} | Highest: {{ classReport.highest }} | Lowest: {{ classReport.lowest }} | Pass%: {{ classReport.passPercentage | number:'1.0-2' }}%</p>
+      <table>
+        <tr><th>Student</th><th>Mark</th></tr>
+        <tr *ngFor="let s of classReport.students"><td>{{ s.studentName }}</td><td>{{ s.mark }}</td></tr>
+      </table>
+    </div>
+  </div>
+  

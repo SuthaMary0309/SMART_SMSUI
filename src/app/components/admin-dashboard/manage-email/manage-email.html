@@ -1,0 +1,10 @@
+<div>
+    <h2>Send Email</h2>
+  
+    <input type="email" placeholder="Recipient Email" [(ngModel)]="emailData.to" />
+    <input type="text" placeholder="Subject" [(ngModel)]="emailData.subject" />
+    <textarea placeholder="Message" [(ngModel)]="emailData.body"></textarea>
+  
+    <button (click)="send()">Send Email</button>
+  </div>
+  
