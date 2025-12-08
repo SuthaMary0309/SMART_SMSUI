@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendanceService } from '../../../Service/attendance-service';// make sure path is correct
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-manage-attendance',
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './manage-attendance.html',
   styleUrls: ['./manage-attendance.css'],
 })

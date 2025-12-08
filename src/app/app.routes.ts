@@ -60,6 +60,24 @@ export const routes: Routes = [
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,canActivate: [AuthGuard]},
+  { path: 'attendance_2', component:ManageAttendance},
+  { path: 'email',component: EmailCrud},
+  { path: 'teacher',component:ManageTeachers},
+  { path: 'exam',component: ManageExam},
+  { path:'student',component:ManageStudents},
+  { path:'teacher-dashboard',component: TeacherDashboard},
+  { path:'class', component: ManageClass},
+  { path:'subject', component:ManageSubject},
+  { path: 'marks', component:ManageMarks},
+  { path: 'email', component:ManageEmail},
+  { path : 'notification', component:ManageNotification },
+  { path: 'parent',component: ManageParents},
+  { path: 'report',component:ManageReports},
+  { path:'profile',component:ManageProfile}
+];
+
+  
+  
 
   // NEW: Admin Panel with Layout (Sidebar + Topbar) - இது மட்டும் புதுசு!
   {

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class EmailService {
 
-  private apiUrl = 'https://localhost:7010/api/email/send';
+  private apiUrl = 'http://localhost:5283/api/email/send';
 
   constructor(private http: HttpClient) { }
 
