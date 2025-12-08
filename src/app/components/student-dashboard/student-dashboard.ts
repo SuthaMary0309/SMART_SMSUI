@@ -8,9 +8,18 @@ import { NgModule } from '@angular/core';
   selector: 'app-student-dashboard',
   templateUrl: './student-dashboard.html',
   styleUrls: ['./student-dashboard.css'],
-  imports: [RouterLink,CommonModule,]
+  imports: [RouterLink,CommonModule,FormsModule]
 })
 export class StudentDashboardComponent {
+  userName = "";
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.userName = localStorage.getItem("name") ?? "";
+  }
+
+
     searchText: string = '';
     currentPage: string = '';
 
@@ -31,7 +40,7 @@ export class StudentDashboardComponent {
     }
   }
     showLogoutPopup: boolean = false
-  constructor(private router: Router) {}
+  
 
 
    openLogoutPopup() {

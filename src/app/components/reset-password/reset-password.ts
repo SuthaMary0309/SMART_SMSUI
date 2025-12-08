@@ -9,7 +9,7 @@ import { LoginService } from '../../Service/login-service';
   styleUrls: ['./reset-password.css'],
   imports: [FormsModule]
 })
-export class ResetPasswordComponent {
+export class ResetPassword {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -30,4 +30,5 @@ export class ResetPasswordComponent {
       error: () => alert("Password reset failed")
     });
   }
+  
 }

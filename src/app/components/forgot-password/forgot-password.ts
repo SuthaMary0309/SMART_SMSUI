@@ -25,4 +25,5 @@ export class ForgotPasswordComponent {
       error: () => alert("Failed to send reset email")
     });
   }
+  
 }

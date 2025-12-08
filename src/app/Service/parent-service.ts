@@ -1,31 +1,31 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ParentService {
-  private api = "http://localhost:5283/api/parent";
+  private http = inject(HttpClient);
+  private base = 'http://localhost:5283/api/parent';
 
-  constructor(private http: HttpClient) { }
-
-  getAll() {
-    return this.http.get(this.api + "/get-all");
+  private getAuthOptions() {
+    const token = localStorage.getItem('token');
+    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }) : new HttpHeaders({ 'Content-Type': 'application/json' });
+    return { headers };
   }
 
-  getById(id: string) {
-    return this.http.get(this.api + "/get/" + id);
+  getAll(): Observable<any> {
+    return this.http.get(`${this.base}/all`, this.getAuthOptions());
   }
 
-  add(parent: any) {
-    return this.http.post(this.api + "/add", parent);
+  add(payload: any) {
+    return this.http.post(`${this.base}/add`, payload, this.getAuthOptions());
   }
 
-  update(id: string, parent: any) {
-    return this.http.put(this.api + "/update/" + id, parent);
+  update(id: string, payload: any) {
+    return this.http.put(`${this.base}/update/${id}`, payload, this.getAuthOptions());
   }
 
   delete(id: string) {
-    return this.http.delete(this.api + "/delete/" + id);
+    return this.http.delete(`${this.base}/delete/${id}`, this.getAuthOptions());
   }
 }

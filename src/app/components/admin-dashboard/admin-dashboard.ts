@@ -10,6 +10,13 @@ import { AdminLayoutComponent } from "./admin-layout/admin-layout";
   styleUrl: './admin-dashboard.css',
 })
 export class AdminDashboard {
+  name = "";
+
+  ngOnInit() {
+    this.name = localStorage.getItem("name") ?? "";
+  }
+
+
   Routerlink: any;
   goBack() {
     this.Routerlink.navigate(['/login']);

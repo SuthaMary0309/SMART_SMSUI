@@ -1,80 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { ParentService } from '../../../Service/parent-service';
+import { StudentService } from '../../../Service/student-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-manage-parents',
-  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './manage-parents.html',
-  styleUrls: ['./manage-parents.css']
+  styleUrls: ['./manage-parents.css'],
+  imports: [FormsModule,CommonModule]
 })
 export class ManageParents implements OnInit {
   parents: any[] = [];
+  students: any[] = [];
   parent: any = {
     parentName: '',
     phoneNo: '',
     address: '',
     email: '',
-    studentID: '',
-    userID: ''
+    studentID: ''
   };
 
-  editMode: boolean = false;
-  editID: string = '';
+  editMode = false;
+  editID = '';
 
-  constructor(private parentService: ParentService) { }
+  constructor(private parentService: ParentService, private studentService: StudentService) {}
 
   ngOnInit(): void {
     this.loadParents();
+    this.loadStudents();
   }
 
   loadParents() {
     this.parentService.getAll().subscribe({
       next: (res: any) => this.parents = res,
-      error: (err) => console.error("Failed to load parents", err)
+      error: (err) => {
+        console.error('Failed to load parents', err);
+        alert('Failed to load parents');
+      }
+    });
+  }
+
+  loadStudents() {
+    this.studentService.getAll().subscribe({
+      next: (res: any) => this.students = res,
+      error: (err) => {
+        console.error('Failed to load students', err);
+        alert('Failed to load students');
+      }
     });
   }
 
   saveParent() {
-    // Validate required fields
-    if (!this.parent.parentName || !this.parent.phoneNo || !this.parent.address || !this.parent.email) {
-      alert("Please fill all required fields");
+    if (!this.parent.parentName || !this.parent.phoneNo || !this.parent.address || !this.parent.email || !this.parent.studentID) {
+      alert('Please fill all required fields including selecting a student.');
       return;
     }
 
-    // Prepare payload with C# DTO property names
     const payload = {
       ParentName: this.parent.parentName,
-      PhoneNo: Number(this.parent.phoneNo), // convert string to number
+      PhoneNo: this.parent.phoneNo,
       Address: this.parent.address,
       Email: this.parent.email,
-      StudentID: this.parent.studentID && this.parent.studentID !== '' ? this.parent.studentID : null,
-      UserID: this.parent.userID && this.parent.userID !== '' 
-               ? this.parent.userID 
-               : '00000000-0000-0000-0000-000000000000' // default GUID
+      StudentID: this.parent.studentID
     };
-    
 
-    const request$ = this.editMode
-      ? this.parentService.update(this.editID, payload)
-      : this.parentService.add(payload);
+    const req$ = this.editMode ? this.parentService.update(this.editID, payload) : this.parentService.add(payload);
 
-    request$.subscribe({
+    req$.subscribe({
       next: () => {
-        alert(this.editMode ? "Parent updated successfully!" : "Parent added successfully!");
+        alert(this.editMode ? 'Updated parent' : 'Added parent');
         this.resetForm();
         this.loadParents();
       },
-      error: (err) => {
-        console.error("Save parent failed:", err);
-        // If backend returns validation errors, display them
-        if (err.error && err.error.errors) {
+      error: err => {
+        console.error('Save parent failed', err);
+        if (err.error?.errors) {
           const messages = Object.values(err.error.errors).flat().join('\n');
-          alert("Validation errors:\n" + messages);
+          alert('Validation errors:\n' + messages);
         } else {
-          alert("Error saving parent");
+          alert('Error saving parent: ' + (err.error?.message ?? JSON.stringify(err.error)));
         }
       }
     });
@@ -82,41 +88,26 @@ export class ManageParents implements OnInit {
 
   editParent(p: any) {
     this.editMode = true;
-    this.editID = p.parentID;  // Make sure backend expects ParentID
+    this.editID = p.parentID || p.parentId || '';
     this.parent = {
       parentName: p.parentName,
       phoneNo: p.phoneNo,
       address: p.address,
       email: p.email,
-      studentID: p.studentID || '',
-      userID: p.userID || ''
+      studentID: p.studentID || p.studentId || ''
     };
   }
 
   deleteParent(id: string) {
-    if (confirm("Are you sure to delete this parent?")) {
-      this.parentService.delete(id).subscribe({
-        next: () => {
-          alert("Deleted successfully!");
-          this.loadParents();
-        },
-        error: (err) => {
-          console.error("Delete failed", err);
-          alert("Failed to delete parent");
-        }
-      });
-    }
+    if (!confirm('Delete parent?')) return;
+    this.parentService.delete(id).subscribe({
+      next: () => { alert('Deleted'); this.loadParents(); },
+      error: (err) => { console.error('Delete failed', err); alert('Failed to delete'); }
+    });
   }
 
   resetForm() {
-    this.parent = {
-      parentName: '',
-      phoneNo: '',
-      address: '',
-      email: '',
-      studentID: '',
-      userID: ''
-    };
+    this.parent = { parentName: '', phoneNo: '', address: '', email: '', studentID: '' };
     this.editMode = false;
     this.editID = '';
   }
