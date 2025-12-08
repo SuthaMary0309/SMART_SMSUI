@@ -1,27 +1,38 @@
-<div class="container">
-  <h2>Manage Classes</h2>
+<!-- manage-class.component.html (இதை மட்டும் update பண்ணு) -->
+<div class="page-container">
+  <div class="page-header">
+    <h2>Manage Classes</h2>
+  </div>
 
-  <form (ngSubmit)="save()">
-    <input placeholder="Class Name" [(ngModel)]="classData.className" name="className" required>
-    <input placeholder="Grade" [(ngModel)]="classData.grade" name="grade" required>
+  <div class="form-card">
+    <form (ngSubmit)="save()" class="class-form">
+      <input placeholder="Class Name" [(ngModel)]="classData.className" name="className" required>
+      <input placeholder="Grade" [(ngModel)]="classData.grade" name="grade" required>
 
-    <button type="submit">{{ classData.classId ? 'Update' : 'Add' }}</button>
-    <button type="button" class="clear" (click)="resetForm()">Clear</button>
-  </form>
+      <div class="form-actions">
+        <button type="submit">{{ classData.classID ? 'Update Class' : 'Add Class' }}</button>
+        <button type="button" (click)="resetForm()">Clear</button>
+      </div>
+    </form>
+  </div>
 
   <table>
-    <tr>
-      <th>Class Name</th>
-      <th>Grade</th>
-      <th>Action</th>
-    </tr>
-    <tr *ngFor="let c of classes">
-      <td>{{ c.className }}</td>
-      <td>{{ c.grade }}</td>
-      <td>
-        <button (click)="edit(c)">Edit</button>
-        <button class="del" (click)="delete(c.classId)">Delete</button>
-      </td>
-    </tr>
+    <thead>
+      <tr>
+        <th>CLASS NAME</th>
+        <th>GRADE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cls of classes">
+        <td>{{ cls.className }}</td>
+        <td>{{ cls.grade }}</td>
+        <td>
+          <button (click)="edit(cls)">Edit</button>
+          <button (click)="delete(cls.classId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>

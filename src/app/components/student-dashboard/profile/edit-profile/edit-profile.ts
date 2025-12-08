@@ -20,12 +20,6 @@ export class EditProfileComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  // ngOnInit() {
-  //   const data = this.studentService.getStudent();
-  //   this.student = { ...data }; // clone object
-  //   this.studentAvatar = data.avatar || "https://via.placeholder.com/140";
-  // }
-
   saveChanges() {
     // include avatar in student object
     const updatedStudent = { ...this.student, avatar: this.studentAvatar };
