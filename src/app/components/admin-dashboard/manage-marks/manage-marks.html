@@ -1,1 +1,54 @@
-<p>manage-marks works!</p>
+<div class="marks-container">
+    <h2>Manage Marks</h2>
+  
+    <form (ngSubmit)="isEditMode ? updateMarks() : addMarks()" class="marks-form">
+      <div>
+        <label>Grade:</label>
+        <input type="number" [(ngModel)]="grade" name="grade" required />
+      </div>
+  
+      <div>
+        <label>Mark:</label>
+        <input type="number" [(ngModel)]="mark" name="mark" required />
+      </div>
+  
+      <div>
+        <label>Student ID:</label>
+        <input type="text" [(ngModel)]="studentID" name="studentID" required />
+      </div>
+  
+      <div>
+        <label>Exam ID:</label>
+        <input type="text" [(ngModel)]="examID" name="examID" required />
+      </div>
+  
+      <button type="submit">{{ isEditMode ? "Update" : "Add" }}</button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </form>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Grade</th>
+          <th>Mark</th>
+          <th>Student ID</th>
+          <th>Exam ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngFor="let m of marksList">
+          <td>{{ m.grade }}</td>
+          <td>{{ m.mark }}</td>
+          <td>{{ m.studentID }}</td>
+          <td>{{ m.examID }}</td>
+          <td>
+            <button (click)="editMarks(m)">Edit</button>
+            <button (click)="deleteMarks(m.marksId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

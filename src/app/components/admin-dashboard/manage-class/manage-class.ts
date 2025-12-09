@@ -17,12 +17,12 @@ export class ManageClass implements OnInit {
   classes: any[] = [];
 
   classData: any = {
-    classID: undefined,
+    classId: '',
     className: '',
     grade: ''
   };
 
-  constructor(private classService: ClassService) {}
+  constructor(private classService: ClassService) { }
 
   ngOnInit(): void {
     this.loadClasses();
@@ -31,12 +31,12 @@ export class ManageClass implements OnInit {
   loadClasses() {
     this.classService.getAll().subscribe({
       next: (res: any) => this.classes = res,
-      error: (err) => console.error("Load classes failed", err)
+      error: err => console.error("Load classes failed", err)
     });
   }
 
   save() {
-    if (this.classData.classID) {
+    if (this.classData.classId) {
       this.updateClass();
     } else {
       this.addClass();
@@ -46,46 +46,39 @@ export class ManageClass implements OnInit {
   addClass() {
     this.classService.add(this.classData).subscribe({
       next: () => {
-        alert("Class added successfully!");
-        this.loadClasses();
+        alert('Class added!');
         this.resetForm();
-      },
-      error: (err) => console.error("Add failed", err)
+        this.loadClasses();
+      }
     });
   }
 
   edit(data: any) {
-    this.classData = { ...data }; // include classID
+    this.classData = { ...data };
   }
 
   updateClass() {
-    this.classService.update(this.classData.classID, this.classData).subscribe({
+    this.classService.update(this.classData.classId, this.classData).subscribe({
       next: () => {
-        alert("Class updated successfully!");
-        this.loadClasses();
+        alert("Class updated!");
         this.resetForm();
-      },
-      error: (err) => console.error("Update failed", err)
+        this.loadClasses();
+      }
     });
   }
 
   delete(id: string) {
-    if (confirm("Are you sure you want to delete this class?")) {
+    if (confirm("Delete this class?")) {
       this.classService.delete(id).subscribe({
         next: () => {
-          alert("Class deleted successfully!");
+          alert("Class deleted!");
           this.loadClasses();
-        },
-        error: (err) => console.error("Delete failed", err)
+        }
       });
     }
   }
 
   resetForm() {
-    this.classData = {
-      classID: undefined,
-      className: '',
-      grade: ''
-    };
+    this.classData = { classId: '', className: '', grade: '' };
   }
 }

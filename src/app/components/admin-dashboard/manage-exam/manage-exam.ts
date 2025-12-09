@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ExamService, ExamDTO } from '../../../Service/exam-service';
+import { ExamService } from '../../../Service/exam-service';
 
 @Component({
   selector: 'app-manage-exam',
@@ -13,17 +13,18 @@ import { ExamService, ExamDTO } from '../../../Service/exam-service';
 })
 export class ManageExam implements OnInit {
 
-  exams: ExamDTO[] = [];
+  exams: any[] = [];
 
-  examData: ExamDTO = {
-    classID: '',
-    subjectID: '',
+  exam = {
+    examID: '',
     examName: '',
-    examDate: ''
+    examDate: '',
+    classID: '',
+    subjectID: ''
   };
 
   editMode = false;
-  editID: string = '';
+  editId = '';
 
   constructor(private examService: ExamService) {}
 
@@ -33,71 +34,58 @@ export class ManageExam implements OnInit {
 
   loadExams() {
     this.examService.getAll().subscribe({
-      next: (res: any) => this.exams = res as ExamDTO[],  // cast to ExamDTO[]
-      error: (err) => console.error("Load exams failed", err)
+      next: (res: any) => this.exams = res,
+      error: err => console.error("Exam load error", err)
     });
   }
-  
 
-  save() {
-    if (!this.examData.examName || !this.examData.classID || !this.examData.subjectID || !this.examData.examDate) {
-      alert("Please fill all required fields");
-      return;
-    }
+  saveExam() {
+    const req = this.editMode
+      ? this.examService.update(this.editId, this.exam)
+      : this.examService.add(this.exam);
 
-    if (this.editMode) {
-      this.updateExam();
-    } else {
-      this.addExam();
-    }
-  }
-
-  addExam() {
-    this.examService.add(this.examData).subscribe({
+    req.subscribe({
       next: () => {
-        alert("Exam added successfully!");
-        this.loadExams();
+        alert(this.editMode ? "Exam Updated!" : "Exam Added!");
         this.resetForm();
-      },
-      error: err => console.error("Add exam failed", err)
+        this.loadExams();
+      }
     });
   }
 
-  edit(exam: ExamDTO) {
+  editExam(e: any) {
     this.editMode = true;
-    this.editID = exam.examID!;
-    this.examData = { ...exam };
+    this.editId = e.examID;
+
+    this.exam = {
+      examID: e.examID,
+      examName: e.examName,
+      examDate: e.examDate.split("T")[0], 
+      classID: e.classID,
+      subjectID: e.subjectID
+    };
   }
 
-  updateExam() {
-    this.examService.update(this.editID, this.examData).subscribe({
-      next: () => {
-        alert("Exam updated successfully!");
-        this.loadExams();
-        this.resetForm();
-      },
-      error: err => console.error("Update exam failed", err)
-    });
-  }
-
-  delete(id?: string) {
-    if (!id) return;
-    if (confirm("Are you sure to delete this exam?")) {
+  deleteExam(id: string) {
+    if (confirm("Delete this exam?")) {
       this.examService.delete(id).subscribe({
-        next: () => this.loadExams(),
-        error: err => console.error("Delete exam failed", err)
+        next: () => {
+          alert("Exam Deleted!");
+          this.loadExams();
+        }
       });
     }
   }
 
   resetForm() {
-    this.examData = {
-      classID: '',
-      subjectID: '',
-      examName: '',
-      examDate: ''
-    };
     this.editMode = false;
-    this.editID = '';
+    this.editId = '';
+    this.exam = {
+      examID: '',
+      examName: '',
+      examDate: '',
+      classID: '',
+      subjectID: ''
+    };
   }
 }
