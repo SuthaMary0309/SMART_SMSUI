@@ -18,8 +18,6 @@ export class RegisterService {
       role,
       admissionNumber: null
     };
-  
-    // No headers needed for anonymous registration
     return this.http.post(`${this.baseUrl}/register`, body);
   }
   

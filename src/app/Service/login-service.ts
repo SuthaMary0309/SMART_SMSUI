@@ -9,9 +9,14 @@ export class LoginService {
   private baseUrl = "http://localhost:5283/api/auth";
 
   login(email: string, password: string) {
-    const body = { email, password };
+    const body = {
+      email: email,
+      username: email, // send email also as username
+      password: password
+    };
     return this.http.post(`${this.baseUrl}/login`, body);
   }
+  
   
 
   forgotPassword(email: string) {
