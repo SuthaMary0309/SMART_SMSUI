@@ -29,7 +29,7 @@ export class LoginComponent {
   
         // ✔ ROLE WISE REDIRECT
         if (res.role === 'Admin') {
-          this.router.navigate(['/admin-dashboard']);
+          this.router.navigate(['/admin-layout']);
         } 
         else if (res.role === 'Teacher') {
           this.router.navigate(['/teacher-dashboard']);

@@ -4,11 +4,10 @@ import { StudentService } from '../../../Service/student-service';
 import { FormsModule } from '@angular/forms';
 import { inject } from '@angular/core/primitives/di';
 import {  HttpClientModule } from '@angular/common/http';
-import { About } from "../../home/about/about";
 
 @Component({
   selector: 'app-manage-students',
-  imports: [CommonModule, FormsModule, About],
+  imports: [CommonModule,FormsModule,HttpClientModule],
   templateUrl: './manage-students.html',
   styleUrl: './manage-students.css',
   standalone:true
@@ -16,9 +15,6 @@ import { About } from "../../home/about/about";
   
 })
 export class ManageStudents implements OnInit {
-searchStudents($event: Event) {
-throw new Error('Method not implemented.');
-}
   constructor(private studentService:StudentService){
     
   } 
