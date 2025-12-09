@@ -2,7 +2,7 @@
   padding: 30px;
   min-height: calc(100vh - 90px);
   animation: fadeIn 0.6s ease-out;
-    background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
 }
 
 /* Page Header */

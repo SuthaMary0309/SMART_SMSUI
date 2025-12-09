@@ -31,10 +31,46 @@ import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/
 import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
 
 export const routes: Routes = [
+
+
   // Auth
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'student-dashboard', component: StudentDashboardComponent },
+  { path: 'student-profile', component: StudentProfile },
+  { path: 'reports', component: Reports },
+  // { path: 'admin-dashboard', component: AdminDashboard },  // இது இனிமே தேவையில்லை (ஆனா வச்சிட்டேன்)
+  { path: 'attendance', component: Attendance },
+  { path: 'home', component: Home },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPassword },
+  { path: 'student-dashboard', component: StudentDashboardComponent},
+  { path: 'student-profile', component: StudentProfile },
+  { path: 'reports', component: Reports},
+  { path: 'admin-dashboard', component: AdminDashboard },
+  { path: 'attendance', component: Attendance},
+  { path: 'home', component:Home },
+  { path: 'forgot-password',component: ForgotPasswordComponent},
+  { path: 'reset-password',component: ResetPassword},
+  { path: 'student-profile', component: StudentProfile },
+  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'exam-results', component: Exam },
+  { path: 'teachers', component: ManageTeachers },
+  { path: 'students', component: ManageStudents },
+  { path: 'class', component: ManageClass },
+  { path: 'attendance_2', component: ManageAttendance },
+  { path: 'subject', component: ManageSubject },
+  { path: 'notification', component: ManageNotification },
+  { path: 'exam', component: ManageExam },
+  { path: 'marks', component: ManageMarks },
+  { path: 'email', component: ManageEmail },
+  { path: 'parent', component: ManageParent },
+  { path: 'report', component: ManageReports },
+  { path: 'adminprofile', component: ManageProfile },
+  { path: 'admin-layout', component: AdminLayoutComponent,},
+
+    // new layout
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPassword },
   { path: 'admin-layout', component: AdminLayoutComponent},
@@ -80,6 +116,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
 
+      
     children: [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'teachers', component: ManageTeachers },
