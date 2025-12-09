@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// உன் existing imports (அப்படியே இருக்கு)
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { StudentDashboardComponent } from "./components/student-dashboard/student-dashboard";
@@ -26,22 +24,20 @@ import { ManageEmail } from './components/admin-dashboard/manage-email/manage-em
 import { ManageParent } from './components/teacher-dashboard/manage-parent/manage-parent';
 import { ManageReports } from './components/admin-dashboard/manage-reports/manage-reports';
 import { ManageProfile } from './components/admin-dashboard/manage-profile/manage-profile';
-
-// NEW: Admin Layout Component
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { AuthGuard } from './auth-guard';
 
 export const routes: Routes = [
 
-  // உன் existing routes அப்படியே இருக்கு (மாற்றல!)
+
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, },
   { path: 'register', component: RegisterComponent },
-  { path: 'student-dashboard', component: StudentDashboardComponent,canActivate: [AuthGuard] },
-  { path: 'student-profile', component: StudentProfile,canActivate: [AuthGuard] },
-  { path: 'reports', component: Reports,canActivate: [AuthGuard] },
+  { path: 'student-dashboard', component: StudentDashboardComponent },
+  { path: 'student-profile', component: StudentProfile },
+  { path: 'reports', component: Reports },
   // { path: 'admin-dashboard', component: AdminDashboard },  // இது இனிமே தேவையில்லை (ஆனா வச்சிட்டேன்)
-  { path: 'attendance', component: Attendance,canActivate: [AuthGuard] },
+  { path: 'attendance', component: Attendance },
   { path: 'home', component: Home },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
@@ -59,13 +55,14 @@ export const routes: Routes = [
   { path: 'parent', component: ManageParent },
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
-  { path: 'admin-layout', component: AdminLayoutComponent,canActivate: [AuthGuard]},
+  { path: 'admin-layout', component: AdminLayoutComponent,},
 
-  // NEW: Admin Panel with Layout (Sidebar + Topbar) - இது மட்டும் புதுசு!
+    // new layout
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
+
+      
     children: [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'teachers', component: ManageTeachers },

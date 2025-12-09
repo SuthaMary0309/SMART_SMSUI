@@ -1,30 +1,62 @@
-<div class="attendance-form">
+<!-- attendance.component.html -->
+<div class="page-container">
+  <!-- Page Title -->
+  <div class="page-header">
     <h2>Mark Attendance</h2>
-  
-    <div class="form-group">
-      <label>Student:</label>
-      <select [(ngModel)]="selectedStudent">
-        <option value="">--Select Student--</option>
-        <option *ngFor="let s of students" [value]="s.firstName + ' ' + s.lastName">
-          {{ s.firstName }} {{ s.lastName }}
-      </option>
-      
-      </select>
-    </div>
-  
-    <div class="form-group">
-      <label>Date:</label>
-      <input type="date" [(ngModel)]="date">
-    </div>
-  
-    <div class="form-group">
-      <label>Status:</label>
-      <select [(ngModel)]="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-    </div>
-  
-    <button (click)="markAttendance()">Submit Attendance</button>
+    <p>Record daily attendance for students</p>
   </div>
-  
+
+  <!-- Attendance Form Card -->
+  <div class="attendance-card glass-card">
+    <h3>Submit Attendance</h3>
+
+    <form (ngSubmit)="markAttendance()" class="attendance-form">
+      <div class="form-grid">
+        <!-- Student Select -->
+        <div class="input-group">
+          <i class="bi bi-person-circle"></i>
+          <select [(ngModel)]="selectedStudent" name="selectedStudent" required>
+            <option value="" disabled>-- Select Student --</option>
+            <option *ngFor="let s of students" [value]="s.firstName + ' ' + s.lastName">
+              {{ s.firstName }} {{ s.lastName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Date -->
+        <div class="input-group">
+          <i class="bi bi-calendar3"></i>
+          <input type="date" [(ngModel)]="date" name="date" required>
+        </div>
+
+        <!-- Status -->
+        <div class="input-group">
+          <i class="bi bi-check2-circle"></i>
+          <select [(ngModel)]="status" name="status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Late">Late</option>
+            <option value="Excused">Excused</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">
+          <i class="bi bi-check-circle-fill"></i>
+          Submit Attendance
+        </button>
+        <button type="button" class="btn-secondary" (click)="resetForm()">
+          <i class="bi bi-arrow-counterclockwise"></i>
+          Clear Form
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success Message (Optional) -->
+  <div class="success-message" *ngIf="showSuccess">
+    <i class="bi bi-check-circle"></i>
+    Attendance marked successfully for {{ selectedStudent }}!
+  </div>
+</div>
