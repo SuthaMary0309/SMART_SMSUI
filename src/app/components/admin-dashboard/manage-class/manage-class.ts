@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ClassService } from '../../../Service/class-service';
+import { About } from "../../home/about/about";
 
 @Component({
   selector: 'app-manage-class',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, About],
   templateUrl: './manage-class.html',
   styleUrls: ['./manage-class.css']
 })

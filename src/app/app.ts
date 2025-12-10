@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
 import { Navbar } from "./components/home/navbar/navbar";
+import { LocationStrategy } from '@angular/common';
 
 
 
@@ -14,6 +15,8 @@ import { Navbar } from "./components/home/navbar/navbar";
 export class App {
   protected readonly title = signal('smart-sms-school');
 
+
 }
+
 
 

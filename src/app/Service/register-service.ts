@@ -11,15 +11,16 @@ export class RegisterService {
 
   register(userName: string, email: string, password: string, role: string, confirmPassword: string) {
     const body = {
-      UserName: userName,            // must match C# property
-      Email: email,
-      Password: password,
-      ConfirmPassword: confirmPassword, // match exact case
-      Role: role
+      userName,
+      email,
+      password,
+      confirmPassword,
+      role,
+      admissionNumber: null
     };
-  
-    return this.http.post("http://localhost:5283/api/auth/register", body);
+    return this.http.post(`${this.baseUrl}/register`, body);
   }
+  
   
 }
 

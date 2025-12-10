@@ -5,7 +5,7 @@ import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
-
+  
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {

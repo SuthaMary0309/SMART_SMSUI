@@ -2,23 +2,24 @@
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background-color: #81aef1;
+    background: linear-gradient(135deg, #153a55 0%, #256592 50%, #030d16 100%);
   font-family: "Poppins", sans-serif;
 }
 
 /* Sidebar */
 .admin-sidebar {
   width: 250px;
-  background-color: #4176ab;
+  background: linear-gradient(135deg, #153a55 0%, #256592 50%, #030d16 100%);
   padding: 20px 15px;
-  color: #81aef1;
+  color: #dae0e9;
 }
 
 .logo {
-  font-weight: 710;
-  font-size: 1.7rem;
-  margin-bottom: 30px;
-  color: #270202;
+  font-size: 25px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fff, #a0e7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:#ddd;
 }
 
 .menu-list {
@@ -78,7 +79,7 @@
 
 /* Top Bar */
 .topbar {
-  background-color: #81aef1;
+  background: linear-gradient(135deg, #153a55 0%, #256592 50%, #030d16 100%);
   padding: 15px 25px;
   display: flex;
   justify-content: space-between;
@@ -103,7 +104,7 @@
 }
 
 .welcome-box {
-  background:hsl(192, 92%, 45%);
+    background: linear-gradient(135deg, #32a0ef 0%, #256592 50%, #030d16 100%);
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
