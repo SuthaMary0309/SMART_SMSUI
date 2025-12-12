@@ -1,88 +1,103 @@
-<!-- attendance.component.html -->
-<div class="page-container">
-  <!-- Page Title -->
-  <div class="page-header">
-    <h2>Mark Attendance</h2>
-<<<<<<< HEAD
-    <p>Record daily attendance for students</p>
-=======
-  
-    <div class="form-group">
-      <label>Student:</label>
-      <select [(ngModel)]="selectedStudent">
-        <option value="">-- select student --</option>
-        <option *ngFor="let s of students" [value]="s.studentID">{{ s.studentName }}</option>
-      </select>
-    </div>
-  
-    <div class="form-group">
-      <label>Date:</label>
-      <input type="date" [(ngModel)]="date">
-    </div>
-  
-    <div class="form-group">
-      <label>Status:</label>
-      <select [(ngModel)]="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-    </div>
-  
-    <button (click)="markAttendance()">Submit Attendance</button>
->>>>>>> e162a75ec9279c90d91ec625ae13ce478949835b
-  </div>
+<!-- src/app/components/manage-attendance/manage-attendance.component.html -->
+<div class="attendance-wrap">
+  <div class="panel form-panel">
+    <h3>Record Attendance</h3>
 
-  <!-- Attendance Form Card -->
-  <div class="attendance-card glass-card">
-    <h3>Submit Attendance</h3>
+    <form (ngSubmit)="submit()" class="att-form">
+      <div class="row">
+        <label>Student</label>
+        <select [(ngModel)]="model.studentId" name="studentId" required>
+          <option value="">-- select student --</option>
+          <option *ngFor="let s of students" [value]="s.studentID">
+            {{ s.studentName || (s.firstName + ' ' + s.lastName) }}
+          </option>
+        </select>
+      </div>
 
-    <form (ngSubmit)="markAttendance()" class="attendance-form">
-      <div class="form-grid">
-        <!-- Student Select -->
-        <div class="input-group">
-          <i class="bi bi-person-circle"></i>
-          <select [(ngModel)]="selectedStudent" name="selectedStudent" required>
-            <option value="" disabled>-- Select Student --</option>
-            <option *ngFor="let s of students" [value]="s.firstName + ' ' + s.lastName">
-              {{ s.firstName }} {{ s.lastName }}
-            </option>
-          </select>
+      <div class="row">
+        <label>Teacher</label>
+        <select [(ngModel)]="model.teacherId" name="teacherId" required>
+          <option value="">-- select teacher --</option>
+          <option *ngFor="let t of teachers" [value]="t.teacherID">
+            {{ t.teacherName || (t.firstName + ' ' + t.lastName) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Class</label>
+        <select [(ngModel)]="model.classId" name="classId" required>
+          <option value="">-- select class --</option>
+          <option *ngFor="let c of classes" [value]="c.classID">
+            {{ c.className }} (Grade {{ c.grade }})
+          </option>
+        </select>
+      </div>
+
+      <div class="row inline">
+        <div>
+          <label>Date</label>
+          <input type="date" [(ngModel)]="model.date" name="date" required>
         </div>
 
-        <!-- Date -->
-        <div class="input-group">
-          <i class="bi bi-calendar3"></i>
-          <input type="date" [(ngModel)]="date" name="date" required>
+        <div>
+          <label>Time</label>
+          <input type="time" [(ngModel)]="model.time" name="time">
         </div>
 
-        <!-- Status -->
-        <div class="input-group">
-          <i class="bi bi-check2-circle"></i>
-          <select [(ngModel)]="status" name="status" required>
+        <div>
+          <label>Status</label>
+          <select [(ngModel)]="model.status" name="status">
             <option value="Present">Present</option>
             <option value="Absent">Absent</option>
-            <option value="Late">Late</option>
-            <option value="Excused">Excused</option>
           </select>
         </div>
       </div>
 
-      <div class="form-actions">
-        <button type="submit" class="btn-primary">
-          <i class="bi bi-check-circle-fill"></i>
-          Submit Attendance
+      <div class="actions">
+        <button type="submit" [disabled]="isSubmitting" class="btn primary">
+          {{ isSubmitting ? 'Saving...' : 'Save Attendance' }}
         </button>
-        <button type="button" class="btn-secondary" (click)="resetForm()">
-          <i class="bi bi-arrow-counterclockwise"></i>
-          Clear Form
-        </button>
+        <button type="button" class="btn ghost" (click)="resetForm()">Clear</button>
       </div>
     </form>
   </div>
 
-  <!-- Success Message (Optional) -->
-  <div class="success-message" *ngIf="showSuccess">
-    <i class="bi bi-check-circle"></i>
-    Attendance marked successfully for {{ selectedStudent }}!
+  <div class="panel table-panel">
+    <div class="table-header">
+      <h3>Attendance Records ({{ attendanceList.length }})</h3>
+      <div class="search">
+        <input placeholder="Search student/teacher/class/status..." [(ngModel)]="searchKey">
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="att-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Teacher</th>
+            <th>Class</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of filteredAttendance">
+            <td>{{ a.studentName || a.student?.studentName }}</td>
+            <td>{{ a.teacherName || a.teacher?.teacherName }}</td>
+            <td>{{ a.className || a.class?.className }}</td>
+            <td>{{ a.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ a.time }}</td>
+            <td><span [class.present]="a.status==='Present'" [class.absent]="a.status==='Absent'">{{ a.status }}</span></td>
+            <td class="actions-col">
+              <button class="btn small" (click)="delete(a.attendanceId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

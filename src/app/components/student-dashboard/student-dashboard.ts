@@ -1,84 +1,83 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // ✅ Add this
-import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { StudentService } from '../../Service/student-service';
 
 @Component({
   selector: 'app-student-dashboard',
+  standalone: true,
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './student-dashboard.html',
-  styleUrls: ['./student-dashboard.css'],
-  imports: [RouterLink,CommonModule,FormsModule]
+  styleUrls: ['./student-dashboard.css']
 })
-export class StudentDashboardComponent {
-  userName = "";
+export class StudentDashboardComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  userName: string = '';
+  student: any = {}; // Only this student’s details
+  showLogoutPopup: boolean = false;
 
-  ngOnInit() {
+  constructor(private router: Router, private studentService: StudentService) {}
+
+  ngOnInit(): void {
+    // Get logged-in student info from localStorage
     this.userName = localStorage.getItem("name") ?? "";
-  }
+    const studentID = localStorage.getItem("studentID");
 
-
-    searchText: string = '';
-    currentPage: string = '';
-
-   searchPage() {
-    const text = this.searchText.toLowerCase().trim();
-
-    if (text.includes('exam')) {
-      this.currentPage = 'exam';
-    } else if (text.includes('report')) {
-      this.currentPage = 'reports';
-    } else if (text.includes('attendance')) {
-      this.currentPage = 'attendance';
-    } else if (text.includes('notification')) {
-      this.currentPage = 'notification';
+    if (studentID) {
+      this.loadStudentDetails(studentID);
     } else {
-      this.currentPage = '';
-      alert('❌ No matching page found!');
+      alert("Student not logged in!");
+      this.router.navigate(['/login']);
     }
   }
-    showLogoutPopup: boolean = false
-  
 
+  // Fetch only the logged-in student’s details
+  loadStudentDetails(id: string) {
+    this.studentService.getById(id).subscribe({
+      next: (res: any) => {
+        this.student = res;
+      },
+      error: (err: any) => {
+        console.error("Failed to load student details", err);
+        alert("Failed to load your details.");
+      }
+    });
+  }
 
-   openLogoutPopup() {
-    console.log("Logout popup opened!"); // 👈 check console for this
+  // Logout popup controls
+  openLogoutPopup(): void {
     this.showLogoutPopup = true;
-    
   }
-  
 
-  goToProfile() {
+  confirmLogout(): void {
+    this.showLogoutPopup = false;
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  cancelLogout(): void {
+    this.showLogoutPopup = false;
+  }
+
+  // Navigation
+  goToProfile(): void {
     this.router.navigate(['/student-profile']);
-
   }
 
-    goToReports() {
+  goToReports(): void {
     this.router.navigate(['/reports']);
   }
 
-   goToAttendance() {
+  goToAttendance(): void {
     this.router.navigate(['/attendance']);
   }
 
-  goToExamResults() {
+  goToExamResults(): void {
     this.router.navigate(['/exam-results']);
   }
 
-  goToNotifications() {
+  goToNotifications(): void {
     this.router.navigate(['/notifications']);
   }
-
-   confirmLogout() {
-    this.showLogoutPopup = false;
-    this.router.navigate(['/login']); // Go back to login page
-  }
-
-  cancelLogout() {
-    this.showLogoutPopup = false; // Just close the popup
-  }
-
 }
-

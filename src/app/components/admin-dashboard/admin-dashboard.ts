@@ -5,7 +5,6 @@ import { AdminLayoutComponent } from "./admin-layout/admin-layout";
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterLink, AdminLayoutComponent],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })

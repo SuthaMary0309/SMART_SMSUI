@@ -1,139 +1,102 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { Chart } from 'chart.js';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { Chart, registerables } from 'chart.js';
 import { ReportService } from '../../../Service/report-service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-manage-reports',
-  standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './manage-reports.html',
-  styleUrl: './manage-reports.css',
+  styleUrls: ['./manage-reports.css'],
+  imports: [FormsModule, CommonModule],
+  standalone: true
 })
 export class ManageReports implements OnInit {
+
   students: any[] = [];
-  classes: any[] = [];
   exams: any[] = [];
+  classes: any[] = [];
 
-  selectedStudent = '';
-  selectedExam = '';
-  selectedClass = '';
-
+  selectedStudentId = '';
   studentReport: any = null;
-  examReport: any = null;
-  classReport: any = null;
 
-  chartInstance: any;
+  chart: any;
 
   constructor(private reportService: ReportService) {}
 
   ngOnInit(): void {
-    this.loadSelectors();
+    this.loadDropdowns();
   }
 
-  loadSelectors() {
-    this.reportService.getAllStudents().subscribe((s: any) => this.students = s);
-    this.reportService.getAllClasses().subscribe((c: any) => this.classes = c);
-    this.reportService.getAllExams().subscribe((e: any) => this.exams = e);
+  loadDropdowns() {
+    this.reportService.getAllStudents().subscribe(s => this.students = s);
+    this.reportService.getAllExams().subscribe(e => this.exams = e);
+    this.reportService.getAllClasses().subscribe(c => this.classes = c);
   }
 
-  async loadStudentReport() {
-    if(!this.selectedStudent) return;
-    this.reportService.getStudentReport(this.selectedStudent).subscribe((r:any) => {
-      this.studentReport = r;
-      this.renderStudentChart();
-    });
+  loadStudentReport() {
+    if (!this.selectedStudentId) return alert('Choose a student');
+
+    this.reportService.getStudentReport(this.selectedStudentId)
+      .subscribe((res: any) => {
+        this.studentReport = res;
+
+        this.loadChart(
+          `${res.studentName} Summary`,
+          ['Highest', 'Lowest', 'Average'],
+          [res.highest, res.lowest, Math.round(res.average)]
+        );
+
+      });
   }
 
-  async loadExamReport() {
-    if(!this.selectedExam) return;
-    this.reportService.getExamReport(this.selectedExam).subscribe((r:any) => {
-      this.examReport = r;
-      this.renderExamChart();
-    });
-  }
+  loadChart(title: string, labels: string[], values: number[]) {
+    if (this.chart) this.chart.destroy();
 
-  async loadClassReport() {
-    if(!this.selectedClass || !this.selectedExam) {
-      alert('Select class and exam');
-      return;
-    }
-    this.reportService.getClassPerformance(this.selectedClass, this.selectedExam).subscribe((r:any) => {
-      this.classReport = r;
-      this.renderClassChart();
-    });
-  }
+    const ctx = document.getElementById('reportChart') as HTMLCanvasElement;
 
-  renderStudentChart() {
-    if(this.chartInstance) { this.chartInstance.destroy(); }
-    const labels = this.studentReport.marks.map((m:any) => m.subjectName || m.examName);
-    const data = this.studentReport.marks.map((m:any) => m.mark);
-    const ctx = (document.getElementById('reportChart') as any);
-    this.chartInstance = new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: 'bar',
-      data: { labels, datasets: [{ label: 'Marks', data }] },
-      options: {}
+      data: {
+        labels,
+        datasets: [{
+          label: title,
+          data: values,
+          backgroundColor: ['#3c8dbc', '#00c0ef', '#f39c12']
+        }]
+      },
+      options: { responsive: true }
     });
   }
 
-  renderExamChart() {
-    if(this.chartInstance) { this.chartInstance.destroy(); }
-    const labels = this.examReport.students.map((s:any) => s.studentName);
-    const data = this.examReport.students.map((s:any) => s.mark);
-    const ctx = (document.getElementById('reportChart') as any);
-    this.chartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: { labels, datasets: [{ label: `${this.examReport.examName} - Marks`, data }] },
-      options: {}
-    });
-  }
+  exportPDF() {
+    if (!this.studentReport) return alert('Load report first');
 
-  renderClassChart() {
-    if(this.chartInstance) { this.chartInstance.destroy(); }
-    const labels = this.classReport.students.map((s:any) => s.studentName);
-    const data = this.classReport.students.map((s:any) => s.mark);
-    const ctx = (document.getElementById('reportChart') as any);
-    this.chartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: { labels, datasets: [{ label: `${this.classReport.examName} - Class Performance`, data }] },
-      options: {}
-    });
-  }
-
-  exportStudentPDF() {
-    if(!this.studentReport) return;
     const doc = new jsPDF();
-    doc.text(`Student Report - ${this.studentReport.studentName}`, 10, 10);
-    autoTable(doc, {
-      head: [['Exam / Subject', 'Mark']],
-      body: this.studentReport.marks.map((m:any) => [m.examName || m.subjectName, m.mark])
-    });
-    doc.save(`StudentReport-${this.studentReport.studentName}.pdf`);
-  }
 
-  exportExamPDF() {
-    if(!this.examReport) return;
-    const doc = new jsPDF();
-    doc.text(`Exam Report - ${this.examReport.examName}`, 10, 10);
-    autoTable(doc, {
-      head: [['Student', 'Mark']],
-      body: this.examReport.students.map((s:any) => [s.studentName, s.mark])
-    });
-    doc.save(`ExamReport-${this.examReport.examName}.pdf`);
-  }
+    doc.setFontSize(16);
+    doc.text('STUDENT REPORT', 40, 30);
+    doc.setFontSize(12);
 
-  exportClassPDF() {
-    if(!this.classReport) return;
-    const doc = new jsPDF();
-    doc.text(`Class Report - ${this.classReport.className} / ${this.classReport.examName}`, 10, 10);
+    doc.text(`Student: ${this.studentReport.studentName}`, 40, 60);
+    doc.text(`Class: ${this.studentReport.className}`, 40, 80);
+    doc.text(`Average: ${this.studentReport.average}`, 40, 100);
+
+    const rows = this.studentReport.marks.map((x: any) => [
+      x.subjectName || x.examName,
+      x.mark
+    ]);
+
     autoTable(doc, {
-      head: [['Student', 'Mark']],
-      body: this.classReport.students.map((s:any) => [s.studentName, s.mark])
+      head: [['EXAM / SUBJECT', 'MARK']],
+      body: rows,
+      startY: 130
     });
-    doc.save(`ClassReport-${this.classReport.className}-${this.classReport.examName}.pdf`);
+
+    doc.save(`${this.studentReport.studentName}_Report.pdf`);
   }
 }

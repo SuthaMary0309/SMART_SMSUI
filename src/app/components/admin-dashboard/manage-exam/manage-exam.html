@@ -2,37 +2,50 @@
   <h2>Manage Exams</h2>
 
   <form (ngSubmit)="saveExam()">
-    <input placeholder="Exam Name" [(ngModel)]="exam.examName" name="examName" required>
 
-    <input type="date" [(ngModel)]="exam.examDate" name="examDate" required>
+    <input placeholder="Exam Name" [(ngModel)]="exam.examName" name="examName" required />
 
-    <input placeholder="Class ID" [(ngModel)]="exam.classID" name="classID" required>
+    <input type="date" [(ngModel)]="exam.examDate" name="examDate" required />
 
-    <input placeholder="Subject ID" [(ngModel)]="exam.subjectID" name="subjectID" required>
+    <!-- CLASS DROPDOWN -->
+    <select [(ngModel)]="exam.classID" name="classID" required>
+      <option value="">-- Select Class --</option>
+      <option *ngFor="let c of classes " [value]="c.classID">
+        {{ c.className }} (Grade {{ c.grade }})
+      </option>
+    </select>
+
+    <!-- SUBJECT DROPDOWN -->
+    <select [(ngModel)]="exam.subjectID" name="subjectID" required>
+      <option value="">-- Select Subject --</option>
+      <option *ngFor="let s of subjects " [value]="s.subjectID">
+        {{ s.subjectName }}
+      </option>
+    </select>
 
     <button type="submit">{{ editMode ? "Update" : "Add" }}</button>
-
     <button type="button" class="clear" (click)="resetForm()">Clear</button>
   </form>
 
   <table>
     <tr>
-      <th>Exam Name</th>
+      <th>Exam</th>
       <th>Date</th>
       <th>Class</th>
       <th>Subject</th>
-      <th>Action</th>
+      <th>Actions</th>
     </tr>
 
-    <tr *ngFor="let e of exams">
+    <tr *ngFor="let e of exams ">
       <td>{{ e.examName }}</td>
       <td>{{ e.examDate | date:'yyyy-MM-dd' }}</td>
-      <td>{{ e.classID }}</td>
-      <td>{{ e.subjectID }}</td>
+      <td>{{ getClassName(e.classID) }}</td>
+      <td>{{ getSubjectName(e.subjectID) }}</td>
       <td>
         <button (click)="editExam(e)">Edit</button>
         <button class="del" (click)="deleteExam(e.examID)">Delete</button>
       </td>
     </tr>
+    
   </table>
 </div>
