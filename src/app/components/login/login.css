@@ -4,6 +4,7 @@
   margin: px;
   padding: 0;
   box-sizing: border-box;
+ 
 }
 body {
   font-family: 'Poppins', sans-serif;
@@ -32,7 +33,7 @@ body {
   to { transform: translate(-60px,40px); }
 }
 
-* Glowing Floating Particles */
+/*Glowing Floating Particles */   
 .glow-particle {
   position: absolute;
   width: 8px; height: 8px;

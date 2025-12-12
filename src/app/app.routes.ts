@@ -26,6 +26,7 @@ import { ManageProfile } from './components/admin-dashboard/manage-profile/manag
 import { RoleGuard } from './role-guard';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
 import { AuthGuard } from './auth-guard';
+import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
 import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
@@ -48,7 +49,7 @@ export const routes: Routes = [
   { path: 'student-dashboard', component: StudentDashboardComponent},
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports},
-  { path: 'admin-dashboard', component: AdminDashboard },
+  // { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'attendance', component: Attendance},
   { path: 'home', component:Home },
   { path: 'forgot-password',component: ForgotPasswordComponent},
@@ -69,6 +70,8 @@ export const routes: Routes = [
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,},
+  { path: 'ai-assistant', component: AiAssistant},
+
 
     // new layout
   { path: 'forgot-password', component: ForgotPasswordComponent },

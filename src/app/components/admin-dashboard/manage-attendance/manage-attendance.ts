@@ -16,6 +16,10 @@ import { ClassService } from '../../../Service/class-service';
   styleUrls: ['./manage-attendance.css']
 })
 export class ManageAttendance implements OnInit {
+showSuccess: any;
+resetForm() {
+throw new Error('Method not implemented.');
+}
 
   // dropdown data
   students: any[] = [];
