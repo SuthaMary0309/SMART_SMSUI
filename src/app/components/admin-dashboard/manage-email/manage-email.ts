@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule
     
   ],
-  templateUrl: './manage-mail.html',
+  templateUrl: './manage-email.html',
   styleUrl: './manage-email.css',
 })
 export class ManageEmail {
