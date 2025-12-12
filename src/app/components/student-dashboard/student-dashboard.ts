@@ -1,84 +1,79 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // ✅ Add this
-import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Reports } from "../reports/reports";
+import { StudentProfile } from "./profile/profile";
+import { StudentAttendance } from "../admin-dashboard/manage-attendance/student-attendance/student-attendance";
+import { Exam } from "./exam/exam";
 
 @Component({
   selector: 'app-student-dashboard',
   templateUrl: './student-dashboard.html',
   styleUrls: ['./student-dashboard.css'],
-  imports: [RouterLink,CommonModule,FormsModule]
+  imports: [RouterLink, CommonModule, FormsModule, Reports, StudentProfile, StudentAttendance, Exam,],
+  standalone: true
 })
+
+
 export class StudentDashboardComponent {
+
   userName = "";
+  searchText: string = '';
+  showLogoutPopup: boolean = false;
+
+  // Active view for sidebar navigation
+  activeView: string = 'dashboard'; // default view
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.userName = localStorage.getItem("name") ?? "";
+    this.userName = localStorage.getItem("name") ?? "Student";
   }
 
-
-    searchText: string = '';
-    currentPage: string = '';
-
-   searchPage() {
+  // Search function - உன் original logic அப்படியே
+  searchPage() {
     const text = this.searchText.toLowerCase().trim();
 
     if (text.includes('exam')) {
-      this.currentPage = 'exam';
+      this.activeView = 'exam';
     } else if (text.includes('report')) {
-      this.currentPage = 'reports';
+      this.activeView = 'reports';
     } else if (text.includes('attendance')) {
-      this.currentPage = 'attendance';
+      this.activeView = 'attendance';
     } else if (text.includes('notification')) {
-      this.currentPage = 'notification';
+      this.activeView = 'notification';
     } else {
-      this.currentPage = '';
-      alert('❌ No matching page found!');
+      this.activeView = 'dashboard'; // default
+      alert('No matching page found!');
     }
+    this.searchText = ''; // clear search
   }
-    showLogoutPopup: boolean = false
-  
 
+  // Sidebar Navigation - middle panel change ஆகும்
+  goToAttendance()    { this.activeView = 'attendance'; }
+  goToExamResults()   { this.activeView = 'exam-results'; }
+  goToNotifications() { this.activeView = 'notification'; }
+  goToReports()       { this.activeView = 'reports'; }
+  goToProfile()       { this.activeView = 'profile'; }
 
-   openLogoutPopup() {
-    console.log("Logout popup opened!"); // 👈 check console for this
+  // Show dashboard home
+  goToDashboard() {
+    this.activeView = 'dashboard';
+  }
+
+  // Logout popup
+  openLogoutPopup() {
+    console.log("Logout popup opened!");
     this.showLogoutPopup = true;
-    
-  }
-  
-
-  goToProfile() {
-    this.router.navigate(['/student-profile']);
-
   }
 
-    goToReports() {
-    this.router.navigate(['/reports']);
-  }
-
-   goToAttendance() {
-    this.router.navigate(['/attendance']);
-  }
-
-  goToExamResults() {
-    this.router.navigate(['/exam-results']);
-  }
-
-  goToNotifications() {
-    this.router.navigate(['/notifications']);
-  }
-
-   confirmLogout() {
+  confirmLogout() {
     this.showLogoutPopup = false;
-    this.router.navigate(['/login']); // Go back to login page
+    this.router.navigate(['/login']);
   }
 
   cancelLogout() {
-    this.showLogoutPopup = false; // Just close the popup
+    this.showLogoutPopup = false;
   }
-
 }
-

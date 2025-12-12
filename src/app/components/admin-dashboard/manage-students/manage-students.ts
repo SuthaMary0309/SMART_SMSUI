@@ -8,7 +8,7 @@ import { About } from "../../home/about/about";
 
 @Component({
   selector: 'app-manage-students',
-  imports: [CommonModule, FormsModule, About],
+  imports: [CommonModule, FormsModule],
   templateUrl: './manage-students.html',
   styleUrl: './manage-students.css',
   standalone:true

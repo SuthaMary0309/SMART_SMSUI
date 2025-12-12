@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./manage-attendance.css'],
 })
 export class ManageAttendance implements OnInit {
+showSuccess: any;
 resetForm() {
 throw new Error('Method not implemented.');
 }
@@ -49,5 +50,6 @@ throw new Error('Method not implemented.');
       error: (err) => alert(err.error.message || 'Failed to mark attendance')
     });
   }
+
   
 }

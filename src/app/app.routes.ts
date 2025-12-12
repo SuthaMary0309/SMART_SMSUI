@@ -30,6 +30,7 @@ import { ParentDashboard } from './components/parent-dashboard/parent-dashboard'
 // NEW: Admin Layout Component
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { AuthGuard } from './auth-guard';
+import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
 
 export const routes: Routes = [
 
@@ -40,7 +41,7 @@ export const routes: Routes = [
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports },
-  // { path: 'admin-dashboard', component: AdminDashboard },  // இது இனிமே தேவையில்லை (ஆனா வச்சிட்டேன்)
+  // { path: 'admin-dashboard', component: AdminDashboard },  
   { path: 'attendance', component: Attendance },
   { path: 'home', component: Home },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -48,7 +49,7 @@ export const routes: Routes = [
   { path: 'student-dashboard', component: StudentDashboardComponent},
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports},
-  { path: 'admin-dashboard', component: AdminDashboard },
+  // { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'attendance', component: Attendance},
   { path: 'home', component:Home },
   { path: 'forgot-password',component: ForgotPasswordComponent},
@@ -69,6 +70,8 @@ export const routes: Routes = [
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,},
+  { path: 'ai-assistant', component: AiAssistant},
+
 
     // new layout
   {

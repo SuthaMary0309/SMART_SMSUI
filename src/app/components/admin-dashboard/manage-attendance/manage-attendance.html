@@ -1,36 +1,7 @@
 <!-- attendance.component.html -->
 <div class="page-container">
   <!-- Page Title -->
-  <div class="page-header">
-    <h2>Mark Attendance</h2>
-<<<<<<< HEAD
-    <p>Record daily attendance for students</p>
-=======
-  
-    <div class="form-group">
-      <label>Student:</label>
-      <select [(ngModel)]="selectedStudent">
-        <option value="">-- select student --</option>
-        <option *ngFor="let s of students" [value]="s.studentID">{{ s.studentName }}</option>
-      </select>
-    </div>
-  
-    <div class="form-group">
-      <label>Date:</label>
-      <input type="date" [(ngModel)]="date">
-    </div>
-  
-    <div class="form-group">
-      <label>Status:</label>
-      <select [(ngModel)]="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-    </div>
-  
-    <button (click)="markAttendance()">Submit Attendance</button>
->>>>>>> e162a75ec9279c90d91ec625ae13ce478949835b
-  </div>
+ 
 
   <!-- Attendance Form Card -->
   <div class="attendance-card glass-card">
