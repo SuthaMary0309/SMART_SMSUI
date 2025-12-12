@@ -25,8 +25,6 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-
     ManageStudents,
     ManageClass,
     ManageEmail,

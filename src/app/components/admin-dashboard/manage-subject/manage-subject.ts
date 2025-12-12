@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SubjectService } from '../../../Service/subject-service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+
+import { SubjectService } from '../../../Service/subject-service';
+import { StudentService } from '../../../Service/student-service';
+import { TeacherService } from '../../../Service/teacher-service';
+import { ClassService } from '../../../Service/class-service';
+import { UserService } from '../../../Service/user-service';
 
 @Component({
   selector: 'app-manage-subject',
@@ -13,6 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
 export class ManageSubject implements OnInit {
 
   subjects: any[] = [];
+
+  students: any[] = [];
+  teachers: any[] = [];
+  classes: any[] = [];
+  users: any[] = [];
 
   model: any = {
     subjectName: '',
@@ -25,27 +35,66 @@ export class ManageSubject implements OnInit {
   isEditing = false;
   currentEditId = '';
 
-  constructor(private subjectService: SubjectService) {}
+  constructor(
+    private subjectService: SubjectService,
+    private studentService: StudentService,
+    private teacherService: TeacherService,
+    private classService: ClassService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.loadSubjects();
+    this.loadStudents();
+    this.loadTeachers();
+    this.loadClasses();
+    this.loadUsers();
   }
 
   loadSubjects() {
-    this.subjectService.getAll().subscribe({
-      next: (res: any) => {
-        this.subjects = res;
-      },
-      error: (err) => console.error("Failed to load subjects", err)
-    });
+    this.subjectService.getAll().subscribe(res => this.subjects = res as any[]);
+  }
+
+  loadStudents() {
+    this.studentService.getAll().subscribe(res => this.students = res as any[]);
+  }
+
+  loadTeachers() {
+    this.teacherService.getAll().subscribe(res => this.teachers = res as any[]);
+  }
+
+  loadClasses() {
+    this.classService.getAll().subscribe(res => this.classes = res as any[]);
+  }
+
+  loadUsers() {
+    this.userService.getAllUsers().subscribe(res => this.users = res as any[]);
+  }
+
+  // 🔍 DUPLICATE CHECK
+  isDuplicate(): boolean {
+    return this.subjects.some(s =>
+      s.subjectName.toLowerCase() === this.model.subjectName.toLowerCase() &&
+      s.classID === this.model.classID &&
+      s.teacherID === this.model.teacherID &&
+      (!this.isEditing || s.subjectID !== this.currentEditId)
+    );
   }
 
   onSubmit() {
-    if (this.isEditing) {
-      this.update();
-    } else {
-      this.add();
+    if (!this.model.subjectName || !this.model.classID ||
+        !this.model.teacherID || !this.model.userID || !this.model.studentID) {
+      alert("⚠️ All fields are required!");
+      return;
     }
+
+    if (this.isDuplicate()) {
+      alert("⚠️ Duplicate entry! Same subject already exists for this class & teacher.");
+      return;
+    }
+
+    if (this.isEditing) this.update();
+    else this.add();
   }
 
   add() {
@@ -55,10 +104,7 @@ export class ManageSubject implements OnInit {
         this.loadSubjects();
         this.reset();
       },
-      error: (err) => {
-        console.error("Add failed", err);
-        alert("Failed to add subject");
-      }
+      error: () => alert("Add failed")
     });
   }
 
@@ -82,25 +128,13 @@ export class ManageSubject implements OnInit {
         this.loadSubjects();
         this.reset();
       },
-      error: (err) => {
-        console.error("Update failed", err);
-        alert("Failed to update subject");
-      }
+      error: () => alert("Failed to update")
     });
   }
 
   delete(id: string) {
-    if (confirm("Are you sure to delete this subject?")) {
-      this.subjectService.delete(id).subscribe({
-        next: () => {
-          alert("Deleted successfully!");
-          this.loadSubjects();
-        },
-        error: (err) => {
-          console.error("Delete failed", err);
-          alert("Failed to delete subject");
-        }
-      });
+    if (confirm("Delete subject?")) {
+      this.subjectService.delete(id).subscribe(() => this.loadSubjects());
     }
   }
 
@@ -115,5 +149,4 @@ export class ManageSubject implements OnInit {
     this.isEditing = false;
     this.currentEditId = '';
   }
-
 }

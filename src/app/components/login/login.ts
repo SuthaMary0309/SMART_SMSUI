@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../Service/login-service';
 import { FormsModule } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-login',
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule, RouterLink],
 })
 export class LoginComponent {
 
@@ -20,39 +20,39 @@ export class LoginComponent {
   loginUser() {
     this.loginService.login(this.email, this.password).subscribe({
       next: (res: any) => {
-  
+
+        // Always store token & role
         localStorage.setItem("token", res.token);
-        localStorage.setItem("role", res.role);   // ✔ Store role
-        localStorage.setItem("name", res.name);   // ✔ Store username
-  
-        alert("Login Success");
-  
-        // ✔ ROLE WISE REDIRECT
-        if (res.role === 'Admin') {
-          this.router.navigate(['/admin-layout']);
-        } 
-        else if (res.role === 'Teacher') {
-          this.router.navigate(['/teacher-dashboard']);
-        } 
-        else if (res.role === 'Student') {
+        localStorage.setItem("role", res.role);
+
+        // Store user details depending on role
+        if (res.role === 'Student') {
+          localStorage.setItem("studentID", res.studentID);  // Make sure backend returns this
+          localStorage.setItem("name", res.studentName);     // Greeting name
           this.router.navigate(['/student-dashboard']);
-        } 
-        else if (res.role === 'Parent') {
+        } else if (res.role === 'Admin') {
+          localStorage.setItem("name", res.name);
+          this.router.navigate(['/admin-layout']);
+        } else if (res.role === 'Teacher') {
+          localStorage.setItem("name", res.name);
+          this.router.navigate(['/teacher-layout']);
+        } else if (res.role === 'Parent') {
+          localStorage.setItem("name", res.name);
           this.router.navigate(['/parent-dashboard']);
-        } 
-        else {
+        } else {
           this.router.navigate(['/login']);
         }
+
+        alert("Login Success");
       },
-  
+
       error: err => {
         alert("Login Failed");
       }
     });
   }
-  
+
   loginButton() {
     this.loginUser();
   }
-  
 }
