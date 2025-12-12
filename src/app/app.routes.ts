@@ -66,7 +66,7 @@ export const routes: Routes = [
   { path: 'exam', component: ManageExam },
   { path: 'marks', component: ManageMarks },
   { path: 'email', component: ManageEmail },
-  { path: 'parent', component: ManageParent },
+  { path: 'parent', component: ManageParents },
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,},

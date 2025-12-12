@@ -13,6 +13,9 @@ import { StudentService } from '../../../Service/student-service';
   
 })
 export class ManageStudents implements OnInit {
+searchStudents($event: Event) {
+throw new Error('Method not implemented.');
+}
 
   constructor(private studentService: StudentService) {}
 
