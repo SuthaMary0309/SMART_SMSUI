@@ -124,7 +124,7 @@ export class ManageStudents implements OnInit {
         this.resetForm();
         this.loadStudents();
       },
-      error: err => alert("Failed to save student")
+      error: err => console.log(err)
     });
   }
 
