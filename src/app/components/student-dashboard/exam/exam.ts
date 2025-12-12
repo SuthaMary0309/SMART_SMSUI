@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { UnitsTest } from "../../students/exam/units-test/units-test";
 
 @Component({
   selector: 'app-exam',
-  imports: [UnitsTest],
   templateUrl: './exam.html',
   styleUrl: './exam.css',
 })
