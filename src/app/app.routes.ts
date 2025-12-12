@@ -21,22 +21,22 @@ import { ManageNotification } from './components/admin-dashboard/manage-notifica
 import { ManageExam } from './components/admin-dashboard/manage-exam/manage-exam';
 import { ManageMarks } from './components/admin-dashboard/manage-marks/manage-marks';
 import { ManageEmail } from './components/admin-dashboard/manage-email/manage-email';
-import { ManageParent } from './components/teacher-dashboard/manage-parent/manage-parent';
 import { ManageReports } from './components/admin-dashboard/manage-reports/manage-reports';
 import { ManageProfile } from './components/admin-dashboard/manage-profile/manage-profile';
 import { RoleGuard } from './role-guard';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
-
-// NEW: Admin Layout Component
-import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { AuthGuard } from './auth-guard';
 import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
+import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
+import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
+import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
 
 export const routes: Routes = [
 
 
+  // Auth
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'student-profile', component: StudentProfile },
@@ -74,6 +74,47 @@ export const routes: Routes = [
 
 
     // new layout
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPassword },
+  { path: 'admin-layout', component: AdminLayoutComponent},
+
+  // Dashboards with RoleGuard
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboard,
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] }
+  },
+  {
+    path: 'student-dashboard',
+    component: StudentDashboardComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['Student'] }
+  },
+  {
+    path: 'teacher-dashboard',
+    component: TeacherDashboard,
+    canActivate: [RoleGuard],
+    data: { roles: ['Teacher'] }
+  },
+  {
+    path: 'parent-dashboard',
+    component: ParentDashboard,
+    canActivate: [RoleGuard],
+    data: { roles: ['Parent'] }
+  },
+
+  // Student routes
+  { path: 'student-profile', component: StudentProfile, canActivate: [AuthGuard] },
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'attendance', component: Attendance, canActivate: [AuthGuard] },
+  { path: 'exam-results', component: Exam, canActivate: [AuthGuard] },
+  { path: 'reports', component: Reports, canActivate: [AuthGuard] },
+
+  // Home
+  { path: 'home', component: Home },
+
+  // Admin Layout with children
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -90,7 +131,7 @@ export const routes: Routes = [
       { path: 'exam', component: ManageExam },
       { path: 'marks', component: ManageMarks },
       { path: 'email', component: ManageEmail },
-      { path: 'parent', component: ManageParent },
+      { path: 'parent', component: ManageParents },
       { path: 'report', component: ManageReports },
       { path: 'profile', component: ManageProfile },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
@@ -98,7 +139,7 @@ export const routes: Routes = [
   },
 
   // Fallback
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

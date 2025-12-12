@@ -1,75 +1,71 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../../../Service/student-service';
 import { FormsModule } from '@angular/forms';
-import { inject } from '@angular/core/primitives/di';
-import {  HttpClientModule } from '@angular/common/http';
-import { About } from "../../home/about/about";
+import { HttpClientModule } from '@angular/common/http';
+import { StudentService } from '../../../Service/student-service';
 
 @Component({
   selector: 'app-manage-students',
-  imports: [CommonModule, FormsModule, HttpClientModule],
-  templateUrl: './manage-students.html',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl :'./manage-students.html',
   styleUrl: './manage-students.css',
-  
   
 })
 export class ManageStudents implements OnInit {
-searchStudents($event: Event) {
-throw new Error('Method not implemented.');
-}
-  constructor(private studentService:StudentService){
-    
-  } 
+
+  constructor(private studentService: StudentService) {}
 
   students: any[] = [];
+
   student: any = {
     studentName: '',
     phoneNo: '',
     address: '',
     email: '',
-    userID: '',
-    classID: ''
+    classID: '',
   };
 
   editMode: boolean = false;
   editID: string = '';
 
   ngOnInit(): void {
-    console.log('Manage ComponentLoaded')
     this.loadStudents();
-
-    // Dummy GUIDs for testing
-    this.student.userID = '11111111-1111-1111-1111-111111111111';
-    this.student.classID = '22222222-2222-2222-2222-222222222222';
   }
 
   loadStudents() {
-    this.studentService.getAll().subscribe(  {
+    this.studentService.getAll().subscribe({
       next: (res: any) => {
-      this.students = res;
-    },
-     error: (err:any) => {
-      console.error("Failed to load students", err);
-    }
+        this.students = res;
+      },
+      error: (err: any) => {
+        console.error("Failed to load students", err);
+      }
     });
   }
-  
-  
 
   saveStudent() {
-    if (!this.student.studentName || !this.student.email || !this.student.address || !this.student.phoneNo) {
+
+    // ----------- FRONT-END VALIDATIONS ----------------
+    if (!this.student.studentName || !this.student.email || !this.student.classID) {
       alert("Please fill all required fields");
       return;
     }
 
-    const payload = {
+    // Email format validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.student.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    // convert classID to Guid (backend expects GUID)
+    let payload = {
       studentName: this.student.studentName,
       phoneNo: this.student.phoneNo,
       address: this.student.address,
       email: this.student.email,
-      userID: this.student.userID,
-      classID: this.student.classID
+      classID: this.student.classID,   // FIXED: send as GUID STRING
     };
 
     const request$ = this.editMode
@@ -80,45 +76,45 @@ throw new Error('Method not implemented.');
       next: () => {
         alert(this.editMode ? "Student updated successfully!" : "Student added successfully!");
         this.resetForm();
-        this.loadStudents(); // refresh table
+        this.loadStudents();
       },
       error: (err: any) => {
         console.error("Save student failed:", err);
-        let errorMsg = "Unknown error";
-        if (err.error && err.error.detail) {
-          errorMsg = err.error.detail;
-        } else if (err.message) {
-          errorMsg = err.message;
+
+        if (err.error?.errors?.Email) {
+          alert(err.error.errors.Email[0]);
+          return;
         }
-        alert("Error saving student: " + errorMsg);
+
+        alert("Error saving student");
       }
     });
   }
 
-  editStudent(st: any) {
+  editStudent(s: any) {
     this.editMode = true;
-    this.editID = st.studentID;
+    this.editID = s.studentID;
 
     this.student = {
-      studentName: st.studentName,
-      phoneNo: st.phoneNo,
-      address: st.address,
-      email: st.email,
-      userID: st.userID,
-      classID: st.classID
+      studentName: s.studentName,
+      phoneNo: s.phoneNo,
+      address: s.address,
+      email: s.email,
+      classID: s.classID,
     };
   }
 
   deleteStudent(id: string) {
     if (confirm("Are you sure to delete this student?")) {
-      this.studentService.delete(id).subscribe( {
-        next: ()=>{
-        alert("Deleted successfully!");
-        this.loadStudents();
-      }, error: (err:any) => {
-        console.error("Delete failed", err);
-        alert("Failed to delete student");
-      }
+      this.studentService.delete(id).subscribe({
+        next: () => {
+          alert("Student deleted!");
+          this.loadStudents();
+        },
+        error: (err: any) => {
+          console.error("Delete failed", err);
+          alert("Failed to delete student");
+        }
       });
     }
   }
@@ -126,15 +122,13 @@ throw new Error('Method not implemented.');
   resetForm() {
     this.student = {
       studentName: '',
-      email: '',
       phoneNo: '',
       address: '',
-      userID: '11111111-1111-1111-1111-111111111111',
-      classID: '22222222-2222-2222-2222-222222222222',
-      studentID: '33333333-3333-3333-3333-333333333333'
+      email: '',
+      classID: '',
     };
+
     this.editMode = false;
     this.editID = '';
   }
-
 }
