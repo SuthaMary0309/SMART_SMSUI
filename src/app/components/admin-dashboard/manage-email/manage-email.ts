@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule
     
   ],
-  templateUrl: './manage-email.html',
+  templateUrl: './manage-mail.html',
   styleUrl: './manage-email.css',
 })
 export class ManageEmail {
@@ -17,6 +17,7 @@ export class ManageEmail {
     subject: '',
     body: ''
   };
+message: any;
 
   constructor(private emailService: EmailService) {}
 
@@ -39,3 +40,4 @@ export class ManageEmail {
   }
 
 }
+

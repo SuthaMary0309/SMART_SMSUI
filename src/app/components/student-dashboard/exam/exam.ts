@@ -3,7 +3,7 @@ import { UnitsTest } from "../../students/exam/units-test/units-test";
 
 @Component({
   selector: 'app-exam',
-  imports: [UnitsTest],
+  imports: [],
   templateUrl: './exam.html',
   styleUrl: './exam.css',
 })

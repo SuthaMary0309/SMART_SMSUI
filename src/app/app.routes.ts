@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// உன் existing imports (அப்படியே இருக்கு)
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { StudentDashboardComponent } from "./components/student-dashboard/student-dashboard";
@@ -14,6 +13,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password';
 import { EditProfileComponent } from './components/student-dashboard/profile/edit-profile/edit-profile';
 import { Exam } from './components/student-dashboard/exam/exam';
+
 import { ManageTeachers } from './components/admin-dashboard/manage-teachers/manage-teachers';
 import { ManageStudents } from './components/teacher-dashboard/manage-students/manage-students';
 import { ManageClass } from './components/admin-dashboard/manage-class/manage-class';
@@ -26,27 +26,25 @@ import { ManageEmail } from './components/admin-dashboard/manage-email/manage-em
 import { ManageParent } from './components/teacher-dashboard/manage-parent/manage-parent';
 import { ManageReports } from './components/admin-dashboard/manage-reports/manage-reports';
 import { ManageProfile } from './components/admin-dashboard/manage-profile/manage-profile';
-
-// NEW: Admin Layout Component
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { AuthGuard } from './auth-guard';
 
 export const routes: Routes = [
 
-  // உன் existing routes அப்படியே இருக்கு (மாற்றல!)
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'student-dashboard', component: StudentDashboardComponent,canActivate: [AuthGuard] },
-  { path: 'student-profile', component: StudentProfile,canActivate: [AuthGuard] },
-  { path: 'reports', component: Reports,canActivate: [AuthGuard] },
-  // { path: 'admin-dashboard', component: AdminDashboard },  // இது இனிமே தேவையில்லை (ஆனா வச்சிட்டேன்)
-  { path: 'attendance', component: Attendance,canActivate: [AuthGuard] },
+  { path: 'student-dashboard', component: StudentDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'student-profile', component: StudentProfile, canActivate: [AuthGuard] },
+  { path: 'reports', component: Reports, canActivate: [AuthGuard] },
+  { path: 'attendance', component: Attendance, canActivate: [AuthGuard] },
   { path: 'home', component: Home },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'exam-results', component: Exam },
+
+  // SIMPLE PAGES
   { path: 'teachers', component: ManageTeachers },
   { path: 'students', component: ManageStudents },
   { path: 'class', component: ManageClass },
@@ -58,28 +56,9 @@ export const routes: Routes = [
   { path: 'email', component: ManageEmail },
   { path: 'parent', component: ManageParent },
   { path: 'report', component: ManageReports },
-  { path: 'adminprofile', component: ManageProfile },
-  { path: 'admin-layout', component: AdminLayoutComponent,canActivate: [AuthGuard]},
-  { path: 'attendance_2', component:ManageAttendance},
-  { path: 'email',component: EmailCrud},
-  { path: 'teacher',component:ManageTeachers},
-  { path: 'exam',component: ManageExam},
-  { path:'student',component:ManageStudents},
-  { path:'teacher-dashboard',component: TeacherDashboard},
-  { path:'class', component: ManageClass},
-  { path:'subject', component:ManageSubject},
-  { path: 'marks', component:ManageMarks},
-  { path: 'email', component:ManageEmail},
-  { path : 'notification', component:ManageNotification },
-  { path: 'parent',component: ManageParents},
-  { path: 'report',component:ManageReports},
-  { path:'profile',component:ManageProfile}
-];
+  { path: 'profile', component: ManageProfile },
 
-  
-  
-
-  // NEW: Admin Panel with Layout (Sidebar + Topbar) - இது மட்டும் புதுசு!
+  // ⭐ NEW ADMIN PANEL (Sidebar + Topbar Layout)
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -105,6 +84,7 @@ export const routes: Routes = [
   // Fallback
   { path: '**', redirectTo: '/home' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
