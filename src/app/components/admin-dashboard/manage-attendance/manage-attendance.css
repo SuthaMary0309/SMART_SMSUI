@@ -54,9 +54,10 @@
 /* Form Grid */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 35px;
-  margin-bottom: 50px;
+  grid-template-columns: 380px 1fr;
+  gap: 20px;
+  padding: 18px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 /* Input Group */

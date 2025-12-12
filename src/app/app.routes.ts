@@ -30,6 +30,7 @@ import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
 import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
+import { TeacherLayout } from './components/teacher-dashboard/teacher-layout/teacher-layout';
 
 export const routes: Routes = [
 
@@ -41,7 +42,6 @@ export const routes: Routes = [
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports },
-  // { path: 'admin-dashboard', component: AdminDashboard },  
   { path: 'attendance', component: Attendance },
   { path: 'home', component: Home },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -66,7 +66,7 @@ export const routes: Routes = [
   { path: 'exam', component: ManageExam },
   { path: 'marks', component: ManageMarks },
   { path: 'email', component: ManageEmail },
-  { path: 'parent', component: ManageParent },
+  { path: 'parent', component: ManageParents },
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,},
@@ -77,6 +77,7 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPassword },
   { path: 'admin-layout', component: AdminLayoutComponent},
+  { path: 'teacher-layout', component: TeacherLayout},
 
   // Dashboards with RoleGuard
   {
@@ -123,6 +124,28 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'teachers', component: ManageTeachers },
+      { path: 'students', component: ManageStudents },
+      { path: 'class', component: ManageClass },
+      { path: 'attendance', component: ManageAttendance },
+      { path: 'subject', component: ManageSubject },
+      { path: 'notification', component: ManageNotification },
+      { path: 'exam', component: ManageExam },
+      { path: 'marks', component: ManageMarks },
+      { path: 'email', component: ManageEmail },
+      { path: 'parent', component: ManageParents },
+      { path: 'report', component: ManageReports },
+      { path: 'profile', component: ManageProfile },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+
+  {
+    path: 'teacher',
+    component: TeacherLayout,
+
+      
+    children: [
+      { path: 'dashboard', component: TeacherDashboard },
       { path: 'students', component: ManageStudents },
       { path: 'class', component: ManageClass },
       { path: 'attendance', component: ManageAttendance },

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TeacherLayout } from './teacher-layout/teacher-layout';
 
 @Component({
   selector: 'app-teacher-dashboard',
-  imports: [RouterLink],
   templateUrl: './teacher-dashboard.html',
   styleUrl: './teacher-dashboard.css',
 })
