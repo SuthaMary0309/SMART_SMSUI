@@ -1,1 +1,37 @@
-<p>exam works!</p>
+<div class="student-exams-panel">
+  <h3>Your Exams</h3>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="controls" *ngIf="!error">
+    <input type="text" placeholder="Search exams or subjects..." [(ngModel)]="searchKey" (input)="applySearch()" />
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading exams...</div>
+
+  <div *ngIf="!loading && filteredExams.length === 0 && !error" class="empty">
+    No exams scheduled for your class.
+  </div>
+
+  <table *ngIf="!loading && filteredExams.length > 0" class="exams-table">
+    <thead>
+      <tr>
+        <th>Exam Name</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of filteredExams">
+        <td>{{ e.examName || e.name || 'N/A' }}</td>
+        <td>{{ e.subjectName || e.subject?.subjectName || 'N/A' }}</td>
+        <td>{{ formatDate(e.examDate || e.date) }}</td>
+        <td>{{ formatExamTime(e) }}</td>
+
+        <td>{{ e.notes || e.description || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

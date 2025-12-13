@@ -8,6 +8,9 @@ export class UserService {
   private http = inject(HttpClient)
 
   AddUser(userName:string,age:number,email:string,role:string){
-    return this.http.post(`http://localhost:5283/api/user/add?userName=${userName}&age=${age}&email=${email}&role=${role}`,"")
+    return this.http.post(`https://smartsms.runasp.net/api/user/add?userName=${userName}&age=${age}&email=${email}&role=${role}`,"")
+  }
+  getAllUsers(){
+    return this.http.get(`https://smartsms.runasp.net/api/user/get-all`)
   }
 }

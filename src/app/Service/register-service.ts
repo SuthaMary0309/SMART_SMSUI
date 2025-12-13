@@ -6,20 +6,21 @@ import { Injectable, inject } from '@angular/core';
 })
 export class RegisterService {
   private http = inject(HttpClient);
-  private baseUrl = "http://localhost:5283/api/auth";
+  private baseUrl = "https://smartsms.runasp.net/api/auth";
 
 
   register(userName: string, email: string, password: string, role: string, confirmPassword: string) {
     const body = {
-      UserName: userName,            // must match C# property
-      Email: email,
-      Password: password,
-      ConfirmPassword: confirmPassword, // match exact case
-      Role: role
+      userName,
+      email,
+      password,
+      confirmPassword,
+      role,
+      admissionNumber: null
     };
-  
-    return this.http.post("http://localhost:5283/api/auth/register", body);
+    return this.http.post(`${this.baseUrl}/register`, body);
   }
+  
   
 }
 

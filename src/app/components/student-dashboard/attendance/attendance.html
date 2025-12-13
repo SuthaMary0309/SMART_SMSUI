@@ -1,78 +1,21 @@
-<div class="attendance-container">
-  <h1>Student Attendance</h1>
+<h3>My Attendance</h3>
 
-  <div class="filter-section">
-    <div class="filter-group">
-      <label>From</label>
-      <input type="date" />
-    </div>
-    <div class="filter-group">
-      <label>To</label>
-      <input type="date" />
-    </div>
-    <div class="filter-group">
-      <label>Class</label>
-      <select>
-        <option>All</option>
-        <option>Primary</option>
-        <option>Secondary</option>
-      </select>
-    </div>
-    <button type="button" class="btn btn-primary">Primary</button>
-  </div>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
 
-  <div class="summary-cards">
-    <div class="card present">
-      <h3>Present</h3>
-      <p>25</p>
-    </div>
-    <div class="card absent">
-      <h3>Absent</h3>
-      <p>5</p>
-    </div>
-    <div class="card late">
-      <h3>Late</h3>
-      <p>2</p>
-    </div>
-  </div>
+  <tbody>
+    <tr *ngFor="let a of attendanceList">
+      <td>{{ a.date | date }}</td>
+      <td>{{ a.status }}</td>
+    </tr>
+  </tbody>
+</table>
 
-  <div class="table-section">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Student ID</th>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Remarks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2025-11-07</td>
-          <td>S001</td>
-          <td>Adithya</td>
-          <td><span class="status present">Present</span></td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>2025-11-07</td>
-          <td>S002</td>
-          <td>Bala</td>
-          <td><span class="status absent">Absent</span></td>
-          <td>Sick leave</td>
-        </tr>
-        <tr>
-          <td>2025-11-07</td>
-          <td>S003</td>
-          <td>Charan</td>
-          <td><span class="status late">Late</span></td>
-          <td>Bus delay</td>
-        </tr>
-      </tbody>
-    </table>
-</div>
-<div>
-<button [routerLink]="'/student-dashboard'" class="back-btn" > ⬅️ Back to Dashboard</button>
-</div>
-
+<p *ngIf="attendanceList.length === 0">
+  No attendance records found
+</p>

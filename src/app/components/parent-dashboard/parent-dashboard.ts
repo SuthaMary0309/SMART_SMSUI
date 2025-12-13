@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './parent-dashboard.css',
 })
 export class ParentDashboard {
+  name = "";
 
+  ngOnInit() {
+    this.name = localStorage.getItem("name") ?? "";
+  }
 }

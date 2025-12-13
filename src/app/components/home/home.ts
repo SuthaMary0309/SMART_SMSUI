@@ -3,10 +3,11 @@ import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { About } from "./about/about";
 import { Navbar } from "./navbar/navbar";
+import { ChatbotButtonComponent } from "./chatbot-button/chatbot-button";
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, RouterLink, Navbar, About],
+  imports: [FormsModule, Navbar, About, ChatbotButtonComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

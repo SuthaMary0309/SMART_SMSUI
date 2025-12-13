@@ -1,75 +1,67 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // ✅ Add this
-import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { StudentService } from '../../Service/student-service';
+import { StudentProfile } from "./profile/profile";
+import { Exam } from "./exam/exam";
+import { Attendance } from './attendance/attendance';
+import { Reports } from '../reports/reports';
 
 @Component({
   selector: 'app-student-dashboard',
+  standalone: true,
+  imports: [RouterLink, CommonModule,FormsModule,Attendance, Reports, StudentProfile, Exam],
   templateUrl: './student-dashboard.html',
-  styleUrls: ['./student-dashboard.css'],
-  imports: [RouterLink,CommonModule,]
+  styleUrls: ['./student-dashboard.css']
 })
-export class StudentDashboardComponent {
-    searchText: string = '';
-    currentPage: string = '';
-
-   searchPage() {
-    const text = this.searchText.toLowerCase().trim();
-
-    if (text.includes('exam')) {
-      this.currentPage = 'exam';
-    } else if (text.includes('report')) {
-      this.currentPage = 'reports';
-    } else if (text.includes('attendance')) {
-      this.currentPage = 'attendance';
-    } else if (text.includes('notification')) {
-      this.currentPage = 'notification';
-    } else {
-      this.currentPage = '';
-      alert('❌ No matching page found!');
-    }
-  }
-    showLogoutPopup: boolean = false
-  constructor(private router: Router) {}
-
-
-   openLogoutPopup() {
-    console.log("Logout popup opened!"); // 👈 check console for this
-    this.showLogoutPopup = true;
-    
-  }
-  
-
-  goToProfile() {
-    this.router.navigate(['/student-profile']);
-
-  }
-
-    goToReports() {
-    this.router.navigate(['/reports']);
-  }
-
-   goToAttendance() {
-    this.router.navigate(['/attendance']);
-  }
-
-  goToExamResults() {
-    this.router.navigate(['/exam-results']);
-  }
-
-  goToNotifications() {
-    this.router.navigate(['/notifications']);
-  }
-
-   confirmLogout() {
-    this.showLogoutPopup = false;
-    this.router.navigate(['/login']); // Go back to login page
-  }
-
-  cancelLogout() {
-    this.showLogoutPopup = false; // Just close the popup
-  }
-
+export class StudentDashboard implements OnInit {
+searchPage() {
+throw new Error('Method not implemented.');
 }
 
+
+  userName: string = '';
+  student: any = {}; // Only this student’s details
+  showLogoutPopup: boolean = false;
+
+  activeView: string = 'dashboard'; // << Add this line
+  searchText: string = '';          // << Add this for search box binding
+
+  constructor(private router: Router, private studentService: StudentService) {}
+
+  ngOnInit(): void {
+    this.userName = localStorage.getItem("name") ?? "";
+    const studentID = localStorage.getItem("studentID");
+
+    if (studentID) {
+      this.loadStudentDetails(studentID);
+    } else {
+      alert("Student not logged in!");
+      this.router.navigate(['/login']);
+    }
+  }
+
+  loadStudentDetails(id: string) {
+    this.studentService.getById(id).subscribe({
+      next: (res: any) => { this.student = res; },
+      error: (err: any) => { 
+        console.error("Failed to load student details", err);
+        alert("Failed to load your details."); 
+      }
+    });
+  }
+
+  openLogoutPopup(): void { this.showLogoutPopup = true; }
+  confirmLogout(): void { 
+    this.showLogoutPopup = false; 
+    localStorage.clear(); 
+    this.router.navigate(['/login']); 
+  }
+  cancelLogout(): void { this.showLogoutPopup = false; }
+}
+  
+
+
+  
+  // Navigation

@@ -1,0 +1,168 @@
+.page-container {
+  padding: 40px 30px;
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Title - Clean Cyan Text */
+.page-header h2 {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00ffff, #00aaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 50px;
+}
+
+/* Form - Clean Premium Dark Style */
+.class-form {
+  max-width: 900px;
+  margin: 0 auto 60px;
+  padding: 40px;
+  background: rgba(10, 25, 60, 0.6);
+  border-radius: 28px;
+  border: 3px solid rgba(0, 208, 255, 0.5);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+/* Input Fields - Clean */
+.class-form input {
+  width: 100%;
+  padding: 20px 25px;
+  margin: 15px 0;
+  background: rgba(5, 20, 60, 0.8);
+  border: 3px solid rgba(0, 208, 255, 0.6);
+  border-radius: 18px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-shadow: inset 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.class-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.class-form input:focus {
+  border-color: #00ffff;
+  background: rgba(10, 40, 100, 0.9);
+}
+
+/* Buttons - Clean Hover */
+.class-form button {
+  padding: 18px 45px;
+  margin: 20px 15px 10px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  min-width: 180px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.class-form button[type="submit"] {
+  background: linear-gradient(90deg, #00d0ff, #0066ff);
+  color: white;
+}
+
+.class-form button[type="button"] {
+  background: transparent;
+  color: #00d0ff;
+  border: 3px solid #00d0ff;
+}
+
+.class-form button[type="submit"]:hover {
+  background: linear-gradient(90deg, #00ffff, #0088ff);
+}
+
+.class-form button[type="button"]:hover {
+  background: rgba(0, 208, 255, 0.2);
+}
+
+/* Table - Clean Headers */
+table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+  background: transparent;
+}
+
+th {
+  padding: 25px 20px;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #00d0ff, #00aaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 4px solid rgba(0, 255, 255, 0.6);
+}
+
+td {
+  padding: 25px 20px;
+  background: rgba(10, 30, 80, 0.5);
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0f7ff;
+  text-align: center;
+}
+
+tr:hover td {
+  background: rgba(0, 208, 255, 0.3);
+}
+
+/* Action Buttons - Clean Hover */
+td button {
+  padding: 14px 24px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+td button:first-child {
+  background: linear-gradient(135deg, #ffa726, #ff7043);
+  color: white;
+}
+
+td button:last-child {
+  background: linear-gradient(135deg, #ff5252, #e91e63);
+  color: white;
+}
+
+td button:first-child:hover {
+  background: linear-gradient(135deg, #ffb84d, #ff8a65);
+}
+
+td button:last-child:hover {
+  background: linear-gradient(135deg, #ff6b6b, #f06292);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .class-form {
+    padding: 30px;
+  }
+  .page-header h2 { font-size: 40px; }
+  .class-form input { padding: 18px 20px; }
+}

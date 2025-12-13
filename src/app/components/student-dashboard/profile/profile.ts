@@ -1,79 +1,43 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { StudentService } from '../../../Service/student-service'; // make sure path is correct
 
 @Component({
   selector: 'app-student-profile',
   templateUrl: './profile.html',
-  styleUrls: ['./profile.css'],
-  standalone: true,
-  imports: [FormsModule, ]
+  styleUrls: ['./profile.css']
 })
-export class StudentProfile {
-  studetntService: any;
-  studentService: any;
-saveChanges() {
+export class StudentProfile implements OnInit {
+goBack() {
+throw new Error('Method not implemented.');
+}
+editProfile() {
+throw new Error('Method not implemented.');
+}
+onFileSelected($event: Event) {
 throw new Error('Method not implemented.');
 }
 
-  @ViewChild('fileInput') fileInput!: ElementRef;
+  private studentService = inject(StudentService); // ✅ proper inject
+  student: any = {};
+studentAvatar: any;
 
-  studentAvatar = "https://via.placeholder.com/140";
-
-  student = {
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    phone: "+94 77 123 4567",
-    address: "123, Main Street, Colombo",
-    school: "ABC International School",
-    grade: "10",
-    classroom: "A1",
-    extra: ""
-  };
-
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    const data = this.studentService.getStudent();
-    this.student = data;
-    this.studentAvatar = data.avatar;
-  }
-
-  // Open file manager / phone gallery
-  triggerFileInput() {
-    this.fileInput.nativeElement.click();
-  }
-
-  // When a profile image is selected
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.studentAvatar = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+  ngOnInit(): void {
+    const studentID = localStorage.getItem("studentID");
+    if (!studentID) {
+      alert("Student not logged in!");
+      return;
     }
-  }
 
-  // Back button
-  goBack() {
-    this.router.navigate(['/student-dashboard']);
+    // Call getStudent
+    this.studentService.getById(studentID).subscribe({
+      next: (res: any) => {
+        this.student = res;
+      },
+      error: (err: any) => {
+        console.error("Failed to load student profile", err);
+        alert("Failed to load student profile");
+      }
+    });
   }
-
-  // Navigate to edit page
-  editProfile() {
-    this.router.navigate(['/edit-profile']);
-  }
-
-  // Delete profile data
-  deleteProfile() {
-    if (confirm("Are you sure you want to delete this profile?")) {
-      alert("Profile deleted!");
-    }
-  }
-
-  
- 
+  triggerFileInput(){}
 }

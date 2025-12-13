@@ -1,0 +1,115 @@
+<!-- Add/Edit Form Card -->
+<div class="form-card glass-card">
+  <h3>{{ editMode ? 'Update Student' : 'Add New Student' }}</h3>
+
+  <form (ngSubmit)="saveStudent()" class="student-form">
+    <div class="form-grid">
+      <div class="input-group">
+        <i class="bi bi-person-fill"></i>
+        <input placeholder="Student Name" [(ngModel)]="student.studentName" name="studentName" required>
+      </div>
+      <div class="input-group">
+        <i class="bi bi-telephone-fill"></i>
+        <input placeholder="Phone Number" [(ngModel)]="student.phoneNo" name="phoneNo" required>
+      </div>
+      <div class="input-group">
+        <i class="bi bi-house-fill"></i>
+        <input placeholder="Address" [(ngModel)]="student.address" name="address" required>
+      </div>
+      <div class="input-group">
+        <i class="bi bi-envelope-fill"></i>
+        <input type="email" placeholder="Email Address" [(ngModel)]="student.email" name="email" required>
+      </div>
+      <div class="input-group">
+        <i class="bi bi-building"></i>
+        <input type="hidden" [(ngModel)]="student.classID" name="classID">
+      </div>
+      <input type="hidden" [(ngModel)]="student.userID" name="userID">
+    </div>
+    <div class="input-group">
+      <i class="bi bi-building"></i>
+      <select [(ngModel)]="student.classID" name="classID" required (change)="onClassChange($event)">
+        <option value="" disabled>-- Select Class --</option>
+        <option *ngFor="let c of classes" [value]="c.classId">
+          {{ c.className }} (Grade {{ c.grade }})
+        </option>
+      </select>
+          
+      <span class="select-arrow">▼</span>
+    </div>
+    
+
+          <!-- User Dropdown -->
+          <div class="input-group">
+            <i class="bi bi-person-fill"></i>
+            <select [(ngModel)]="student.userID" name="userID" required>
+              <option value="" disabled>-- Select User --</option>
+              <option *ngFor="let u of users" [value]="u.userID">
+                {{ u.fullName }} ({{ u.email }})
+              </option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">
+        <i class="bi bi-check-circle"></i>
+        {{ editMode ? 'Update Student' : 'Add Student' }}
+      </button>
+      <button type="button" class="btn-secondary" (click)="resetForm()">
+        <i class="bi bi-arrow-clockwise"></i> Clear Form
+      </button>
+    </div>
+
+<!-- Students Table Card -->
+    <div class="table-card glass-card">
+      <div class="table-header">
+        <h3>All Students ({{ students.length }})</h3>
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Search students..." (input)="searchStudents($event)">
+        </div>
+      </div>
+
+  <div class="table-responsive">
+    <table class="students-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>User ID</th>
+          <th>Class</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students; let i = index" class="table-row">
+          <td>
+            <div class="student-info">
+              <div class="avatar">
+                <i class="bi bi-person-circle"></i>
+              </div>
+              <strong>{{ s.studentName }}</strong>
+            </div>
+       
+          </td>
+          <td>{{ s.phoneNo }}</td>
+          <td>{{ s.email }}</td>
+          <td>{{ s.address }}</td>
+          <td><span class="user-id">{{ s.userID }}</span></td>
+          <td><span class="class-id">{{ s.classID }}</span></td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editStudent(s)" title="Edit">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn-delete" (click)="deleteStudent(s.studentID)" title="Delete">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

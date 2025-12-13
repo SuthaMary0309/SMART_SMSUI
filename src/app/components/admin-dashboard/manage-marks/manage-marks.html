@@ -1,0 +1,79 @@
+<div class="marks-container">
+
+  <h2>Manage Marks</h2>
+
+  <form (ngSubmit)="isEditMode ? updateMarks() : addMarks()" class="marks-form">
+
+    <div>
+      <label>Grade:</label>
+      <input type="number" [(ngModel)]="marks.grade" name="grade" required />
+    </div>
+
+    <div>
+      <label>Mark:</label>
+      <input type="number" [(ngModel)]="marks.mark" name="mark" required />
+    </div>
+
+    <!-- STUDENT DROPDOWN -->
+    <div>
+      <label>Student:</label>
+      <select [(ngModel)]="marks.studentID" name="studentID" required (change)="onStudentChange($event)">
+        <option value="" disabled selected>Select Student</option>
+        <option *ngFor="let s of students" [value]="s.studentID">
+          {{ s.firstName }} {{ s.lastName }}
+        </option>
+      </select>
+    </div>
+
+    <!-- EXAM DROPDOWN -->
+    <div>
+      <label>Exam:</label>
+      <select [(ngModel)]="marks.examID" name="examID" required (change)="onExamChange($event)">
+        <option value="" disabled selected>Select Exam</option>
+        <option *ngFor="let e of exams" [value]="e.examID">
+          {{ e.examName }} ({{ e.examDate | date }})
+        </option>
+      </select>
+    </div>
+
+    <button type="submit">
+      {{ isEditMode ? "Update Marks" : "Add Marks" }}
+    </button>
+
+    <button type="button" (click)="resetForm()">Reset</button>
+
+  </form>
+
+  <hr>
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Mark</th>
+        <th>Student</th>
+        <th>Exam</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let m of marksList">
+        <td>{{ m.grade }}</td>
+        <td>{{ m.mark }}</td>
+
+        <td>{{ m.student?.firstName }} {{ m.student?.lastName }}</td>
+
+        <td>{{ m.exam?.examName }}</td>
+
+        <td>
+          <button (click)="editMarks(m)">Edit</button>
+          <button (click)="deleteMarks(m.marksId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

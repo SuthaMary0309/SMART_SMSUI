@@ -1,1 +1,61 @@
-<p>manage-reports works!</p>
+<div class="report-page">
+
+  <h2 class="page-title">📊 Student Reports</h2>
+
+  <!-- Controls -->
+  <div class="controls-box">
+    <div class="control-item">
+      <label>Select Student</label>
+      <select [(ngModel)]="selectedStudentId">
+        <option value="">-- Select --</option>
+        <option *ngFor="let s of students" [value]="s.studentId">
+          {{ s.studentName }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn load" (click)="loadStudentReport()">Load Report</button>
+    <button class="btn pdf" (click)="exportPDF()">Export PDF</button>
+  </div>
+
+  <!-- Report Body -->
+  <div class="report-box" *ngIf="studentReport">
+
+    <!-- Student Info -->
+    <div class="info-box">
+      <h3>{{ studentReport.studentName }}</h3>
+      <p>Class: {{ studentReport.className }}</p>
+      <p>Subjects: {{ studentReport.subjectsCount }}</p>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-card">
+      <canvas id="reportChart"></canvas>
+    </div>
+
+    <!-- Marks Table -->
+    <table class="marks-table">
+      <thead>
+        <tr>
+          <th>Exam / Subject</th>
+          <th>Mark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of studentReport.marks">
+          <td>{{ m.subjectName || m.examName }}</td>
+          <td>{{ m.mark }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary-box">
+      <p><strong>Highest:</strong> {{ studentReport.highest }}</p>
+      <p><strong>Lowest:</strong> {{ studentReport.lowest }}</p>
+      <p><strong>Average:</strong> {{ studentReport.average | number:'1.0' }}</p>
+    </div>
+
+  </div>
+
+</div>

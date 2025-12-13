@@ -1,0 +1,51 @@
+<!-- Floating Chatbot Button -->
+<div class="chatbot-btn" (click)="toggleChat()">
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="AI Assistant">
+</div>
+
+<!-- Right Side Chat Panel -->
+<div class="chat-panel" [class.open]="showChat">
+
+<!-- AI Chatbot Popup -->
+<div class="ai-popup-overlay" *ngIf="showChat" (click)="toggleChat()">
+  <div class="ai-box" (click)="$event.stopPropagation()">
+    <!-- Close Button -->
+    <button class="close-btn" (click)="toggleChat()">✖</button>
+
+    <h2 class="title">🎓 EDU AI Assistant</h2>
+
+    <div class="chat-window">
+      <div *ngFor="let msg of messages">
+        <div class="msg user" *ngIf="msg.from === 'you'">
+          <span>You:</span> {{ msg.text }}
+        </div>
+        <div class="msg bot" *ngIf="msg.from === 'bot'">
+          <span>AI:</span> {{ msg.text }}
+        </div>
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input 
+        type="text" 
+        placeholder="Ask something…" 
+        [(ngModel)]="inputText"
+        (keyup.enter)="sendMessage()">
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- <div class="chat-box p-4 border rounded shadow-md max-w-md mx-auto">
+  <div *ngFor="let msg of messages" class="mb-3">
+    <p><b>You:</b> {{ msg.user }}</p>
+    <p><b>AI:</b> {{ msg.ai || (isTyping ? 'Typing...' : '') }}</p>
+    <hr>
+  </div> -->
+
+  <!-- <div class="flex gap-2 mt-2">
+    <input [(ngModel)]="userMessage" placeholder="Type your message" class="flex-1 border rounded p-2">
+    <button (click)="send()" class="bg-blue-500 text-white px-4 rounded">Send</button>
+  </div> -->
+
+
+</div>

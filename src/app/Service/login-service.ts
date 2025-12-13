@@ -6,18 +6,27 @@ import { Injectable, inject } from '@angular/core';
 })
 export class LoginService {
   private http = inject(HttpClient);
-  private baseUrl = "http://localhost:5283/api/auth";
+  private baseUrl = "https://smartsms.runasp.net/api/auth";
 
   login(email: string, password: string) {
-    return this.http.post(`${this.baseUrl}/login`, { email, password });
+    const body = {
+      email: email,
+      username: email, // send email also as username
+      password: password
+    };
+    return this.http.post(`${this.baseUrl}/login`, body);
   }
+  
+  
 
   forgotPassword(email: string) {
     return this.http.post(`${this.baseUrl}/forgot-password`, { email });
   }
   
   resetPassword(token: string, newPassword: string) {
-    return this.http.post(`${this.baseUrl}/reset-password`, {
+    return this.http.post(`${this.baseUrl}/reset-password`
+    
+    , {
       token,
       newPassword
     });

@@ -1,17 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmailService {
+export class ClassService {
 
-  private apiUrl = 'https://localhost:7010/api/email/send';
+  private api = "https://smartsms.runasp.net/api/class";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  sendEmail(emailData: any) {
-    return this.http.post(this.apiUrl, emailData);
+  getAll() {
+    return this.http.get(this.api + "/get-all");
+  }
+
+  add(data: any) {
+    return this.http.post(this.api + "/add", {
+      className: data.className,
+      grade: data.grade
+    });
+  }
+
+  update(id: string, data: any) {
+    return this.http.put(this.api + "/update/" + id, {
+      className: data.className,
+      grade: data.grade
+    });
+  }
+
+  delete(id: string) {
+    return this.http.delete(this.api + "/delete/" + id);
   }
 }
-

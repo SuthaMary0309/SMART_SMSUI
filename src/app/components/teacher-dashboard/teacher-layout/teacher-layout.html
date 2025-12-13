@@ -1,0 +1,130 @@
+<div class="admin-layout">
+    <!-- Scrollable Sidebar -->
+    <div class="admin-sidebar">
+      <div class="logo-section">
+        <h3 class="logo">EDU LINK</h3>
+      </div>
+      <!-- Toggle Button -->
+        <button class="toggle-btn" (click)="toggleSidebar()">
+          <i class="bi" [class.bi-chevron-left]="!isCollapsed" [class.bi-chevron-right]="isCollapsed"></i>
+        </button>
+  
+      <div class="sidebar-scroll">
+        <ul class="menu-list">
+  
+          <!-- Dashboard -->
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/dashboard">
+              <i class="bi bi-speedometer2"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+  
+          <!-- Core Management -->
+          <li class="menu-header">CORE MANAGEMENT</li>
+      
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/students">
+              <i class="bi bi-person-badge-fill"></i>
+              <span>Manage Students</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/class">
+              <i class="bi bi-building"></i>
+              <span>Manage Classes</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/subject">
+              <i class="bi bi-journal-text"></i>
+              <span>Manage Subjects</span>
+            </a>
+          </li>
+  
+          <!-- Academic -->
+          <li class="menu-header">ACADEMIC</li>
+          
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/exam">
+              <i class="bi bi-bar-chart-fill"></i>
+              <span>Manage Exams</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/marks">
+              <i class="bi bi-clipboard-check"></i>
+              <span>Manage Marks</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/attendance">
+              <i class="bi bi-calendar-check-fill"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+  
+          <!-- Communication -->
+          <li class="menu-header">COMMUNICATION</li>
+          
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/notification">
+              <i class="bi bi-bell-fill"></i>
+              <span>Notifications</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/email">
+              <i class="bi bi-envelope-fill"></i>
+              <span>Email System</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/parent">
+              <i class="bi bi-person-heart"></i>
+              <span>Parent Portal</span>
+            </a>
+          </li>
+  
+          <!-- Reports & Profile -->
+          <li class="menu-header">OTHERS</li>
+          
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/report">
+              <i class="bi bi-file-earmark-bar-graph"></i>
+              <span>Reports</span>
+            </a>
+          </li>
+          <li class="menu-item" routerLinkActive="active">
+            <a routerLink="/admin/profile">
+              <i class="bi bi-person-circle"></i>
+              <span>My Profile</span>
+            </a>
+          </li>
+  
+          <!-- Logout -->
+          <li class="menu-item logout" (click)="logout()">
+            <a>
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="dashboard-content">
+      <div class="topbar">
+        <h4>Admin Panel</h4>
+        <div class="profile-box">
+          <i class="bi bi-bell-fill me-3"></i>
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-pic" alt="Admin" />
+        </div>
+      </div>
+  
+      <div class="content-area">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,150 @@
+/* ====================== SEND EMAIL PAGE - PREMIUM CYAN GLASS THEME ====================== */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
+  background-attachment: fixed;
+  padding: 60px 20px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Main Email Card */
+.email-container {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(10, 25, 60, 0.55);
+  backdrop-filter: blur(32px);
+  border: 3px solid rgba(0, 208, 255, 0.5);
+  border-radius: 38px;
+  padding: 60px 70px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Title */
+.email-container h2 {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00ffff, #00aaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 60px;
+  letter-spacing: 2px;
+}
+
+/* Input & Textarea Group */
+.input-group {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* Icons */
+.input-group i {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00d0ff;
+  font-size: 28px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Input Fields */
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 24px 28px 24px 80px;
+  background: rgba(5, 20, 60, 0.9);
+  border: 3px solid rgba(0, 208, 255, 0.6);
+  border-radius: 26px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.4s ease;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.7);
+  resize: none;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #00ffff !important;
+  background: rgba(10, 40, 100, 0.95);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
+  transform: translateY(-4px);
+}
+
+/* Textarea Specific Height */
+.input-group textarea {
+  min-height: 180px;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  border-radius: 28px;
+}
+
+/* Send Button */
+.send-btn {
+  padding: 22px 90px;
+  margin-top: 30px;
+  background: linear-gradient(90deg, #00d0ff, #0066ff);
+  color: white;
+  border: none;
+  border-radius: 70px;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 0.5s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  min-width: 300px;
+}
+
+.send-btn:hover {
+  background: linear-gradient(90deg, #00ffff, #0088ff);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 35px 80px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .email-container {
+    padding: 50px 40px;
+    margin: 20px;
+  }
+  .email-container h2 {
+    font-size: 38px;
+  }
+  .input-group input,
+  .input-group textarea {
+    padding: 20px 20px 20px 70px;
+    font-size: 18px;
+  }
+  .send-btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .email-container h2 { font-size: 34px; }
+  .input-group i { font-size: 24px; left: 22px; }
+  .input-group input,
+  .input-group textarea {
+    padding-left: 70px;
+  }
+}

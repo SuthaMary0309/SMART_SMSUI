@@ -1,0 +1,38 @@
+<!-- manage-class.component.html (இதை மட்டும் update பண்ணு) -->
+<div class="page-container">
+  <div class="page-header">
+    <h2>Manage Classes</h2>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="save()" class="class-form">
+      <input placeholder="Class Name" [(ngModel)]="classData.className" name="className" required>
+      <input placeholder="Grade" [(ngModel)]="classData.grade" name="grade" required>
+
+      <div class="form-actions">
+        <button type="submit">{{ classData.classID ? 'Update Class' : 'Add Class' }}</button>
+        <button type="button" (click)="resetForm()">Clear</button>
+      </div>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>CLASS NAME</th>
+        <th>GRADE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cls of classes">
+        <td>{{ cls.className }}</td>
+        <td>{{ cls.grade }}</td>
+        <td>
+          <button (click)="edit(cls)">Edit</button>
+          <button (click)="delete(cls.classId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

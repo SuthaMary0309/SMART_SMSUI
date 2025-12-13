@@ -1,0 +1,91 @@
+<div class="container">
+
+  <h2>Manage Subjects</h2>
+
+  <form (ngSubmit)="onSubmit()" class="form-box">
+
+    <!-- SUBJECT NAME -->
+    <input type="text" placeholder="Subject Name"
+           [(ngModel)]="model.subjectName"
+           name="subjectName" required />
+<!-- STUDENT DROPDOWN -->
+<div class="input-group">
+  <i class="bi bi-person-circle"></i>
+  <select [(ngModel)]="model.studentID" name="studentID" required>
+    <option value="" disabled selected>-- Select Student --</option>
+    <option *ngFor="let s of students" [value]="s.studentID ?? s.studentId" (change)="onStudentChange($event)">
+      {{ s.studentName }}
+    </option>
+  </select> 
+</div>
+
+<!-- CLASS DROPDOWN -->
+<div class="input-group">
+  <i class="bi bi-building"></i>
+  <select [(ngModel)]="model.classID" name="classID" required (change)="onClassChange($event)">
+    <option value="" disabled>-- Select Class --</option>
+    <option *ngFor="let c of classes" [value]="c.classId">
+      {{ c.className }} (Grade {{ c.grade }})
+    </option>
+  </select>
+</div>
+
+<!-- USER DROPDOWN -->
+<div class="input-group">
+  <i class="bi bi-person-fill"></i>
+  <select [(ngModel)]="model.userID" name="UserID" required (change)="onUserChange($event)">
+    <option value="" disabled selected>-- Select User --</option>
+    <option *ngFor="let u of users" [value]="u.userID ?? u.userId">
+      {{ u.userName }} ({{ u.email }})
+    </option>
+  </select>
+</div>
+
+<!-- TEACHER DROPDOWN -->
+<div class="input-group">
+  <i class="bi bi-person-badge-fill"></i>
+  <select [(ngModel)]="model.teacherID" name="teacherID" required (change)="onTeacherChange($event)">
+    <option value="" disabled selected>-- Select Teacher --</option>
+    <option *ngFor="let t of teachers" [value]="t.teacherID">
+      {{ t.teacherName }}
+    </option>
+  </select>
+</div>
+    <button type="submit">
+      {{ isEditing ? 'Update Subject' : 'Add Subject' }}
+    </button>
+
+    <button type="button" (click)="reset()">Clear</button>
+  </form>
+
+  <hr />
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Student</th>
+        <th>Class</th>
+        <th>User</th>
+        <th>Teacher</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let s of subjects">
+        <td>{{ s.subjectName }}</td>
+        <td>{{ s.student?.firstName }} {{ s.student?.lastName }}</td>
+        <td>{{ s.class?.className }} - {{ s.class?.grade }}</td>
+        <td>{{ s.user?.userName }}</td>
+        <td>{{ s.teacher?.teacherName }}</td>
+
+        <td>
+          <button (click)="edit(s)">Edit</button>
+          <button (click)="delete(s.subjectID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

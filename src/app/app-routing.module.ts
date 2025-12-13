@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth-guard';
 import { RoleGuard } from './role-guard';
 import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
+import { StudentDashboard } from './components/student-dashboard/student-dashboard';
 import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard';
 import { LoginComponent } from './components/login/login';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
 
@@ -29,7 +29,7 @@ const routes: Routes = [
   // STUDENT routes
   {
     path: "student",
-    component: StudentDashboardComponent,
+    component: StudentDashboard,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['Student'] }
   },
