@@ -19,7 +19,7 @@ export interface AttendanceRequest {
   providedIn: 'root'
 })
 export class AttendanceService {
-  private api = 'http://localhost:5283/api/attendance';
+  private api = 'https://smartsms.runasp.net/api/attendance';
 
   constructor(private http: HttpClient) {}
 
@@ -34,4 +34,8 @@ export class AttendanceService {
   delete(id: string) {
     return this.http.delete(`${this.api}/delete/${id}`);
   }
+  getByStudentId(studentId: string) {
+    return this.http.get<any[]>(`${this.api}/student/${studentId}`);
+  }
+
 }

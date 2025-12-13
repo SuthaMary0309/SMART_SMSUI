@@ -25,10 +25,10 @@ export class ManageStudents implements OnInit {
     phoneNo: '',
     address: '',
     email: '',
-    classID: '',
-    userID: ''
+    classID: '',  // <-- null
+    userID: null   // <-- null
   };
-
+  
   editMode = false;
   editID = '';
 
@@ -57,18 +57,27 @@ export class ManageStudents implements OnInit {
   loadClasses() {
     this.classService.getAll().subscribe((res: any) => {
       this.classes = res;
+      console.log("Classes loaded:", this.classes);
     });
   }
-
+  
   loadUsers() {
     this.userService.getAllUsers().subscribe({
-      next: (res: any) => this.users = res,
-      error: (err) => {
-        console.error('Failed to load users', err);
-        alert('Failed to load users');
-      }
+      next: (res: any) => {
+        const assignedUserIDs = this.students.map(s => s.userID);
+        this.users = res.filter((u: any) => 
+          u.role.toLowerCase() === 'student' && !assignedUserIDs.includes(u.userID)
+        );
+        console.log("Available Users:", this.users);
+      },
+      error: (err) => console.error('Failed to load users', err)
     });
   }
+  
+  onClassChange(event: any) {
+    console.log("Selected Class ID:", this.student.classID);
+  }
+  
 
   searchStudents(event: any) {
     const key = event.target.value.toLowerCase();
@@ -85,48 +94,72 @@ export class ManageStudents implements OnInit {
 
   saveStudent() {
 
-    // 🔥 FULL VALIDATION
-    if (!this.student.studentName || !this.student.email || !this.student.classID || !this.student.userID) {
-      alert("Please fill all fields");
+    // FULL VALIDATION
+    if (
+      !this.student.studentName ||
+      !this.student.phoneNo ||
+      !this.student.address ||
+      !this.student.email ||
+      !this.student.classID ||
+      !this.student.userID
+    ) {
+      alert("Please fill all fields and select Class & User!");
       return;
     }
-
+  
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.student.email)) {
       alert("Invalid email format");
       return;
     }
-
+  
     if (this.student.phoneNo.length !== 10) {
       alert("Phone number must be 10 digits");
       return;
     }
-
-    // 🔥 DUPLICATE CHECK
+  
+    // DUPLICATE CHECK
     const duplicate = this.students.find(s =>
       (s.email === this.student.email || s.phoneNo === this.student.phoneNo) &&
       s.studentID !== this.editID
     );
-
+  
     if (duplicate) {
       alert("Email or phone number already exists!");
       return;
     }
+  
+    // Ensure classID and userID are strings
+    const payload = {
+      ...this.student,
+      classID: String(this.student.classID),
+      userID: String(this.student.userID)
+    };
+  
+      console.log("Selected Class ID:", this.student.classID);
+      console.log("Selected User ID:", this.student.userID);
+      console.log("Payload being sent:", payload);
 
-    const payload = { ...this.student };
-
+  
     const request$ = this.editMode
       ? this.studentService.update(this.editID, payload)
       : this.studentService.add(payload);
-
+  
     request$.subscribe({
       next: () => {
         alert(this.editMode ? "Student updated!" : "Student added!");
         this.resetForm();
         this.loadStudents();
       },
-      error: err => console.log(err)
+      error: err => {
+        console.log(err);
+        alert("Failed to save student. Check console for details.");
+      }
     });
+
+    
   }
+  
+  
 
   editStudent(s: any) {
     this.editMode = true;
@@ -153,10 +186,11 @@ export class ManageStudents implements OnInit {
       phoneNo: '',
       address: '',
       email: '',
-      classID: '',
-      userID: ''
+      classID: null,
+      userID: null
     };
     this.editMode = false;
     this.editID = '';
   }
+  
 }

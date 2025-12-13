@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ParentService {
   private http = inject(HttpClient);
-  private base = 'http://localhost:5283/api/parent';
+  private base = 'https://smartsms.runasp.net/api/parent';
 
   private getAuthOptions() {
     const token = localStorage.getItem('token');

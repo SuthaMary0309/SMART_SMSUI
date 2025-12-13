@@ -21,11 +21,13 @@ export class ManageMarks implements OnInit {
   exams: any[] = [];
 
   // Form fields
-  marksId = '';
-  grade: number = 0;
-  mark: number = 0;
-  studentID: string = '';
-  examID: string = '';
+  marks : any ={
+    marksId :'',
+    mark: 0,
+    studentID: '',
+    examID:  '',
+  }
+  
 
   isEditMode = false;
 
@@ -62,26 +64,23 @@ export class ManageMarks implements OnInit {
   // 🔍 DUPLICATE CHECK
   isDuplicate(): boolean {
     return this.marksList.some(m =>
-      m.studentID === this.studentID &&
-      m.examID === this.examID &&
-      (!this.isEditMode || m.marksId !== this.marksId)
+      m.studentID === this.marks.studentID &&
+      m.examID === this.marks.examID &&
+      (!this.isEditMode || m.marksId !== this.marks.marksId)
     );
   }
 
   validateForm(): boolean {
-    if (!this.grade || this.grade <= 0) {
-      alert("⚠ Grade is required!");
-      return false;
-    }
-    if (!this.mark || this.mark < 0 || this.mark > 100) {
+  
+    if (!this.marks.mark || this.marks.mark < 0 || this.marks.mark >= 100) {
       alert("⚠ Mark must be between 0-100");
       return false;
     }
-    if (!this.studentID) {
+    if (!this.marks.studentID) {
       alert("⚠ Please select a student");
       return false;
     }
-    if (!this.examID) {
+    if (!this.marks.examID) {
       alert("⚠ Please select an exam");
       return false;
     }
@@ -95,22 +94,38 @@ export class ManageMarks implements OnInit {
       alert("⚠ Duplicate! Marks for this student & exam already exist.");
       return;
     }
+    const payload = {
+      ...this.marks,
+      classID: String(this.marks.studentID),
+      userID: String(this.marks.examID)
+    };
+  
+      console.log("Selected Student ID:", this.marks.studentID);
+      console.log("Selected exam ID:", this.marks.examID);
+      console.log("Payload being sent:", payload);
 
-    this.marksService.addMarks(this.grade, this.mark, this.studentID, this.examID)
+
+    this.marksService.addMarks(this.marks.grade, this.marks.mark, this.marks.studentID, this.marks.examID)
       .subscribe(() => {
         alert("Marks Added Successfully!");
         this.resetForm();
         this.getAllMarks();
       });
   }
+  onStudentChange(event: any) {
+    console.log("Selected Student ID:", this.marks.studentID);
+  }
+  onExamChange(event: any) {
+    console.log("Selected Exam ID:", this.marks.examID);
+  }
+  
 
   editMarks(m: any) {
     this.isEditMode = true;
-    this.marksId = m.marksId;
-    this.grade = m.grade;
-    this.mark = m.mark;
-    this.studentID = m.studentID;
-    this.examID = m.examID;
+    this.marks.marksId = m.marksId;
+    this.marks.mark = m.mark;
+    this.marks.studentID = m.studentID;
+    this.marks.examID = m.examID;
   }
 
   updateMarks() {
@@ -121,7 +136,7 @@ export class ManageMarks implements OnInit {
       return;
     }
 
-    this.marksService.updateMarks(this.marksId, this.grade, this.mark, this.studentID, this.examID)
+    this.marksService.updateMarks(this.marks.marksId,this.marks.grade ,this.marks.mark, this.marks.studentID, this.marks.examID)
       .subscribe(() => {
         alert("Marks Updated Successfully!");
         this.resetForm();
@@ -140,11 +155,10 @@ export class ManageMarks implements OnInit {
   }
 
   resetForm() {
-    this.grade = 0;
-    this.mark = 0;
-    this.studentID = '';
-    this.examID = '';
-    this.marksId = '';
+    this.marks.mark = 0;
+    this.marks.studentID = '';
+    this.marks.examID = '';
+    this.marks.marksId = '';
     this.isEditMode = false;
   }
 }

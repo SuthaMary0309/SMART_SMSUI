@@ -7,7 +7,7 @@
     <input placeholder="Address" [(ngModel)]="parent.address" name="address" required>
     <input placeholder="Email" [(ngModel)]="parent.email" name="email" required>
 
-    <label>Select Student</label>
+
     <select [(ngModel)]="parent.studentID" name="studentID" required>
       <option value="" disabled>-- select student --</option>
       <option *ngFor="let s of students" [value]="s.studentID ?? s.studentId">{{ s.studentName }}</option>

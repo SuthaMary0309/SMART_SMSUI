@@ -11,11 +11,13 @@ import { ClassService } from '../../../Service/class-service';
 @Component({
   selector: 'app-manage-attendance',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule ,FormsModule],
   templateUrl: './manage-attendance.html',
   styleUrls: ['./manage-attendance.css']
 })
 export class ManageAttendance implements OnInit {
+showSuccess: any;
+
 
   // dropdown data
   students: any[] = [];

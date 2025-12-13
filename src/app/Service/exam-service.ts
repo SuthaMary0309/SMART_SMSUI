@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ExamService {
 
-  private api = "http://localhost:5283/api/exam";
+  private api = "https://smartsms.runasp.net/api/exam";
 
   constructor(private http: HttpClient) {}
 
@@ -36,4 +36,10 @@ export class ExamService {
   delete(id: string) {
     return this.http.delete(this.api + "/delete/" + id);
   }
+  getByClassId(classId: string) {
+    return this.http.get<any[]>(
+      `${this.api}/class/${classId}`
+    );
+  }
+  
 }

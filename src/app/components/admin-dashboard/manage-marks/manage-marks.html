@@ -6,18 +6,18 @@
 
     <div>
       <label>Grade:</label>
-      <input type="number" [(ngModel)]="grade" name="grade" required />
+      <input type="number" [(ngModel)]="marks.grade" name="grade" required />
     </div>
 
     <div>
       <label>Mark:</label>
-      <input type="number" [(ngModel)]="mark" name="mark" required />
+      <input type="number" [(ngModel)]="marks.mark" name="mark" required />
     </div>
 
     <!-- STUDENT DROPDOWN -->
     <div>
       <label>Student:</label>
-      <select [(ngModel)]="studentID" name="studentID" required>
+      <select [(ngModel)]="marks.studentID" name="studentID" required (change)="onStudentChange($event)">
         <option value="" disabled selected>Select Student</option>
         <option *ngFor="let s of students" [value]="s.studentID">
           {{ s.firstName }} {{ s.lastName }}
@@ -28,7 +28,7 @@
     <!-- EXAM DROPDOWN -->
     <div>
       <label>Exam:</label>
-      <select [(ngModel)]="examID" name="examID" required>
+      <select [(ngModel)]="marks.examID" name="examID" required (change)="onExamChange($event)">
         <option value="" disabled selected>Select Exam</option>
         <option *ngFor="let e of exams" [value]="e.examID">
           {{ e.examName }} ({{ e.examDate | date }})

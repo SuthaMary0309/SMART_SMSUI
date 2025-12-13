@@ -39,4 +39,5 @@ studentAvatar: any;
       }
     });
   }
+  triggerFileInput(){}
 }

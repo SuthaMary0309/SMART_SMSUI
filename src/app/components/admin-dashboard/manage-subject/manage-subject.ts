@@ -64,11 +64,36 @@ export class ManageSubject implements OnInit {
   }
 
   loadClasses() {
-    this.classService.getAll().subscribe(res => this.classes = res as any[]);
+    this.classService.getAll().subscribe((res: any) => {
+      this.classes = res;
+      console.log("Classes loaded:", this.classes);
+    });
   }
+  onClassChange(event: any) {
+    console.log("Selected Class ID:", this.model.classID);
+  }
+  onTeacherChange(event: any) {
+    console.log("Selected Teacher ID:", this.model.teacherID);
+  }
+  onUserChange(event: any) {
+    console.log("Selected User ID:", this.model.userID);
+  }
+  onStudentChange(event: any) {
+    console.log("Selected Student ID:", this.model.studentID);
+  }
+  
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe(res => this.users = res as any[]);
+    this.userService.getAllUsers().subscribe({
+      next: (res: any) => {
+        const assignedUserIDs = this.students.map(s => s.userID);
+        this.users = res.filter((u: any) => 
+          u.role.toLowerCase() === 'student' && !assignedUserIDs.includes(u.userID)
+        );
+        console.log("Available Users:", this.users);
+      },
+      error: (err) => console.error('Failed to load users', err)
+    });
   }
 
   // 🔍 DUPLICATE CHECK
@@ -87,6 +112,18 @@ export class ManageSubject implements OnInit {
       alert("⚠️ All fields are required!");
       return;
     }
+    const payload = {
+      ...this.model,
+      classID: String(this.model.classID),
+      userID: String(this.model.userID),
+      teacherID: String(this.model.teacherID)
+    };
+  
+      console.log("Selected Class ID:", this.model.classID);
+      console.log("Selected Teacher ID:", this.model.teacherID);
+      console.log("Selected User ID:", this.model.userID);
+      console.log("Payload being sent:", payload);
+
 
     if (this.isDuplicate()) {
       alert("⚠️ Duplicate entry! Same subject already exists for this class & teacher.");

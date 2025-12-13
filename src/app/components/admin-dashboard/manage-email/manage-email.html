@@ -1,10 +1,49 @@
-<div>
+<div class="page-container">
+  <div class="email-container">
+
+    <!-- Title -->
     <h2>Send Email</h2>
-  
-    <input type="email" placeholder="Recipient Email" [(ngModel)]="emailData.to" />
-    <input type="text" placeholder="Subject" [(ngModel)]="emailData.subject" />
-    <textarea placeholder="Message" [(ngModel)]="emailData.body"></textarea>
-  
-    <button (click)="send()">Send Email</button>
+
+    <!-- Recipient Email -->
+    <div class="input-group">
+      <i class="bi bi-envelope-fill"></i>
+      <input 
+        type="email" 
+        placeholder="Recipient Email" 
+        [(ngModel)]="emailData.to" 
+        name="to" 
+        required 
+      />
+    </div>
+
+    <!-- Subject -->
+    <div class="input-group">
+      <i class="bi bi-chat-square-text-fill"></i>
+      <input 
+        type="text" 
+        placeholder="Subject" 
+        [(ngModel)]="emailData.subject" 
+        name="subject" 
+        required 
+      />
+    </div>
+
+    <!-- Message Body -->
+    <div class="input-group">
+      <i class="bi bi-chat-dots-fill"></i>
+      <textarea 
+        placeholder="Type your message here..." 
+        [(ngModel)]="emailData.body" 
+        name="body" 
+        rows="6"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Send Button -->
+    <button class="send-btn" (click)="send()" [disabled]="!emailData.to || !emailData.subject || !emailData.body">
+      Send Email
+    </button>
+
   </div>
-  
+</div>

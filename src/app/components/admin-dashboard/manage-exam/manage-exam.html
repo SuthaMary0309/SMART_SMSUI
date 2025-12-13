@@ -1,37 +1,60 @@
 <div class="container">
   <h2>Manage Exams</h2>
-
-  <form (ngSubmit)="saveExam()">
-
-    <input placeholder="Exam Name" [(ngModel)]="exam.examName" name="examName" required />
-
-    <input type="date" [(ngModel)]="exam.examDate" name="examDate" required />
-
-    <!-- CLASS DROPDOWN -->
-    <select [(ngModel)]="exam.classID" name="classID" required>
-      <option value="">-- Select Class --</option>
-      <option *ngFor="let c of classes " [value]="c.classID">
-        {{ c.className }} (Grade {{ c.grade }})
-      </option>
-    </select>
-
-    <!-- SUBJECT DROPDOWN -->
-    <select [(ngModel)]="exam.subjectID" name="subjectID" required>
-      <option value="">-- Select Subject --</option>
-      <option *ngFor="let s of subjects " [value]="s.subjectID">
-        {{ s.subjectName }}
-      </option>
-    </select>
-
-    <button type="submit">{{ editMode ? "Update" : "Add" }}</button>
-    <button type="button" class="clear" (click)="resetForm()">Clear</button>
+  
+  <form (ngSubmit)="saveExam()" class="exam-form">
+    <div class="form-grid">
+  
+      <!-- Exam Name -->
+      <div class="input-group">
+        <i class="bi bi-card-heading"></i>
+        <input placeholder="Exam Name" [(ngModel)]="exam.examName" name="examName" required />
+      </div>
+  
+      <!-- Exam Date -->
+      <div class="input-group">
+        <i class="bi bi-calendar-event"></i>
+        <input type="date" [(ngModel)]="exam.examDate" name="examDate" required />
+      </div>
+  
+      <!-- Class Dropdown -->
+      <div class="input-group">
+        <i class="bi bi-building"></i>
+        <select [(ngModel)]="exam.classID" name="classID" required (change)="onClassChange($event)">
+          <option value="" disabled>-- Select Class --</option>
+          <option *ngFor="let c of classes" [value]="c.classId">
+            {{ c.className }} (Grade {{ c.grade }})
+          </option>
+        </select>
+      </div>
+  
+      <!-- Subject Dropdown -->
+      <div class="input-group">
+        <i class="bi bi-book-half"></i>
+        <select [(ngModel)]="exam.subjectID" name="subjectID" required (change)="onSubjectChange($event)">
+          <option value="" disabled selected>-- Select Subject --</option>
+          <option *ngFor="let s of subjects" [value]="s.subjectID">
+            {{ s.subjectName }}
+          </option>
+        </select>
+      </div>
+  
+    </div>
+  
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">
+        {{ editMode ? "Update Exam" : "Add Exam" }}
+      </button>
+      <button type="button" class="btn-secondary" (click)="resetForm()">
+        Clear Form
+      </button>
+    </div>
   </form>
-
   <table>
     <tr>
       <th>Exam</th>
       <th>Date</th>
-      <th>Class</th>
+      <th>Class</th> 
       <th>Subject</th>
       <th>Actions</th>
     </tr>

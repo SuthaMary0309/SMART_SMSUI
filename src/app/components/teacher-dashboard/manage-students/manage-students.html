@@ -21,28 +21,35 @@
         <input type="email" placeholder="Email Address" [(ngModel)]="student.email" name="email" required>
       </div>
       <div class="input-group">
-        <div class="input-group">
-          <i class="bi bi-building"></i>
-          <select [(ngModel)]="student.classID" name="classID" required>
-            <option value="">-- Select Class --</option>
-            <option *ngFor="let c of classes" [value]="c.classID">
-              {{ c.className }} (Grade {{ c.grade }})
-            </option>
-          </select>
-        </div>
-        
-        <div class="input-group">
-          <i class="bi bi-people"></i>
-          <select [(ngModel)]="student.userID" name="userID" required>
-            <option value="">-- Select User --</option>
-            <option *ngFor="let u of users" [value]="u.userID">
-              {{ u.fullName }} ({{ u.email }})
-            </option>
-          </select>
-        </div>
-        
+        <i class="bi bi-building"></i>
+        <input type="hidden" [(ngModel)]="student.classID" name="classID">
+      </div>
+      <input type="hidden" [(ngModel)]="student.userID" name="userID">
     </div>
+    <div class="input-group">
+      <i class="bi bi-building"></i>
+      <select [(ngModel)]="student.classID" name="classID" required (change)="onClassChange($event)">
+        <option value="" disabled>-- Select Class --</option>
+        <option *ngFor="let c of classes" [value]="c.classId">
+          {{ c.className }} (Grade {{ c.grade }})
+        </option>
+      </select>
+          
+      <span class="select-arrow">▼</span>
+    </div>
+    
 
+          <!-- User Dropdown -->
+          <div class="input-group">
+            <i class="bi bi-person-fill"></i>
+            <select [(ngModel)]="student.userID" name="userID" required>
+              <option value="" disabled>-- Select User --</option>
+              <option *ngFor="let u of users" [value]="u.userID">
+                {{ u.fullName }} ({{ u.email }})
+              </option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
     <div class="form-actions">
       <button type="submit" class="btn-primary">
         <i class="bi bi-check-circle"></i>
@@ -52,18 +59,16 @@
         <i class="bi bi-arrow-clockwise"></i> Clear Form
       </button>
     </div>
-  
-</div>
 
 <!-- Students Table Card -->
-<div class="table-card glass-card">
-  <div class="table-header">
-    <h3>All Students ({{ students.length }})</h3>
-    <div class="search-box">
-      <i class="bi bi-search"></i>
-      <input type="text" placeholder="Search students..." (input)="searchStudents($event)">
-    </div>
-  </div>
+    <div class="table-card glass-card">
+      <div class="table-header">
+        <h3>All Students ({{ students.length }})</h3>
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Search students..." (input)="searchStudents($event)">
+        </div>
+      </div>
 
   <div class="table-responsive">
     <table class="students-table">
@@ -87,12 +92,13 @@
               </div>
               <strong>{{ s.studentName }}</strong>
             </div>
+       
           </td>
           <td>{{ s.phoneNo }}</td>
           <td>{{ s.email }}</td>
           <td>{{ s.address }}</td>
           <td><span class="user-id">{{ s.userID }}</span></td>
-          <td><span class="class-badge">{{ s.classID }}</span></td>
+          <td><span class="class-id">{{ s.classID }}</span></td>
           <td class="actions">
             <button class="btn-edit" (click)="editStudent(s)" title="Edit">
               <i class="bi bi-pencil-square"></i>
@@ -106,3 +112,4 @@
     </table>
   </div>
 </div>
+

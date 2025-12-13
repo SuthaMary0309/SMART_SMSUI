@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../Service/student-service';
 import { FormsModule } from '@angular/forms';
-import { inject } from '@angular/core/primitives/di';
 import {  HttpClientModule } from '@angular/common/http';
 
 @Component({

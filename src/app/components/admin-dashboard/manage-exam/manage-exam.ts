@@ -57,9 +57,9 @@ export class ManageExam implements OnInit {
   }
 
   loadClasses() {
-    this.classService.getAll().subscribe({
-      next: (res: any) => this.classes = res || [],
-      error: err => console.error("Class load error", err)
+    this.classService.getAll().subscribe((res: any) => {
+      this.classes = res;
+      console.log("Classes loaded:", this.classes);
     });
   }
 
@@ -71,6 +71,31 @@ export class ManageExam implements OnInit {
   }
 
   saveExam() {
+    if(
+        !this.exam. examName ||
+        !this.exam.examDate ||
+        !this.exam.classID ||
+        !this.exam.subjectID
+    )
+    {
+      alert("Please fill all fields and select Class & User!");
+      return;
+    }
+
+    const duplicate = this.exams.find( e =>
+      (e.examName === this.exam.examName || e.examDate === this.exam.examName) &&
+      e.examID !== this.editId
+    );
+    const payload = {
+      ...this.exam,
+      classID: String(this.exam.classID),
+      subjectID: String(this.exam.subjectID)
+    };
+  
+      console.log("Selected Class ID:", this.exam.classID);
+      console.log("Selected User ID:", this.exam.subjectID);
+      console.log("Payload being sent:", payload);
+    
     const req = this.editMode
       ? this.examService.update(this.editId, this.exam)
       : this.examService.add(this.exam);
@@ -83,6 +108,14 @@ export class ManageExam implements OnInit {
       },
       error: err => console.error("Save exam error", err)
     });
+  }
+
+  onClassChange(event: any) {
+    console.log("Selected Class ID:", this.exam.classID);
+  }
+
+  onSubjectChange(event: any) {
+    console.log("Selected subject ID:", this.exam.subjectID);
   }
 
   editExam(e: any) {

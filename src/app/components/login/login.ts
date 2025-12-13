@@ -13,17 +13,19 @@ export class LoginComponent {
 
   private loginService = inject(LoginService);
   private router = inject(Router);
-
+  private tokenKey = "authToken";
   email: string = '';
   password: string = '';
 
   loginUser() {
     this.loginService.login(this.email, this.password).subscribe({
       next: (res: any) => {
+        
 
         // Always store token & role
-        localStorage.setItem("token", res.token);
+        localStorage.setItem("authToken", res.token);
         localStorage.setItem("role", res.role);
+       
 
         // Store user details depending on role
         if (res.role === 'Student') {

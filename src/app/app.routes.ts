@@ -2,16 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
-import { StudentDashboardComponent } from "./components/student-dashboard/student-dashboard";
+import { StudentDashboard } from "./components/student-dashboard/student-dashboard";
 import { StudentProfile } from './components/student-dashboard/profile/profile';
 import { Reports } from './components/reports/reports';
 import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
-import { Attendance } from './components/student-dashboard/attendance/attendance';
 import { Home } from './components/home/home';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password';
 import { ResetPassword } from './components/reset-password/reset-password';
 import { EditProfileComponent } from './components/student-dashboard/profile/edit-profile/edit-profile';
-import { Exam } from './components/student-dashboard/exam/exam';
 import { ManageTeachers } from './components/admin-dashboard/manage-teachers/manage-teachers';
 import { ManageStudents } from './components/teacher-dashboard/manage-students/manage-students';
 import { ManageClass } from './components/admin-dashboard/manage-class/manage-class';
@@ -26,10 +24,13 @@ import { ManageProfile } from './components/admin-dashboard/manage-profile/manag
 import { RoleGuard } from './role-guard';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
 import { AuthGuard } from './auth-guard';
+import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
 import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
 import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { ManageParents } from './components/admin-dashboard/manage-parents/manage-parents';
 import { TeacherLayout } from './components/teacher-dashboard/teacher-layout/teacher-layout';
+import { Exam } from './components/student-dashboard/exam/exam';
+import { Attendance } from './components/student-dashboard/attendance/attendance';
 
 export const routes: Routes = [
 
@@ -38,17 +39,17 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'student-dashboard', component: StudentDashboardComponent },
+  { path: 'student-dashboard', component: StudentDashboard },
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports },
   { path: 'attendance', component: Attendance },
   { path: 'home', component: Home },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPassword },
-  { path: 'student-dashboard', component: StudentDashboardComponent},
+  { path: 'student-dashboard', component: StudentDashboard},
   { path: 'student-profile', component: StudentProfile },
   { path: 'reports', component: Reports},
-  { path: 'admin-dashboard', component: AdminDashboard },
+  // { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'attendance', component: Attendance},
   { path: 'home', component:Home },
   { path: 'forgot-password',component: ForgotPasswordComponent},
@@ -69,6 +70,8 @@ export const routes: Routes = [
   { path: 'report', component: ManageReports },
   { path: 'adminprofile', component: ManageProfile },
   { path: 'admin-layout', component: AdminLayoutComponent,},
+  { path: 'ai-assistant', component: AiAssistant},
+
 
     // new layout
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -85,7 +88,7 @@ export const routes: Routes = [
   },
   {
     path: 'student-dashboard',
-    component: StudentDashboardComponent,
+    component: StudentDashboard,
     canActivate: [RoleGuard],
     data: { roles: ['Student'] }
   },
