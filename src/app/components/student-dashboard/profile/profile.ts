@@ -7,6 +7,9 @@ import { StudentService } from '../../../Service/student-service'; // make sure 
   styleUrls: ['./profile.css']
 })
 export class StudentProfile implements OnInit {
+triggerFileInput() {
+throw new Error('Method not implemented.');
+}
 goBack() {
 throw new Error('Method not implemented.');
 }

@@ -1,1 +1,138 @@
-<p>parent-dashboard works!</p>
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2 class="logo">EduLink</h2>
+      <h3 class="welcome-msg">Welcome back, <span>{{ parentName }}</span> 👋</h3>
+    </div>
+
+    <div class="sidebar-scroll">
+      <nav>
+        <ul>
+          <li [class.active]="activeView === 'dashboard'" (click)="activeView = 'dashboard'">Parent Dashboard</li>
+          <li [class.active]="activeView === 'child-attendance'" (click)="activeView = 'child-attendance'">Child Attendance</li>
+          <li [class.active]="activeView === 'exam-results'" (click)="activeView = 'exam-results'">Exam Results</li>
+          <li [class.active]="activeView === 'progress-report'" (click)="activeView = 'progress-report'">Progress Report</li>
+          <li [class.active]="activeView === 'notifications'" (click)="activeView = 'notifications'">Notifications</li>
+          <li [class.active]="activeView === 'teacher-contact'" (click)="activeView = 'teacher-contact'">Teacher Contact</li>
+          <li [class.active]="activeView === 'profile'" (click)="activeView = 'profile'">Profile</li>
+          <li (click)="openLogoutPopup()">Logout</li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Logout Popup -->
+  <div class="popup-overlay" *ngIf="showLogoutPopup" (click)="showLogoutPopup = false">
+    <div class="popup-box" (click)="$event.stopPropagation()">
+      <h3>Are you sure you want to logout?</h3>
+      <div class="popup-buttons">
+        <button [routerLink]="'/login'">OK</button>
+        <button class="cancel-btn" (click)="showLogoutPopup = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <input type="text" 
+        placeholder="Search..." 
+        class="search-box" 
+        [(ngModel)]="searchText"
+        (keyup.enter)="searchPage()">
+      <div class="icons">
+        <span>User</span>
+        <span>Bell</span>
+        <span>Settings</span>
+      </div>
+    </header>
+
+    <!-- Dynamic Content Area -->
+    <div class="content-area">
+
+      <!-- Parent Dashboard Home -->
+      <div *ngIf="activeView === 'dashboard'">
+        <section class="welcome-section">
+          <h3>Welcome back, <span>{{ parentName }}</span>!</h3>
+        </section>
+
+        <section class="stats-section">
+          <div class="card">
+            <h4>Child Attendance</h4>
+            <p class="value">95%</p>
+          </div>
+          <div class="card">
+            <h4>Upcoming PTM</h4>
+            <p>Dec 20, 2025</p>
+          </div>
+          <div class="card">
+            <h4>Pending Fees</h4>
+            <p class="grade">₹5,000</p>
+          </div>
+        </section>
+
+        <section class="bottom-section">
+          <div class="card-table">
+            <h4>Recent Notifications</h4>
+            <table>
+              <tr><th>Date</th><th>Message</th></tr>
+              <tr><td>Dec 10</td><td>Parent-Teacher Meeting Scheduled</td></tr>
+              <tr><td>Dec 08</td><td>Exam Results Published</td></tr>
+              <tr><td>Dec 05</td><td>Fee Reminder</td></tr>
+            </table>
+          </div>
+
+          <div class="card-table">
+            <h4>Child Performance</h4>
+            <table>
+              <tr><th>Subject</th><th>Last Grade</th></tr>
+              <tr><td>Math</td><td>A</td></tr>
+              <tr><td>Science</td><td>A+</td></tr>
+              <tr><td>English</td><td>B+</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Other Parent Views -->
+      <div *ngIf="activeView === 'child-attendance'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          Child Attendance Records
+        </h2>
+      </div>
+
+      <div *ngIf="activeView === 'exam-results'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          Exam Results & Marks
+        </h2>
+      </div>
+
+      <div *ngIf="activeView === 'progress-report'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          Academic Progress Report
+        </h2>
+      </div>
+
+      <div *ngIf="activeView === 'notifications'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          School Notifications
+        </h2>
+      </div>
+
+      <div *ngIf="activeView === 'teacher-contact'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          Contact Teachers
+        </h2>
+      </div>
+
+      <div *ngIf="activeView === 'profile'">
+        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
+          Parent Profile
+        </h2>
+      </div>
+
+    </div>
+  </main>
+</div>

@@ -11,7 +11,7 @@ interface ChatResponse {
 })
 export class AiService {
 
-  private baseUrl = 'https://localhost:5001/api/chat'; // Gemini backend URL
+  private baseUrl = 'http://localhost:5283/api/chat'; // Gemini backend URL
 
   constructor(private http: HttpClient) {}
 

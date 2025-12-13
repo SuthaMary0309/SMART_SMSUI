@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth-service';
 
 @Injectable({ providedIn: 'root' })
 export class ParentService {
   private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private base = 'http://localhost:5283/api/parent';
 
   private getAuthOptions() {
-    const token = localStorage.getItem('token');
+    const token = this.authService.getToken();
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }) : new HttpHeaders({ 'Content-Type': 'application/json' });
     return { headers };
   }

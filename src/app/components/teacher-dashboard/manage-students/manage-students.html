@@ -1,4 +1,4 @@
-<!-- Add/Edit Form Card -->
+Add/Edit Form Card
 <div class="form-card glass-card">
   <h3>{{ editMode ? 'Update Student' : 'Add New Student' }}</h3>
 
@@ -41,6 +41,21 @@
           </select>
         </div>
         
+        <!-- Profile Image Upload -->
+        <div class="input-group image-upload-group">
+          <label class="image-upload-label">
+            <i class="bi bi-image"></i>
+            <span>Profile Image (Optional)</span>
+            <input type="file" accept="image/*" (change)="onImageSelected($event)" style="display: none;" #fileInput>
+          </label>
+          <div class="image-preview-container" *ngIf="imagePreview">
+            <img [src]="imagePreview" alt="Profile Preview" class="image-preview">
+            <button type="button" class="remove-image-btn" (click)="imagePreview = null; selectedImage = null; fileInput.value = ''">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+        </div>
+        
     </div>
 
     <div class="form-actions">
@@ -80,20 +95,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let s of students; let i = index" class="table-row">
-          <td>
+          <td data-label="Name">
             <div class="student-info">
               <div class="avatar">
-                <i class="bi bi-person-circle"></i>
+                <img *ngIf="s.profileURL" [src]="s.profileURL" [alt]="s.studentName" class="avatar-img">
+                <i *ngIf="!s.profileURL" class="bi bi-person-circle"></i>
               </div>
               <strong>{{ s.studentName }}</strong>
             </div>
           </td>
-          <td>{{ s.phoneNo }}</td>
-          <td>{{ s.email }}</td>
-          <td>{{ s.address }}</td>
-          <td><span class="user-id">{{ s.userID }}</span></td>
-          <td><span class="class-badge">{{ s.classID }}</span></td>
-          <td class="actions">
+          <td data-label="Phone">{{ s.phoneNo }}</td>
+          <td data-label="Email">{{ s.email }}</td>
+          <td data-label="Address">{{ s.address }}</td>
+          <td data-label="User ID"><span class="user-id">{{ s.userID }}</span></td>
+          <td data-label="Class"><span class="class-badge">{{ s.classID }}</span></td>
+          <td data-label="Actions" class="actions">
             <button class="btn-edit" (click)="editStudent(s)" title="Edit">
               <i class="bi bi-pencil-square"></i>
             </button>

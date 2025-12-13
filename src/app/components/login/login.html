@@ -47,7 +47,13 @@
 
         </div>
   
-        <button class="login-btn" (click)="loginButton()">LOGIN</button>
+        <button class="login-btn" (click)="loginButton()">
+          LOGIN
+        </button>
+        
+        <div *ngIf="errorMessage" class="error-message" style="color: red; margin-top: 10px; font-size: 14px;">
+          {{ errorMessage }}
+        </div>
   
         <p>or</p>
   

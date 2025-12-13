@@ -28,7 +28,28 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) return false;
+    
+    // Check if token is expired
+    const tokenData = this.parseJwt(token);
+    if (tokenData && tokenData.exp) {
+      const expirationTime = tokenData.exp * 1000;
+      const currentTime = Date.now();
+      return currentTime < expirationTime;
+    }
+    
+    return true;
+  }
+
+  logout() {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('token');
+    localStorage.removeItem(this.roleKey);
+    localStorage.removeItem('role');
+    localStorage.removeItem('studentID');
+    localStorage.removeItem('name');
+    localStorage.removeItem('parentName');
   }
 
   parseJwt(token: string | null): any {
