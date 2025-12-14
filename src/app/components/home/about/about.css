@@ -1,6 +1,6 @@
 .about-section {
   padding: 120px 20px;
-  background: linear-gradient(135deg, #1e3c72, #020407, #2c5585);
+  background: linear-gradient(135deg, #153a55 0%, #11293a 50%, #030d16 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
   background: linear-gradient(90deg, #4facfe, #00f2fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(79, 172, 254, 0.4);
+  text-shadow: 0 0 30px rgba(21, 26, 31, 0.4);
 }
 
 .about-container p {

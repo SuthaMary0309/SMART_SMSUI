@@ -1,62 +1,77 @@
 <div class="container">
 
-    <h2>Manage Subjects</h2>
-  
-    <!-- ADD / UPDATE FORM -->
-    <form (ngSubmit)="onSubmit()" class="form-box">
-  
-      <input type="text" placeholder="Subject Name"
-             [(ngModel)]="model.subjectName" name="subjectName" required>
-  
-      <input type="text" placeholder="Student ID"
-             [(ngModel)]="model.studentID" name="studentID" required>
-  
-      <input type="text" placeholder="Class ID"
-             [(ngModel)]="model.classID" name="classID" required>
-  
-      <input type="text" placeholder="User ID"
-             [(ngModel)]="model.userID" name="userID" required>
-  
-      <input type="text" placeholder="Teacher ID"
-             [(ngModel)]="model.teacherID" name="teacherID" required>
-  
-      <button type="submit">
-        {{ isEditing ? 'Update Subject' : 'Add Subject' }}
-      </button>
-  
-      <button type="button" (click)="reset()">Clear</button>
-    </form>
-  
-    <hr />
-  
-    <!-- SUBJECT LIST TABLE -->
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Student</th>
-          <th>Class</th>
-          <th>User</th>
-          <th>Teacher</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr *ngFor="let s of subjects">
-          <td>{{ s.subjectName }}</td>
-          <td>{{ s.studentID }}</td>
-          <td>{{ s.classID }}</td>
-          <td>{{ s.userID }}</td>
-          <td>{{ s.teacherID }}</td>
-  
-          <td>
-            <button (click)="edit(s)">Edit</button>
-            <button (click)="delete(s.subjectID)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-  </div>
-  
+  <h2>Manage Subjects</h2>
+
+  <form (ngSubmit)="onSubmit()" class="form-box">
+
+    <!-- SUBJECT NAME -->
+    <input type="text" placeholder="Subject Name"
+           [(ngModel)]="model.subjectName"
+           name="subjectName" required />
+
+    <!-- STUDENT DROPDOWN -->
+    <select [(ngModel)]="model.studentID" name="studentID" required>
+      <option value="" disabled>-- select student --</option>
+      <option *ngFor="let s of students" [value]="s.studentID ?? s.studentId">{{ s.studentName }}</option>
+    </select>
+    <!-- CLASS DROPDOWN -->
+    <select [(ngModel)]="model.classID" name="classID" required>
+      <option value="" disabled selected>Select Class</option>
+      <option *ngFor="let c of classes" [value]="c.classID">
+        {{ c.className }} - Grade {{ c.grade }}
+      </option>
+    </select>
+
+    <!-- USER DROPDOWN -->
+    <select [(ngModel)]="model.UserID" name="UserID" required>
+      <option value="" disabled selected>-- select user --</option>
+      <option *ngFor="let s of users" [value]="s.userID ?? s.userId">{{ s.userName }}</option>
+    </select>
+
+    <!-- TEACHER DROPDOWN -->
+    <select [(ngModel)]="model.teacherID" name="teacherID" required>
+      <option value="" disabled selected>Select Teacher</option>
+      <option *ngFor="let t of teachers" [value]="t.teacherID">
+        {{ t.teacherName }}
+      </option>
+    </select>
+
+    <button type="submit">
+      {{ isEditing ? 'Update Subject' : 'Add Subject' }}
+    </button>
+
+    <button type="button" (click)="reset()">Clear</button>
+  </form>
+
+  <hr />
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Student</th>
+        <th>Class</th>
+        <th>User</th>
+        <th>Teacher</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let s of subjects">
+        <td>{{ s.subjectName }}</td>
+        <td>{{ s.student?.firstName }} {{ s.student?.lastName }}</td>
+        <td>{{ s.class?.className }} - {{ s.class?.grade }}</td>
+        <td>{{ s.user?.userName }}</td>
+        <td>{{ s.teacher?.teacherName }}</td>
+
+        <td>
+          <button (click)="edit(s)">Edit</button>
+          <button (click)="delete(s.subjectID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

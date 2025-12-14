@@ -1,238 +1,50 @@
-.exam-results-page {
-  min-height: 100vh;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
-  color: white;
-  font-family: 'Poppins', sans-serif;
+.student-exams-panel {
+  background: rgba(255,255,255,0.03);
+  padding: 16px;
+  border-radius: 10px;
+  color: #fff;
 }
 
-.container { max-width: 1200px; margin: 0 auto; }
-
-.header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.header h1 {
-  font-size: 48px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #00d0ff, #00aaff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.header p { opacity: 0.9; font-size: 18px; margin-top: 10px; }
-
-/* Glass Cards */
-.glass-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  border: 1.5px solid rgba(100,200,255,0.3);
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  animation: fadeUp 0.8s ease-out;
+.student-exams-panel h3 {
+  margin-bottom: 12px;
 }
 
-/* Tabs */
-.tabs-nav {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-.tab-btn {
-  padding: 14px 28px;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid rgba(255,255,255,0.2);
-  border-radius: 50px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s;
-}
-.tab-btn.active, .tab-btn:hover {
-  background: rgba(0,208,255,0.3);
-  border-color: #00d0ff;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,208,255,0.4);
+.controls {
+  margin-bottom: 12px;
 }
 
-/* Table */
-.results-table {
+.controls input {
+  width: 100%;
+  max-width: 420px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+}
+
+.exams-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-}
-.results-table th {
-  background: rgba(0,208,255,0.2);
-  padding: 15px;
-  text-align: left;
-}
-.results-table td {
-  padding: 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.topper { background: rgba(255,215,0,0.2); font-weight: bold; }
-
-/* Buttons */
-.download-btn, .view-btn, .prepare-btn {
-  padding: 12px 30px;
-  background: linear-gradient(90deg, #00d0ff, #0066ff);
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: all 0.4s;
-}
-.download-btn:hover, .view-btn:hover, .prepare-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,208,255,0.5);
-}
-.unit-tests-container { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 28px; 
-  padding: 10px 0; 
-}
-
-.unit-test-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  animation: fadeUp 0.6s ease-out;
-}
-
-.unit-test-card.active {
-  border: 2px solid #00d0ff;
-  box-shadow: 0 20px 50px rgba(0, 208, 255, 0.4);
-  transform: translateY(-8px);
-}
-
-.unit-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px dashed rgba(255,255,255,0.2);
-  margin-bottom: 20px;
-}
-
-.unit-header h3 { font-size: 24px; font-weight: 700; margin: 0; }
-
-.unit-overall { display: flex; gap: 15px; align-items: center; }
-
-.unit-overall .score {
-  font-size: 38px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #00ff88, #00d0ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.unit-overall .grade {
-  padding: 8px 16px;
-  background: rgba(0, 255, 136, 0.25);
-  border-radius: 20px;
-  font-weight: bold;
+  margin-top: 8px;
   font-size: 14px;
 }
 
-.unit-overall .grade.topper {
-  background: linear-gradient(90deg, gold, #ffaa00);
-  color: black;
-  animation: pulse 2s infinite;
-}
-
-.badge {
-  background: linear-gradient(90deg, #ff6b6b, #ffa500);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.unit-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 15px 0;
-  font-size: 15px;
-}
-
-.unit-table th {
-  background: rgba(0, 208, 255, 0.15);
-  padding: 12px;
+.exams-table th {
   text-align: left;
-  font-weight: 600;
+  padding: 10px;
+  background: rgba(255,255,255,0.04);
+  color: #e6eef8;
 }
 
-.unit-table td {
-  padding: 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+.exams-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: #dbeefb;
 }
 
-.unit-table tr.topper {
-  background: rgba(255, 215, 0, 0.15);
-  font-weight: bold;
-  color: #ffd700;
-}
-
-.view-full-btn {
-  padding: 12px 28px;
-  background: rgba(255,255,255,0.15);
-  border: 2px solid rgba(0,208,255,0.4);
-  color: white;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.4s;
+.loading, .empty, .error {
   margin-top: 10px;
+  font-size: 14px;
+  color: #ffd3d3;
 }
-
-.view-full-btn.premium {
-  background: linear-gradient(90deg, #00d0ff, #0066ff);
-  border: none;
-  box-shadow: 0 10px 30px rgba(0,208,255,0.5);
-}
-
-.view-full-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,208,255,0.5);
-}
-
-.performance-note {
-  margin: 20px 0;
-  padding: 18px;
-  background: rgba(0, 255, 136, 0.15);
-  border-left: 6px solid #00ff88;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #e0fff0;
-  text-align: center;
-}
-
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-/* Countdown */
-.countdown span {
-  font-size: 48px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #ff6b6b, #ffa500);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Tab Pane Visibility */
-.tab-pane { display: none; }
-.tab-pane.active { display: block; animation: fadeIn 0.6s; }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }

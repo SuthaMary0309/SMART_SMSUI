@@ -1,10 +1,10 @@
 .page-container {
   padding: 30px;
   min-height: calc(100vh - 90px);
-  animation: fadeIn 0.6s ease-out;
-    background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #020407 50%, #2c5585 100%);
 }
 
+/* Page Header */
 .page-header {
   text-align: center;
   margin-bottom: 40px;
@@ -23,7 +23,7 @@
   color: rgba(255,255,255,0.8);
 }
 
-/* Glass Cards */
+/* Glass Cards - Clean Version (No Glow/Shine) */
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(25px);
@@ -32,12 +32,11 @@
   padding: 30px;
   margin-bottom: 30px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  transition: all 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .glass-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 70px rgba(0, 208, 255, 0.3);
+  transform: translateY(-8px); /* Light lift only - no glow */
 }
 
 .glass-card h3 {
@@ -82,18 +81,20 @@
   color: white;
   font-size: 16px;
   outline: none;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
-.input-group input::placeholder { color: rgba(255,255,255,0.7); }
+.input-group input::placeholder { 
+  color: rgba(255,255,255,0.7); 
+}
 
 .input-group input:focus {
   border-color: #00d0ff;
   background: rgba(255,255,255,0.25);
-  box-shadow: 0 0 30px rgba(0,208,255,0.5);
-  transform: scale(1.02);
+  /* No glow - only border change */
 }
 
+/* Buttons - Clean Hover */
 .form-actions {
   display: flex;
   justify-content: center;
@@ -108,7 +109,7 @@
   font-weight: 700;
   font-size: 17px;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   min-width: 180px;
   display: flex;
   align-items: center;
@@ -119,7 +120,6 @@
 .btn-primary {
   background: linear-gradient(90deg, #00d0ff, #0066ff);
   color: white;
-  box-shadow: 0 15px 40px rgba(0,208,255,0.5);
 }
 
 .btn-secondary {
@@ -129,8 +129,8 @@
 }
 
 .btn-primary:hover, .btn-secondary:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 25px 50px rgba(0,208,255,0.6);
+  transform: translateY(-5px); /* Light lift only */
+  /* No heavy glow or scale */
 }
 
 /* Table Card */
@@ -203,8 +203,7 @@ td {
 
 .table-row:hover {
   background: rgba(0, 208, 255, 0.15);
-  transform: scale(1.01);
-  transition: all 0.3s ease;
+  /* No scale - only color change */
 }
 
 .teacher-info {
@@ -242,7 +241,7 @@ td {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   width: 44px;
   height: 44px;
 }
@@ -258,8 +257,8 @@ td {
 }
 
 .actions button:hover {
-  transform: translateY(-6px) scale(1.2);
-  box-shadow: 0 15px 30px rgba(255,82,82,0.5);
+  transform: translateY(-5px); /* Light lift only */
+  /* No scale or heavy glow */
 }
 
 /* Responsive */
@@ -267,9 +266,4 @@ td {
   .form-grid { grid-template-columns: 1fr; }
   .table-header { flex-direction: column; align-items: stretch; }
   .search-box { width: 100%; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }

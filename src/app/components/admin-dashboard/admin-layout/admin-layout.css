@@ -32,9 +32,7 @@
   background: linear-gradient(90deg, #00d0ff, #00aaff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(0, 208, 255, 0.5);
 }
-
 
 /* Scrollable Menu */
 .sidebar-scroll {
@@ -79,7 +77,7 @@
   margin: 6px 15px;
   border-radius: 16px;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: background 0.3s ease;
 }
 
 .menu-item a {
@@ -89,7 +87,7 @@
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.4s ease;
+  transition: color 0.3s ease;
   border-radius: 16px;
 }
 
@@ -106,8 +104,6 @@
 .menu-item.active,
 .menu-item:hover {
   background: rgba(0, 208, 255, 0.3);
-  transform: translateX(12px);
-  box-shadow: 0 10px 30px rgba(0, 208, 255, 0.4);
 }
 
 .menu-item.active a,
@@ -123,7 +119,6 @@
 
 .menu-item.logout:hover {
   background: rgba(255, 82, 82, 0.5) !important;
-  transform: translateX(12px);
 }
 
 /* Main Content */
@@ -163,7 +158,6 @@
   height: 52px;
   border-radius: 50%;
   border: 3px solid #00d0ff;
-  box-shadow: 0 0 30px rgba(0, 208, 255, 0.6);
 }
 
 .content-area {

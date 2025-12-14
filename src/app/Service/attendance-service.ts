@@ -1,27 +1,37 @@
+// src/app/Service/attendance-service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface AttendanceDTO {
-  studentName: string;
-  date: string;
-  status: string; // "Present" or "Absent"
+export interface AttendanceRequest {
+  studentId: string;
+  teacherId: string;
+  classId: string;
+  date: string;   // yyyy-MM-dd
+  time?: string;  // HH:mm
+  status: 'Present' | 'Absent';
+  studentName?: string;
+  teacherName?: string;
+  className?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private apiUrl = 'http://localhost:5283/api/attendance'; // your backend URL
+  private api = 'http://localhost:5283/api/attendance';
 
   constructor(private http: HttpClient) {}
 
-  markAttendance(attendance: AttendanceDTO): Observable<any> {
-    return this.http.post(`${this.apiUrl}/mark-attendance`, attendance);
+  getAll(): Observable<any> {
+    return this.http.get(`${this.api}/get-all`);
   }
 
-  // optional: get students list if needed
-  getStudents(): Observable<any> {
-    return this.http.get('http://localhost:5283/api/student/get-all'); 
+  add(att: AttendanceRequest) {
+    return this.http.post(`${this.api}/add`, att);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${this.api}/delete/${id}`);
   }
 }

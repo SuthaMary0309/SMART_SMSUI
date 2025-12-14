@@ -1,7 +1,11 @@
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
+
+// Components
 import { ManageStudents } from './components/teacher-dashboard/manage-students/manage-students';
 import { ManageClass } from './components/admin-dashboard/manage-class/manage-class';
 import { ManageSubject } from './components/admin-dashboard/manage-subject/manage-subject';
@@ -12,27 +16,32 @@ import { ManageReports } from './components/admin-dashboard/manage-reports/manag
 import { ManageAttendance } from './components/admin-dashboard/manage-attendance/manage-attendance';
 import { ManageParent } from './components/teacher-dashboard/manage-parent/manage-parent';
 
-@NgModule({
-    declarations:[],
-    imports: [
-      BrowserModule,
-      AppRoutingModule,
-      FormsModule,
-      ManageStudents,
-      ManageClass,
-      ManageEmail,
-      ManageMarks,
-      ManageExam,
-      ManageSubject,
-      ManageReports,
-      ManageAttendance,
-      ManageParent
-      
-      
-    ],
-    providers: [],
-    
+// Services
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
-  })
-  export class AppModule { }
-  
+@NgModule({
+  declarations: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ManageStudents,
+    ManageClass,
+    ManageEmail,
+    ManageMarks,
+    ManageExam,
+    ManageSubject,
+    ManageReports,
+    ManageAttendance,
+    ManageParent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: []
+})
+export class AppModule { }

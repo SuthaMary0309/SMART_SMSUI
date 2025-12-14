@@ -1,27 +1,107 @@
-<div class="attendance-form">
-    <h2>Mark Attendance</h2>
-  
-    <div class="form-group">
-      <label>Student:</label>
-      <select [(ngModel)]="selectedStudent">
-        <option value="">-- select student --</option>
-        <option *ngFor="let s of students" [value]="s.studentID">{{ s.studentName }}</option>
-      </select>
-    </div>
-  
-    <div class="form-group">
-      <label>Date:</label>
-      <input type="date" [(ngModel)]="date">
-    </div>
-  
-    <div class="form-group">
-      <label>Status:</label>
-      <select [(ngModel)]="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-    </div>
-  
-    <button (click)="markAttendance()">Submit Attendance</button>
+<!-- attendance.component.html -->
+<div class="page-container">
+  <!-- Page Title -->
+ 
+<!-- src/app/components/manage-attendance/manage-attendance.component.html -->
+<div class="attendance-wrap">
+  <div class="panel form-panel">
+    <h3>Record Attendance</h3>
+
+    <form (ngSubmit)="submit()" class="att-form">
+      <div class="row">
+        <label>Student</label>
+        <select [(ngModel)]="model.studentId" name="studentId" required>
+          <option value="">-- select student --</option>
+          <option *ngFor="let s of students" [value]="s.studentID">
+            {{ s.studentName || (s.firstName + ' ' + s.lastName) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Teacher</label>
+        <select [(ngModel)]="model.teacherId" name="teacherId" required>
+          <option value="">-- select teacher --</option>
+          <option *ngFor="let t of teachers" [value]="t.teacherID">
+            {{ t.teacherName || (t.firstName + ' ' + t.lastName) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Class</label>
+        <select [(ngModel)]="model.classId" name="classId" required>
+          <option value="">-- select class --</option>
+          <option *ngFor="let c of classes" [value]="c.classID">
+            {{ c.className }} (Grade {{ c.grade }})
+          </option>
+        </select>
+      </div>
+
+      <div class="row inline">
+        <div>
+          <label>Date</label>
+          <input type="date" [(ngModel)]="model.date" name="date" required>
+        </div>
+
+        <div>
+          <label>Time</label>
+          <input type="time" [(ngModel)]="model.time" name="time">
+        </div>
+
+        <div>
+          <label>Status</label>
+          <select [(ngModel)]="model.status" name="status">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" [disabled]="isSubmitting" class="btn primary">
+          {{ isSubmitting ? 'Saving...' : 'Save Attendance' }}
+        </button>
+        <button type="button" class="btn ghost" (click)="resetForm()">Clear</button>
+      </div>
+    </form>
   </div>
-  
+
+  <div class="panel table-panel">
+    <div class="table-header">
+      <h3>Attendance Records ({{ attendanceList.length }})</h3>
+      <div class="search">
+        <input placeholder="Search student/teacher/class/status..." [(ngModel)]="searchKey">
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="att-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Teacher</th>
+            <th>Class</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of filteredAttendance">
+            <td>{{ a.studentName || a.student?.studentName }}</td>
+            <td>{{ a.teacherName || a.teacher?.teacherName }}</td>
+            <td>{{ a.className || a.class?.className }}</td>
+            <td>{{ a.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ a.time }}</td>
+            <td><span [class.present]="a.status==='Present'" [class.absent]="a.status==='Absent'">{{ a.status }}</span></td>
+            <td class="actions-col">
+              <button class="btn small" (click)="delete(a.attendanceId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

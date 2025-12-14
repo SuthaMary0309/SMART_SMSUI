@@ -1,26 +1,33 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ReportService {
-  private api = 'http://localhost:5283/api/report'; // change port/url if needed
-  constructor(private http: HttpClient) {}
+  private baseUrl = 'http://localhost:5283/api/report'; // change port to your API
 
-  getStudentReport(studentId: string): Observable<any> {
-    return this.http.get(`${this.api}/student/${studentId}`);
+  constructor(private http: HttpClient) { }
+
+  getAllStudents(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/students`);
+  }
+  getAllExams(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/exams`);
+  }
+  getAllClasses(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/classes`);
   }
 
-  getExamReport(examId: string): Observable<any> {
-    return this.http.get(`${this.api}/exam/${examId}`);
+  getStudentReport(studentId: string) {
+    return this.http.get(`${this.baseUrl}/student/${studentId}`);
   }
-
-  getClassPerformance(classId: string, examId: string): Observable<any> {
-    return this.http.get(`${this.api}/class/${classId}/exam/${examId}`);
+  getGrade(mark: number): string {
+    if (mark >= 90) return "A";
+    if (mark >= 80) return "B";
+    if (mark >= 70) return "C";
+    if (mark >= 60) return "D";
+    return "F";
   }
-
-  // helper endpoints — you likely already have these controllers:
-  getAllStudents() { return this.http.get('http://localhost:5283/api/student/get-all'); }
-  getAllClasses() { return this.http.get('http://localhost:5283/api/class/get-all'); }
-  getAllExams() { return this.http.get('http://localhost:5283/api/exam/get-all'); }
+  
+  
 }

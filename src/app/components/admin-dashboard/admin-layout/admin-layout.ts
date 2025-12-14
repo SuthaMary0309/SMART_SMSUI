@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 export class AdminLayoutComponent {
   isCollapsed = false;
   isDarkMode = false;
-  userRole = 'Super Admin'; // Change based on login
+  userRole = ' Admin'; // Change based on login
 
   constructor(private router: Router) {}
 

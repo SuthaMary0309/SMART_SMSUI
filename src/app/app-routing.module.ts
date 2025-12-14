@@ -9,42 +9,8 @@ import { LoginComponent } from './components/login/login';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
 
 const routes: Routes = [
-
-  // ADMIN routes
-  {
-    path: "admin",
-    component: AdminDashboard,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['Admin'] }
-  },
-
-  // TEACHER routes
-  {
-    path: "teacher",
-    component: TeacherDashboard,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['Teacher'] }
-  },
-
-  // STUDENT routes
-  {
-    path: "student",
-    component: StudentDashboardComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['Student'] }
-  },
-
-  // PARENT routes
- {
-    path: "parent",
-    component: ParentDashboard,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['Parent'] }
-  },
-
-  // Login
-  { path: "login", component: LoginComponent },
-
+  // This file is kept for compatibility but routes are defined in app.routes.ts
+  // All routes should use AuthGuard and RoleGuard for security
   { path: "**", redirectTo: "login" }
 ];
 

@@ -1,54 +1,79 @@
 <div class="marks-container">
-    <h2>Manage Marks</h2>
-  
-    <form (ngSubmit)="isEditMode ? updateMarks() : addMarks()" class="marks-form">
-      <div>
-        <label>Grade:</label>
-        <input type="number" [(ngModel)]="grade" name="grade" required />
-      </div>
-  
-      <div>
-        <label>Mark:</label>
-        <input type="number" [(ngModel)]="mark" name="mark" required />
-      </div>
-  
-      <div>
-        <label>Student ID:</label>
-        <input type="text" [(ngModel)]="studentID" name="studentID" required />
-      </div>
-  
-      <div>
-        <label>Exam ID:</label>
-        <input type="text" [(ngModel)]="examID" name="examID" required />
-      </div>
-  
-      <button type="submit">{{ isEditMode ? "Update" : "Add" }}</button>
-      <button type="button" (click)="resetForm()">Reset</button>
-    </form>
-  
-    <table>
-      <thead>
-        <tr>
-          <th>Grade</th>
-          <th>Mark</th>
-          <th>Student ID</th>
-          <th>Exam ID</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr *ngFor="let m of marksList">
-          <td>{{ m.grade }}</td>
-          <td>{{ m.mark }}</td>
-          <td>{{ m.studentID }}</td>
-          <td>{{ m.examID }}</td>
-          <td>
-            <button (click)="editMarks(m)">Edit</button>
-            <button (click)="deleteMarks(m.marksId)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+
+  <h2>Manage Marks</h2>
+
+  <form (ngSubmit)="isEditMode ? updateMarks() : addMarks()" class="marks-form">
+
+    <div>
+      <label>Grade:</label>
+      <input type="number" [(ngModel)]="grade" name="grade" required />
+    </div>
+
+    <div>
+      <label>Mark:</label>
+      <input type="number" [(ngModel)]="mark" name="mark" required />
+    </div>
+
+    <!-- STUDENT DROPDOWN -->
+    <div>
+      <label>Student:</label>
+      <select [(ngModel)]="studentID" name="studentID" required>
+        <option value="" disabled selected>Select Student</option>
+        <option *ngFor="let s of students" [value]="s.studentID">
+          {{ s.firstName }} {{ s.lastName }}
+        </option>
+      </select>
+    </div>
+
+    <!-- EXAM DROPDOWN -->
+    <div>
+      <label>Exam:</label>
+      <select [(ngModel)]="examID" name="examID" required>
+        <option value="" disabled selected>Select Exam</option>
+        <option *ngFor="let e of exams" [value]="e.examID">
+          {{ e.examName }} ({{ e.examDate | date }})
+        </option>
+      </select>
+    </div>
+
+    <button type="submit">
+      {{ isEditMode ? "Update Marks" : "Add Marks" }}
+    </button>
+
+    <button type="button" (click)="resetForm()">Reset</button>
+
+  </form>
+
+  <hr>
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Mark</th>
+        <th>Student</th>
+        <th>Exam</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let m of marksList">
+        <td>{{ m.grade }}</td>
+        <td>{{ m.mark }}</td>
+
+        <td>{{ m.student?.firstName }} {{ m.student?.lastName }}</td>
+
+        <td>{{ m.exam?.examName }}</td>
+
+        <td>
+          <button (click)="editMarks(m)">Edit</button>
+          <button (click)="deleteMarks(m.marksId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

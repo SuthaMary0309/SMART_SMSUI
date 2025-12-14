@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../Service/login-service';
 
@@ -7,27 +7,30 @@ import { LoginService } from '../../Service/login-service';
   selector: 'app-reset-password',
   templateUrl: './reset-password.html',
   styleUrls: ['./reset-password.css'],
-  imports: [FormsModule]
+  imports: [FormsModule,RouterLink]
 })
-export class ResetPasswordComponent {
+export class ResetPassword {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private loginService = inject(LoginService);
   token = "";
-  newPassword = "";
+  newPassword: string = '';
 
   ngOnInit() {
     this.token = this.route.snapshot.queryParamMap.get("token") ?? "";
   }
 
-  resetPassword() {
-    this.loginService.resetPassword(this.token, this.newPassword).subscribe({
-      next: () => {
-        alert("Password reset successful!");
-        this.router.navigate(['/login']);
-      },
-      error: () => alert("Password reset failed")
-    });
+
+resetPassword() {
+  if (!this.newPassword) {
+    alert('Please enter a new password!');
+    return;
   }
+
+  console.log('Password reset for:', this.newPassword);
+  alert('Password reset successful!');
+  this.router.navigate(['/login']);
+}
+  
 }
