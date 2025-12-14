@@ -6,7 +6,7 @@ import { Injectable, inject } from '@angular/core';
 })
 export class RegisterService {
   private http = inject(HttpClient);
-  private baseUrl = "https://smartsms.runasp.net/api/auth";
+  private baseUrl = "http://localhost:5283/api/auth";
 
 
   register(userName: string, email: string, password: string, role: string, confirmPassword: string) {
@@ -16,7 +16,7 @@ export class RegisterService {
       password,
       confirmPassword,
       role,
-      admissionNumber: null
+      
     };
     return this.http.post(`${this.baseUrl}/register`, body);
   }

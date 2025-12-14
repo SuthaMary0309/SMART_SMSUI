@@ -54,7 +54,14 @@ export class ManageSubject implements OnInit {
   loadSubjects() {
     this.subjectService.getAll().subscribe(res => this.subjects = res as any[]);
   }
-
+  getClassName(classID: string): string {
+    const cls = this.classes.find(c => c.classID === classID);
+    return cls ? `${cls.className} (Grade ${cls.grade})` : 'N/A';
+  }
+  getTeacherName(teacherID: string): string {
+    const teachers = this.teachers.find(t => t.teacherID === teacherID);
+    return teachers ? `${teachers.teacherName} ` : 'N/A';
+  }
   loadStudents() {
     this.studentService.getAll().subscribe(res => this.students = res as any[]);
   }

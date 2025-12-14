@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class TeacherService {
 
-  private api = "https://smartsms.runasp.net/api/teacher";
+  private api = "http://localhost:5283/api/teacher";
 
   constructor(private http: HttpClient) { }
 

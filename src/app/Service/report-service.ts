@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ReportService {
-  private baseUrl = 'https://smartsms.runasp.net/api/report'; // change port to your API
+  private baseUrl = 'http://localhost:5283/api/report'; // change port to your API
 
   constructor(private http: HttpClient) { }
 

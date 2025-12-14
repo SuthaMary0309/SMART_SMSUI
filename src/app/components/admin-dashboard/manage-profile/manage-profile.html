@@ -1,1 +1,88 @@
-<p>manage-profile works!</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <h2><i class="bi bi-person-circle"></i> My Profile</h2>
+  </div>
+
+  <div class="profile-card">
+    <!-- Avatar Section -->
+    <div class="profile-avatar-section">
+      <div class="avatar-large">{{ profile.name?.charAt(0)?.toUpperCase() || 'U' }}</div>
+      <h3>{{ profile.name || 'User' }}</h3>
+      <span class="role-badge">{{ profile.role }}</span>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+      <div class="detail-row">
+        <div class="detail-item">
+          <i class="bi bi-person-fill"></i>
+          <div class="detail-content">
+            <label>Full Name</label>
+            <input *ngIf="isEditing" [(ngModel)]="profile.name" type="text" />
+            <p *ngIf="!isEditing">{{ profile.name || 'N/A' }}</p>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <i class="bi bi-envelope-fill"></i>
+          <div class="detail-content">
+            <label>Email Address</label>
+            <input *ngIf="isEditing" [(ngModel)]="profile.email" type="email" />
+            <p *ngIf="!isEditing">{{ profile.email || 'N/A' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item">
+          <i class="bi bi-telephone-fill"></i>
+          <div class="detail-content">
+            <label>Phone Number</label>
+            <input *ngIf="isEditing" [(ngModel)]="profile.phone" type="text" placeholder="Enter phone" />
+            <p *ngIf="!isEditing">{{ profile.phone || 'N/A' }}</p>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <i class="bi bi-geo-alt-fill"></i>
+          <div class="detail-content">
+            <label>Address</label>
+            <input *ngIf="isEditing" [(ngModel)]="profile.address" type="text" placeholder="Enter address" />
+            <p *ngIf="!isEditing">{{ profile.address || 'N/A' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item">
+          <i class="bi bi-shield-check"></i>
+          <div class="detail-content">
+            <label>Role</label>
+            <p>{{ profile.role }}</p>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <i class="bi bi-calendar-check"></i>
+          <div class="detail-content">
+            <label>Member Since</label>
+            <p>{{ profile.joinDate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="profile-actions">
+      <button class="btn-edit" *ngIf="!isEditing" (click)="toggleEdit()">
+        <i class="bi bi-pencil"></i> Edit Profile
+      </button>
+      <button class="btn-save" *ngIf="isEditing" (click)="saveProfile()">
+        <i class="bi bi-check-lg"></i> Save Changes
+      </button>
+      <button class="btn-cancel" *ngIf="isEditing" (click)="toggleEdit()">
+        <i class="bi bi-x-lg"></i> Cancel
+      </button>
+    </div>
+  </div>
+</div>

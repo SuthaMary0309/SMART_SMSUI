@@ -1,31 +1,26 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ParentService {
-  private http = inject(HttpClient);
-  private base = 'https://smartsms.runasp.net/api/parent';
+  private base = 'http://localhost:5283/api/parent';
 
-  private getAuthOptions() {
-    const token = localStorage.getItem('token');
-    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }) : new HttpHeaders({ 'Content-Type': 'application/json' });
-    return { headers };
-  }
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
-    return this.http.get(`${this.base}/all`, this.getAuthOptions());
+    return this.http.get(`${this.base}/all`);
   }
 
   add(payload: any) {
-    return this.http.post(`${this.base}/add`, payload, this.getAuthOptions());
+    return this.http.post(`${this.base}/add`, payload);
   }
 
   update(id: string, payload: any) {
-    return this.http.put(`${this.base}/update/${id}`, payload, this.getAuthOptions());
+    return this.http.put(`${this.base}/update/${id}`, payload);
   }
 
   delete(id: string) {
-    return this.http.delete(`${this.base}/delete/${id}`, this.getAuthOptions());
+    return this.http.delete(`${this.base}/delete/${id}`);
   }
 }

@@ -30,12 +30,12 @@
 
       <div class="row">
         <label>Class</label>
-        <select [(ngModel)]="model.classId" name="classId" required>
-          <option value="">-- select class --</option>
-          <option *ngFor="let c of classes" [value]="c.classID">
+        <select [(ngModel)]="model.classId" name="classID" required (change)="onClassChange($event)">
+          <option value="" disabled>-- Select Class --</option>
+          <option *ngFor="let c of classes" [value]="c.classId">
             {{ c.className }} (Grade {{ c.grade }})
           </option>
-        </select>
+        </select>  
       </div>
 
       <div class="row inline">
@@ -90,9 +90,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let a of filteredAttendance">
-            <td>{{ a.studentName || a.student?.studentName }}</td>
-            <td>{{ a.teacherName || a.teacher?.teacherName }}</td>
-            <td>{{ a.className || a.class?.className }}</td>
+            <td>{{ getStudentName(a.studentId )}}</td>
+            <td>{{ getTeacherName(a.teacherID)}}</td>
+            <td>{{ getClassName(a.classId) }}</td>
             <td>{{ a.date | date:'yyyy-MM-dd' }}</td>
             <td>{{ a.time }}</td>
             <td><span [class.present]="a.status==='Present'" [class.absent]="a.status==='Absent'">{{ a.status }}</span></td>

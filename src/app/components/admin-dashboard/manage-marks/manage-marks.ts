@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MarksService } from '../../../Service/marks-service';
 import { StudentService } from '../../../Service/student-service';
 import { ExamService } from '../../../Service/exam-service';
+import { ClassService } from '../../../Service/class-service';
 
 @Component({
   selector: 'app-manage-marks',
@@ -19,9 +20,11 @@ export class ManageMarks implements OnInit {
 
   students: any[] = [];
   exams: any[] = [];
+  classes: any[] =[];
 
   // Form fields
   marks : any ={
+    grade:0,
     marksId :'',
     mark: 0,
     studentID: '',
@@ -34,6 +37,8 @@ export class ManageMarks implements OnInit {
   constructor(
     private marksService: MarksService,
     private studentService: StudentService,
+    private classService: ClassService,
+    
     private examService: ExamService
   ) {}
 
@@ -41,6 +46,15 @@ export class ManageMarks implements OnInit {
     this.getAllMarks();
     this.loadStudents();
     this.loadExams();
+    this.loadClasses();
+  }
+  getStudentName(studentID: string): string {
+    const stu = this.students.find(s => s.studentID === studentID);
+    return stu ? `${stu.studentName} ` : 'N/A';
+  }
+  getExamName(examID: string): string {
+    const exams = this.exams.find(e => e.examID === examID);
+    return exams ? `${exams.className} ` : 'N/A';
   }
 
   loadStudents() {
@@ -52,6 +66,12 @@ export class ManageMarks implements OnInit {
   loadExams() {
     this.examService.getAll().subscribe(res => {
       this.exams = res as any[];
+    });
+  }
+  loadClasses() {
+    this.classService.getAll().subscribe((res: any) => {
+      this.classes = res;
+      console.log("Classes loaded:", this.marks);
     });
   }
 
@@ -70,8 +90,14 @@ export class ManageMarks implements OnInit {
     );
   }
 
+  onClassChange(event: any) {
+    console.log("Selected Class ID:", this.marks.grade);
+  }
   validateForm(): boolean {
-  
+    if (!this.marks.grade){
+      alert("⚠ Please select a grade");
+      return false;
+    }
     if (!this.marks.mark || this.marks.mark < 0 || this.marks.mark >= 100) {
       alert("⚠ Mark must be between 0-100");
       return false;
@@ -96,12 +122,13 @@ export class ManageMarks implements OnInit {
     }
     const payload = {
       ...this.marks,
-      classID: String(this.marks.studentID),
+      studentID: String(this.marks.studentID),
       userID: String(this.marks.examID)
     };
   
       console.log("Selected Student ID:", this.marks.studentID);
       console.log("Selected exam ID:", this.marks.examID);
+      console.log("Selected grade :",this.marks.grade);
       console.log("Payload being sent:", payload);
 
 
@@ -118,9 +145,10 @@ export class ManageMarks implements OnInit {
   onExamChange(event: any) {
     console.log("Selected Exam ID:", this.marks.examID);
   }
-  
+
 
   editMarks(m: any) {
+    this.marks.grade = m.grade;
     this.isEditMode = true;
     this.marks.marksId = m.marksId;
     this.marks.mark = m.mark;
@@ -155,6 +183,7 @@ export class ManageMarks implements OnInit {
   }
 
   resetForm() {
+    this.marks.grade = 0;
     this.marks.mark = 0;
     this.marks.studentID = '';
     this.marks.examID = '';

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MarksService {
 
-  private apiUrl = 'https://smartsms.runasp.net/api/Marks';
+  private apiUrl = 'http://localhost:5283/api/Marks';
 
   constructor(private http: HttpClient) {}
 

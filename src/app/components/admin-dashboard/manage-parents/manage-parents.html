@@ -27,7 +27,7 @@
         <td>{{ p.phoneNo }}</td>
         <td>{{ p.email }}</td>
         <td>{{ p.address }}</td>
-        <td>{{ p.studentID }}</td>
+        <td>{{getStudentName( p.studentID) }}</td>
         <td>
           <button (click)="editParent(p)">Edit</button>
           <button (click)="deleteParent(p.parentID || p.parentId)">Delete</button>

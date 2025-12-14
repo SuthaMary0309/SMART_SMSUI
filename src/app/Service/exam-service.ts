@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ExamService {
 
-  private api = "https://smartsms.runasp.net/api/exam";
+  private api = "http://localhost:5283/api/exam";
 
   constructor(private http: HttpClient) {}
 
