@@ -20,6 +20,7 @@ export class RegisterComponent {
   role = "";
   confirmpassword ="";
 
+
   registerUser() {
     this.registerService.register(
       this.userName,

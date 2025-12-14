@@ -16,7 +16,7 @@ export class RegisterService {
       password,
       confirmPassword,
       role,
-      admissionNumber: null
+      
     };
     return this.http.post(`${this.baseUrl}/register`, body);
   }

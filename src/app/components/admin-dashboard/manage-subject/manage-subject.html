@@ -65,9 +65,7 @@
     <thead>
       <tr>
         <th>Subject</th>
-        <th>Student</th>
         <th>Class</th>
-        <th>User</th>
         <th>Teacher</th>
         <th>Actions</th>
       </tr>
@@ -76,10 +74,8 @@
     <tbody>
       <tr *ngFor="let s of subjects">
         <td>{{ s.subjectName }}</td>
-        <td>{{ s.student?.firstName }} {{ s.student?.lastName }}</td>
-        <td>{{ s.class?.className }} - {{ s.class?.grade }}</td>
-        <td>{{ s.user?.userName }}</td>
-        <td>{{ s.teacher?.teacherName }}</td>
+        <td>{{ getClassName(s.classID) }} - {{ s.class?.grade }}</td>
+        <td>{{ getTeacherName(s.teacherID) }}</td>
 
         <td>
           <button (click)="edit(s)">Edit</button>
@@ -88,4 +84,5 @@
       </tr>
     </tbody>
   </table>
+
 </div>

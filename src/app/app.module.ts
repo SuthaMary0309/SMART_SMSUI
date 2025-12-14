@@ -12,7 +12,6 @@ import { ManageSubject } from './components/admin-dashboard/manage-subject/manag
 import { ManageEmail } from './components/teacher-dashboard/manage-email/manage-email';
 import { ManageMarks } from './components/admin-dashboard/manage-marks/manage-marks';
 import { ManageExam } from './components/admin-dashboard/manage-exam/manage-exam';
-import { ManageReports } from './components/admin-dashboard/manage-reports/manage-reports';
 import { ManageAttendance } from './components/admin-dashboard/manage-attendance/manage-attendance';
 import { ManageParent } from './components/teacher-dashboard/manage-parent/manage-parent';
 
@@ -31,7 +30,6 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
     ManageMarks,
     ManageExam,
     ManageSubject,
-    ManageReports,
     ManageAttendance,
     ManageParent
   ],

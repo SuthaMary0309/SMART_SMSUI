@@ -31,6 +31,10 @@ export class ManageParents implements OnInit {
     this.loadParents();
     this.loadStudents();
   }
+  getStudentName(studentID: string): string {
+    const stu = this.students.find(s => s.studentID === studentID);
+    return stu ? `${stu.studentName} ` : 'N/A';
+  }
 
   loadParents() {
     this.parentService.getAll().subscribe({

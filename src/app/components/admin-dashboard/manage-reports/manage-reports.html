@@ -1,61 +1,109 @@
-<div class="report-page">
-
-  <h2 class="page-title">📊 Student Reports</h2>
+<div class="report-container">
+  <!-- Header -->
+  <div class="report-header">
+    <h2><i class="bi bi-file-earmark-bar-graph"></i> {{ t.title }}</h2>
+    <div class="lang-selector">
+      <button [class.active]="currentLang === 'en'" (click)="changeLang('en')">English</button>
+      <button [class.active]="currentLang === 'ta'" (click)="changeLang('ta')">தமிழ்</button>
+      <button [class.active]="currentLang === 'si'" (click)="changeLang('si')">සිංහල</button>
+    </div>
+  </div>
 
   <!-- Controls -->
-  <div class="controls-box">
-    <div class="control-item">
+  <div class="controls-section">
+    <div class="control-group">
       <label>Select Student</label>
       <select [(ngModel)]="selectedStudentId">
-        <option value="">-- Select --</option>
-        <option *ngFor="let s of students" [value]="s.studentId">
-          {{ s.studentName }}
+        <option value="">-- Select Student --</option>
+        <option *ngFor="let s of students" [value]="s.studentID || s.studentId">
+          {{ s.studentName || 'Unknown' }}
         </option>
       </select>
     </div>
-
-    <button class="btn load" (click)="loadStudentReport()">Load Report</button>
-    <button class="btn pdf" (click)="exportPDF()">Export PDF</button>
+    <div class="btn-group">
+      <button class="btn-primary" (click)="loadStudentReport()" [disabled]="isLoading">
+        <i class="bi bi-search"></i> {{ isLoading ? 'Loading...' : 'Load Report' }}
+      </button>
+      <button class="btn-success" (click)="exportPDF()" [disabled]="!studentReport">
+        <i class="bi bi-file-pdf"></i> Export PDF
+      </button>
+      <button class="btn-info" (click)="sendEmail()" [disabled]="!studentReport || isSending">
+        <i class="bi bi-envelope"></i> {{ isSending ? 'Sending...' : 'Send Email' }}
+      </button>
+    </div>
   </div>
 
-  <!-- Report Body -->
-  <div class="report-box" *ngIf="studentReport">
+  <!-- Report Content -->
+  <div class="report-content" *ngIf="studentReport">
+    <!-- Student Info Card -->
+    <div class="info-card">
+      <div class="info-avatar">{{ studentReport.studentName?.charAt(0) || 'S' }}</div>
+      <div class="info-details">
+        <h3>{{ studentReport.studentName || t.noData }}</h3>
+        <p><i class="bi bi-building"></i> {{ t.class }}: {{ studentReport.className || t.noData }}</p>
+        <p><i class="bi bi-envelope"></i> {{ studentReport.email || t.noData }}</p>
+        <p><i class="bi bi-telephone"></i> {{ studentReport.phone || t.noData }}</p>
+      </div>
+    </div>
 
-    <!-- Student Info -->
-    <div class="info-box">
-      <h3>{{ studentReport.studentName }}</h3>
-      <p>Class: {{ studentReport.className }}</p>
-      <p>Subjects: {{ studentReport.subjectsCount }}</p>
+    <!-- Stats Summary -->
+    <div class="stats-row">
+      <div class="stat-box highest">
+        <h4>{{ studentReport.highest ?? t.noData }}</h4>
+        <p>{{ t.highest }}</p>
+      </div>
+      <div class="stat-box lowest">
+        <h4>{{ studentReport.lowest ?? t.noData }}</h4>
+        <p>{{ t.lowest }}</p>
+      </div>
+      <div class="stat-box average">
+        <h4>{{ studentReport.average ? (studentReport.average | number:'1.0-0') : t.noData }}</h4>
+        <p>{{ t.average }}</p>
+      </div>
     </div>
 
     <!-- Chart -->
-    <div class="chart-card">
-      <canvas id="reportChart"></canvas>
+    <div class="chart-section">
+      <h4><i class="bi bi-bar-chart"></i> Performance Chart</h4>
+      <div class="chart-wrapper">
+        <canvas #reportChart></canvas>
+      </div>
     </div>
 
     <!-- Marks Table -->
-    <table class="marks-table">
-      <thead>
-        <tr>
-          <th>Exam / Subject</th>
-          <th>Mark</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let m of studentReport.marks">
-          <td>{{ m.subjectName || m.examName }}</td>
-          <td>{{ m.mark }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Summary -->
-    <div class="summary-box">
-      <p><strong>Highest:</strong> {{ studentReport.highest }}</p>
-      <p><strong>Lowest:</strong> {{ studentReport.lowest }}</p>
-      <p><strong>Average:</strong> {{ studentReport.average | number:'1.0' }}</p>
+    <div class="table-section">
+      <h4><i class="bi bi-table"></i> {{ t.marks }} Details</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Subject / Exam</th>
+            <th>{{ t.marks }}</th>
+            <th>{{ t.grade }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of studentReport.marks">
+            <td>{{ m.subjectName || m.examName || t.noData }}</td>
+            <td>{{ m.mark ?? t.noData }}</td>
+            <td><span class="grade-badge" [class]="'grade-' + getGrade(m.mark)">{{ getGrade(m.mark) }}</span></td>
+          </tr>
+          <tr *ngIf="!studentReport.marks || studentReport.marks.length === 0">
+            <td colspan="3" class="no-data">{{ t.noData }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
   </div>
 
+  <!-- No Data State -->
+  <div class="empty-state" *ngIf="!studentReport && !isLoading">
+    <i class="bi bi-clipboard-data"></i>
+    <p>Select a student and click "Load Report" to view details</p>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading report...</p>
+  </div>
 </div>

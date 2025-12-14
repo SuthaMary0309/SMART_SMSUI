@@ -28,18 +28,23 @@ export class LoginComponent {
        
 
         // Store user details depending on role
+        // Always store username as fallback
+        localStorage.setItem("username", res.username || '');
+        
         if (res.role === 'Student') {
-          localStorage.setItem("studentID", res.studentID);  // Make sure backend returns this
-          localStorage.setItem("name", res.studentName);     // Greeting name
+          localStorage.setItem("studentID", res.studentID || '');
+          localStorage.setItem("name", res.studentName || res.name || res.username || '');
           this.router.navigate(['/student-dashboard']);
         } else if (res.role === 'Admin') {
-          localStorage.setItem("name", res.name);
-          this.router.navigate(['/admin-layout']);
+          localStorage.setItem("name", res.name || res.username || '');
+          this.router.navigate(['/admin/dashboard']);
         } else if (res.role === 'Teacher') {
-          localStorage.setItem("name", res.name);
-          this.router.navigate(['/teacher-layout']);
+          localStorage.setItem("teacherID", res.teacherID || '');
+          localStorage.setItem("name", res.name || res.username || '');
+          this.router.navigate(['/teacher/dashboard']);
         } else if (res.role === 'Parent') {
-          localStorage.setItem("name", res.name);
+          localStorage.setItem("parentID", res.parentID || '');
+          localStorage.setItem("name", res.name || res.username || '');
           this.router.navigate(['/parent-dashboard']);
         } else {
           this.router.navigate(['/login']);

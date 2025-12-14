@@ -1,73 +1,180 @@
+<div class="dashboard-wrapper">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <h1>Admin Dashboard</h1>
+      <p class="date-text">{{ todayDate }}</p>
+    </div>
+    <div class="header-right">
+      <div class="admin-info">
+        <span class="admin-name">Welcome, {{ name }} 👋</span>
+        <span class="admin-role">Administrator</span>
+      </div>
+    </div>
+  </div>
 
-  <!-- Right Panel (Dashboard View) -->
-  <div class="dashboard-content">
-   
+  <!-- Stats Cards - Row 1 -->
+  <div class="stats-grid">
+    <div class="stat-card students">
+      <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+      <div class="stat-info">
+        <h3>{{ students.length }}</h3>
+        <p>Students</p>
+      </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="dashboard-main">
-      <div class="welcome-box">
-        <h2>Welcome, Admin 👋</h2>
-        <p>Here’s an overview of your school performance today.</p>
+    <div class="stat-card teachers">
+      <div class="stat-icon"><i class="bi bi-person-workspace"></i></div>
+      <div class="stat-info">
+        <h3>{{ teachers.length }}</h3>
+        <p>Teachers</p>
       </div>
+    </div>
 
-      <!-- Stats Boxes -->
-      <div class="stats-container">
-        <div class="stat-card blue">
-          <i class="bi bi-people-fill"></i>
-          <h5>Students</h5>
-          <p>480</p>
+    <div class="stat-card parents">
+      <div class="stat-icon"><i class="bi bi-person-hearts"></i></div>
+      <div class="stat-info">
+        <h3>{{ parents.length }}</h3>
+        <p>Parents</p>
+      </div>
+    </div>
+
+    <div class="stat-card classes">
+      <div class="stat-icon"><i class="bi bi-building"></i></div>
+      <div class="stat-info">
+        <h3>{{ classes.length }}</h3>
+        <p>Classes</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards - Row 2 -->
+  <div class="stats-grid">
+    <div class="stat-card subjects">
+      <div class="stat-icon"><i class="bi bi-book-fill"></i></div>
+      <div class="stat-info">
+        <h3>{{ subjects.length }}</h3>
+        <p>Subjects</p>
+      </div>
+    </div>
+
+    <div class="stat-card exams">
+      <div class="stat-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
+      <div class="stat-info">
+        <h3>{{ exams.length }}</h3>
+        <p>Exams</p>
+      </div>
+    </div>
+
+    <div class="stat-card marks-card">
+      <div class="stat-icon"><i class="bi bi-award-fill"></i></div>
+      <div class="stat-info">
+        <h3>{{ marks.length }}</h3>
+        <p>Marks Records</p>
+      </div>
+    </div>
+
+    <div class="stat-card attendance-card">
+      <div class="stat-icon"><i class="bi bi-calendar-check-fill"></i></div>
+      <div class="stat-info">
+        <h3>{{ attendanceList.length }}</h3>
+        <p>Attendance</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3><i class="bi bi-bar-chart-fill"></i> School Statistics</h3>
+      </div>
+      <div class="chart-body">
+        <canvas #barChart></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3><i class="bi bi-pie-chart-fill"></i> Attendance Rate</h3>
+      </div>
+      <div class="chart-body">
+        <canvas #doughnutChart></canvas>
+      </div>
+      <div class="attendance-stats">
+        <div class="att-stat present">
+          <span class="dot"></span>
+          <span>Present: {{ presentCount }}</span>
         </div>
-        <div class="stat-card green">
-          <i class="bi bi-person-badge-fill"></i>
-          <h5>Teachers</h5>
-          <p>35</p>
-        </div>
-        <div class="stat-card yellow">
-          <i class="bi bi-calendar-check-fill"></i>
-          <h5>Attendance</h5>
-          <p>94%</p>
-        </div>
-        <div class="stat-card purple">
-          <i class="bi bi-journal-check"></i>
-          <h5>Exams</h5>
-          <p>5</p>
+        <div class="att-stat absent">
+          <span class="dot"></span>
+          <span>Absent: {{ absentCount }}</span>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Table -->
-      <div class="table-container">
-        <h5 class="fw-bold mb-3">Recent Activities</h5>
-        <table class="table">
+  <!-- Tables Section -->
+  <div class="tables-section">
+    <div class="table-card">
+      <div class="table-header">
+        <h3><i class="bi bi-people"></i> Recent Students</h3>
+        <span class="badge">{{ students.length }} Total</span>
+      </div>
+      <div class="table-body">
+        <table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Activity</th>
-              <th>Date</th>
-              <th>Status</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>01</td>
-              <td>Added new student records</td>
-              <td>13 Nov 2025</td>
-              <td><span class="status success">Completed</span></td>
+            <tr *ngFor="let student of getRecentStudents()">
+              <td>
+                <div class="user-cell">
+                  <div class="avatar">{{ student.studentName?.charAt(0) || 'S' }}</div>
+                  <span>{{ student.studentName || 'N/A' }}</span>
+                </div>
+              </td>
+              <td>{{ student.email || 'N/A' }}</td>
+              <td>{{ student.phoneNo || 'N/A' }}</td>
             </tr>
-            <tr>
-              <td>02</td>
-              <td>Updated attendance list</td>
-              <td>13 Nov 2025</td>
-              <td><span class="status warning">Pending</span></td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>Published exam results</td>
-              <td>12 Nov 2025</td>
-              <td><span class="status info">Ongoing</span></td>
+            <tr *ngIf="students.length === 0">
+              <td colspan="3" class="no-data">No students found</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  
+
+    <div class="table-card">
+      <div class="table-header">
+        <h3><i class="bi bi-journal-check"></i> Recent Exams</h3>
+        <span class="badge">{{ exams.length }} Total</span>
+      </div>
+      <div class="table-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Exam Name</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let exam of getRecentExams()">
+              <td>{{ exam.examName || 'N/A' }}</td>
+              <td>{{ exam.examDate ? (exam.examDate | date:'mediumDate') : 'N/A' }}</td>
+              <td><span class="status-badge">Scheduled</span></td>
+            </tr>
+            <tr *ngIf="exams.length === 0">
+              <td colspan="3" class="no-data">No exams found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

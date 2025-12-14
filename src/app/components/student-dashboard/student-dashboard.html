@@ -1,133 +1,337 @@
-<div class="dashboard-container">
-
-  <!-- Sidebar - உன் original அப்படியே -->
+<div class="student-dashboard">
+  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h2 class="logo">EduLink</h2>
-      <h3 class="welcome-msg">Welcome back, <span>{{ userName }}</span></h3>
+      <div class="logo">
+        <i class="bi bi-mortarboard-fill"></i>
+        <span>EduLink</span>
+      </div>
     </div>
 
-    <div class="sidebar-scroll">
-      <nav>
-        <ul>
-          <li [class.active]="activeView === 'dashboard'" (click)="activeView = 'dashboard'">Student Dashboard</li>
-          <li [class.active]="activeView === 'attendance'" (click)="activeView = 'attendance'">Attendance</li>
-          <li [class.active]="activeView === 'exam'" (click)="activeView = 'exam'">Exams & Results</li>
-          <li [class.active]="activeView === 'notifications'" (click)="activeView = 'notifications'">Notifications</li>
-          <li [class.active]="activeView === 'reports'" (click)="activeView = 'reports'">Reports</li>
-          <li [class.active]="activeView === 'profile'" (click)="activeView = 'profile'">Profile</li>
-          <li (click)="openLogoutPopup()">Logout</li>
-        </ul>
-      </nav>
+    <nav class="sidebar-nav">
+      <ul>
+        <li [class.active]="activeView === 'dashboard'" (click)="activeView = 'dashboard'">
+          <i class="bi bi-grid-1x2-fill"></i>
+          <span>Dashboard</span>
+        </li>
+        <li [class.active]="activeView === 'profile'" (click)="activeView = 'profile'">
+          <i class="bi bi-person-fill"></i>
+          <span>My Profile</span>
+        </li>
+        <li [class.active]="activeView === 'attendance'" (click)="activeView = 'attendance'">
+          <i class="bi bi-calendar-check-fill"></i>
+          <span>Attendance</span>
+        </li>
+        <li [class.active]="activeView === 'exams'" (click)="activeView = 'exams'">
+          <i class="bi bi-journal-bookmark-fill"></i>
+          <span>Exams</span>
+        </li>
+        <li [class.active]="activeView === 'marks'" (click)="activeView = 'marks'">
+          <i class="bi bi-award-fill"></i>
+          <span>Results</span>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="openLogoutPopup()">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Logout</span>
+      </button>
     </div>
   </aside>
 
-  <!-- Logout Popup - உன் original அப்படியே -->
-  <div class="popup-overlay" *ngIf="showLogoutPopup" (click)="showLogoutPopup = false">
-    <div class="popup-box" (click)="$event.stopPropagation()">
-      <h3>Are you sure you want to logout?</h3>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Loading State -->
+    <div class="loading-overlay" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading your dashboard...</p>
+    </div>
+
+    <!-- Dashboard View -->
+    <div class="dashboard-view" *ngIf="activeView === 'dashboard' && !isLoading">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="welcome-section">
+          <h1>Welcome back, {{ userName }}! 👋</h1>
+          <p>{{ todayDate }}</p>
+        </div>
+        <div class="user-avatar">
+          <div class="avatar">{{ userName.charAt(0).toUpperCase() }}</div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card attendance-card">
+          <div class="stat-icon"><i class="bi bi-calendar-check"></i></div>
+          <div class="stat-content">
+            <h3>{{ attendancePercentage }}%</h3>
+            <p>Attendance Rate</p>
+          </div>
+          <div class="stat-badge" [class.good]="attendancePercentage >= 75" [class.warning]="attendancePercentage < 75">
+            {{ attendancePercentage >= 75 ? 'Good' : 'Low' }}
+          </div>
+        </div>
+
+        <div class="stat-card exams-card">
+          <div class="stat-icon"><i class="bi bi-journal-text"></i></div>
+          <div class="stat-content">
+            <h3>{{ totalExams }}</h3>
+            <p>Total Exams</p>
+          </div>
+        </div>
+
+        <div class="stat-card marks-card">
+          <div class="stat-icon"><i class="bi bi-trophy"></i></div>
+          <div class="stat-content">
+            <h3>{{ averageMarks || 'N/A' }}</h3>
+            <p>Average Score</p>
+          </div>
+        </div>
+
+        <div class="stat-card class-card">
+          <div class="stat-icon"><i class="bi bi-building"></i></div>
+          <div class="stat-content">
+            <h3>{{ student?.class?.className || 'N/A' }}</h3>
+            <p>My Class</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="bi bi-pie-chart-fill"></i> Attendance Overview</h3>
+          </div>
+          <div class="chart-body">
+            <canvas #attendanceChart></canvas>
+          </div>
+          <div class="chart-stats">
+            <div class="chart-stat present">
+              <span class="dot"></span>
+              <span>Present: {{ presentCount }}</span>
+            </div>
+            <div class="chart-stat absent">
+              <span class="dot"></span>
+              <span>Absent: {{ absentCount }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="bi bi-bar-chart-fill"></i> Recent Performance</h3>
+          </div>
+          <div class="chart-body">
+            <canvas #marksChart></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tables Section -->
+      <div class="tables-section">
+        <!-- Upcoming Exams -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="bi bi-calendar-event"></i> Upcoming Exams</h3>
+          </div>
+          <div class="table-body">
+            <div class="exam-item" *ngFor="let exam of getUpcomingExams()">
+              <div class="exam-info">
+                <h4>{{ exam.examName }}</h4>
+                <p>{{ exam.examDate | date:'mediumDate' }}</p>
+              </div>
+              <div class="exam-badge">Upcoming</div>
+            </div>
+            <div class="no-data" *ngIf="getUpcomingExams().length === 0">
+              <i class="bi bi-calendar-x"></i>
+              <p>No upcoming exams</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Results -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="bi bi-award"></i> Recent Results</h3>
+          </div>
+          <div class="table-body">
+            <div class="result-item" *ngFor="let mark of getRecentMarks()">
+              <div class="result-info">
+                <h4>Exam Result</h4>
+                <p>Score: {{ mark.mark }}/100</p>
+              </div>
+              <div class="result-grade" [style.background-color]="getGradeColor(mark.mark)">
+                {{ getGrade(mark.mark) }}
+              </div>
+            </div>
+            <div class="no-data" *ngIf="getRecentMarks().length === 0">
+              <i class="bi bi-clipboard-x"></i>
+              <p>No results yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Profile View -->
+    <div class="profile-view" *ngIf="activeView === 'profile' && !isLoading">
+      <div class="profile-header">
+        <h2><i class="bi bi-person-circle"></i> My Profile</h2>
+      </div>
+      
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <div class="avatar-large">{{ student?.studentName?.charAt(0) || 'S' }}</div>
+          <h3>{{ student?.studentName || 'Student' }}</h3>
+          <p class="role-badge">Student</p>
+        </div>
+        
+        <div class="profile-details">
+          <div class="detail-item">
+            <i class="bi bi-envelope-fill"></i>
+            <div>
+              <label>Email Address</label>
+              <p>{{ student?.email || 'N/A' }}</p>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <i class="bi bi-telephone-fill"></i>
+            <div>
+              <label>Phone Number</label>
+              <p>{{ student?.phoneNo || 'N/A' }}</p>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <div>
+              <label>Address</label>
+              <p>{{ student?.address || 'N/A' }}</p>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <i class="bi bi-building"></i>
+            <div>
+              <label>Class</label>
+              <p>{{ student?.class?.className || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance View -->
+    <div class="attendance-view" *ngIf="activeView === 'attendance' && !isLoading">
+      <div class="view-header">
+        <h2><i class="bi bi-calendar-check"></i> My Attendance</h2>
+      </div>
+      
+      <div class="attendance-summary">
+        <div class="summary-card present">
+          <h3>{{ presentCount }}</h3>
+          <p>Days Present</p>
+        </div>
+        <div class="summary-card absent">
+          <h3>{{ absentCount }}</h3>
+          <p>Days Absent</p>
+        </div>
+        <div class="summary-card percentage">
+          <h3>{{ attendancePercentage }}%</h3>
+          <p>Attendance Rate</p>
+        </div>
+      </div>
+
+      <div class="attendance-list">
+        <div class="attendance-item" *ngFor="let att of attendanceList">
+          <div class="att-date">
+            <i class="bi bi-calendar3"></i>
+            {{ att.date | date:'mediumDate' }}
+          </div>
+          <div class="att-status" [class.present]="att.status?.toLowerCase() === 'present'" 
+               [class.absent]="att.status?.toLowerCase() === 'absent'">
+            {{ att.status }}
+          </div>
+        </div>
+        <div class="no-data" *ngIf="attendanceList.length === 0">
+          <i class="bi bi-calendar-x"></i>
+          <p>No attendance records found</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exams View -->
+    <div class="exams-view" *ngIf="activeView === 'exams' && !isLoading">
+      <div class="view-header">
+        <h2><i class="bi bi-journal-bookmark"></i> My Exams</h2>
+      </div>
+      
+      <div class="exams-grid">
+        <div class="exam-card" *ngFor="let exam of examsList">
+          <div class="exam-icon"><i class="bi bi-file-earmark-text"></i></div>
+          <h4>{{ exam.examName }}</h4>
+          <p class="exam-date">{{ exam.examDate | date:'fullDate' }}</p>
+          <span class="exam-status">Scheduled</span>
+        </div>
+        <div class="no-data full-width" *ngIf="examsList.length === 0">
+          <i class="bi bi-journal-x"></i>
+          <p>No exams scheduled</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marks View -->
+    <div class="marks-view" *ngIf="activeView === 'marks' && !isLoading">
+      <div class="view-header">
+        <h2><i class="bi bi-award"></i> My Results</h2>
+      </div>
+      
+      <div class="marks-summary">
+        <div class="summary-item">
+          <h3>{{ marksList.length }}</h3>
+          <p>Total Results</p>
+        </div>
+        <div class="summary-item">
+          <h3>{{ averageMarks || 0 }}%</h3>
+          <p>Average Score</p>
+        </div>
+      </div>
+
+      <div class="marks-list">
+        <div class="mark-card" *ngFor="let mark of marksList">
+          <div class="mark-info">
+            <h4>Exam Result</h4>
+            <p>Score: {{ mark.mark }}/100</p>
+          </div>
+          <div class="mark-grade" [style.background-color]="getGradeColor(mark.mark)">
+            {{ getGrade(mark.mark) }}
+          </div>
+        </div>
+        <div class="no-data" *ngIf="marksList.length === 0">
+          <i class="bi bi-clipboard-x"></i>
+          <p>No results available</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Logout Popup -->
+  <div class="popup-overlay" *ngIf="showLogoutPopup">
+    <div class="popup-box">
+      <div class="popup-icon"><i class="bi bi-box-arrow-left"></i></div>
+      <h3>Logout Confirmation</h3>
+      <p>Are you sure you want to logout?</p>
       <div class="popup-buttons">
-        <button [routerLink]="'/login'">OK</button>
-        <button class="cancel-btn" (click)="showLogoutPopup = false">Cancel</button>
+        <button class="btn-cancel" (click)="cancelLogout()">Cancel</button>
+        <button class="btn-confirm" (click)="confirmLogout()">Logout</button>
       </div>
     </div>
   </div>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <header>
-      <input type="text" 
-        placeholder="Search..." 
-        class="search-box" 
-        [(ngModel)]="searchText"
-        (keyup.enter)="searchPage()">
-      <!--input type="text" 
-        placeholder="Search..." class="search-box" 
-       
-       (keyup.enter)="searchPage()" 
-       class="search-box"
-      /-->
-      <div class="icons">
-        <span>User</span>
-        <span>Bell</span>
-        <span>Settings</span>
-      </div>
-    </header>
-
-    <!-- Dynamic Content Area -->
-    <div class="content-area">
-
-      <!-- Dashboard View (default) -->
-      <div *ngIf="activeView === 'dashboard'">
-        <section class="welcome-section">
-          <h3>Welcome back, <span>{{ userName }}</span></h3>
-        </section>
-
-        <section class="stats-section">
-          <div class="card">
-            <h4>Attendance %</h4>
-            <p class="value">92%</p>
-          </div>
-          <div class="card">
-            <h4>Upcoming Exam</h4>
-            <p>Math Test on Friday</p>
-          </div>
-          <div class="card">
-            <h4>Last Result</h4>
-            <p class="grade">A+ in Physics</p>
-          </div>
-        </section>
-
-        <section class="bottom-section">
-          <div class="card-table">
-            <h4>Upcoming Classes</h4>
-            <table>
-              <tr><th>Subject</th><th>Time</th></tr>
-              <tr><td>Math</td><td>12:00 AM</td></tr>
-              <tr><td>Physics</td><td>10:00 AM</td></tr>
-              <tr><td>Chemistry</td><td>1:00 PM</td></tr>
-            </table>
-          </div>
-
-          <div class="card-table">
-            <h4>Recent Grades</h4>
-            <table>
-              <tr><th>Subject</th><th>Grade</th></tr>
-              <tr><td>Math</td><td>A</td></tr>
-              <tr><td>Physics</td><td>A+</td></tr>
-              <tr><td>Chemistry</td><td>B+</td></tr>
-            </table>
-          </div>
-        </section>
-      </div>
-
-      <!-- Other Views original content  -->
-      <div *ngIf="activeView === 'attendance' && student?.studentID">
-        <app-student-attendance
-          [studentId]="student.studentID">
-        </app-student-attendance>
-      </div>
-      
-      <div *ngIf="activeView === 'exam' && student?.studentID">
-        <app-student-exams
-          [studentId]="student.studentID">
-        </app-student-exams>
-      </div>
-      
-      <div *ngIf="activeView === 'reports' && student?.studentID">
-        <app-reports
-          [studentId]="student.studentID">
-        </app-reports>
-      </div>
-      
-      
-      <div *ngIf="activeView === 'profile'">
-        <h2 style="text-align:center; color:#00ffff; margin-top:100px; font-size:40px;">
-         <app-student-profile></app-student-profile>
-         
-        </h2>
-      </div>
-
-    </div>
-  </main>
 </div>

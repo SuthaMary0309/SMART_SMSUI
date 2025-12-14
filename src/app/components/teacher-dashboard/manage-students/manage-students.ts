@@ -25,8 +25,7 @@ export class ManageStudents implements OnInit {
     phoneNo: '',
     address: '',
     email: '',
-    classID: '',  // <-- null
-    userID: null   // <-- null
+    classID: ''
   };
   
   editMode = false;
@@ -34,14 +33,18 @@ export class ManageStudents implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private classService: ClassService,
-    private userService: UserService
+    private classService: ClassService
+    
   ) {}
 
   ngOnInit(): void {
     this.loadStudents();
     this.loadClasses();
-    this.loadUsers();
+    
+  }
+  getClassName(classID: string): string {
+    const cls = this.classes.find(c => c.classID === classID);
+    return cls ? `${cls.className} (Grade ${cls.grade})` : 'N/A';
   }
 
   loadStudents() {
@@ -61,21 +64,16 @@ export class ManageStudents implements OnInit {
     });
   }
   
-  loadUsers() {
-    this.userService.getAllUsers().subscribe({
-      next: (res: any) => {
-        const assignedUserIDs = this.students.map(s => s.userID);
-        this.users = res.filter((u: any) => 
-          u.role.toLowerCase() === 'student' && !assignedUserIDs.includes(u.userID)
-        );
-        console.log("Available Users:", this.users);
-      },
-      error: (err) => console.error('Failed to load users', err)
-    });
-  }
+  
   
   onClassChange(event: any) {
     console.log("Selected Class ID:", this.student.classID);
+  }
+  onTeacherChange(event: any) {
+    console.log("Selected Teacher ID:", this.student.teacherId);
+  }
+  onStudentChange(event: any) {
+    console.log("Selected Student ID:", this.student.studentId);
   }
   
 
@@ -100,10 +98,9 @@ export class ManageStudents implements OnInit {
       !this.student.phoneNo ||
       !this.student.address ||
       !this.student.email ||
-      !this.student.classID ||
-      !this.student.userID
+      !this.student.classID  
     ) {
-      alert("Please fill all fields and select Class & User!");
+      alert("Please fill all fields and select Class!");
       return;
     }
   
@@ -132,11 +129,10 @@ export class ManageStudents implements OnInit {
     const payload = {
       ...this.student,
       classID: String(this.student.classID),
-      userID: String(this.student.userID)
+      
     };
   
       console.log("Selected Class ID:", this.student.classID);
-      console.log("Selected User ID:", this.student.userID);
       console.log("Payload being sent:", payload);
 
   
@@ -154,13 +150,8 @@ export class ManageStudents implements OnInit {
         console.log(err);
         alert("Failed to save student. Check console for details.");
       }
-    });
-
-    
+    }); 
   }
-  
-  
-
   editStudent(s: any) {
     this.editMode = true;
     this.editID = s.studentID;
@@ -170,8 +161,8 @@ export class ManageStudents implements OnInit {
       phoneNo: s.phoneNo,
       address: s.address,
       email: s.email,
-      classID: s.classID,
-      userID: s.userID
+      classID: s.classID
+      
     };
   }
 
@@ -187,7 +178,7 @@ export class ManageStudents implements OnInit {
       address: '',
       email: '',
       classID: null,
-      userID: null
+     
     };
     this.editMode = false;
     this.editID = '';

@@ -51,6 +51,18 @@ showSuccess: any;
     this.loadDropdowns();
     this.loadAttendance();
   }
+  getClassName(classID: string): string {
+    const cls = this.classes.find(c => c.classID === classID);
+    return cls ? `${cls.className} (Grade ${cls.grade})` : 'N/A';
+  }
+  getStudentName(studentID: string): string {
+    const stu = this.students.find(s => s.studentID === studentID);
+    return stu ? `${stu.studentName} ` : 'N/A';
+  }
+  getTeacherName(teacherID: string): string {
+    const teachers = this.teachers.find(t => t.teacherID === teacherID);
+    return teachers ? `${teachers.teacherName} ` : 'N/A';
+  }
 
   loadDropdowns() {
     this.studentService.getAll().subscribe((res: any) => this.students = res || []);
@@ -113,7 +125,7 @@ showSuccess: any;
     const payload = {
       studentId: this.model.studentId,
       teacherId: this.model.teacherId,
-      classId: this.model.classId,
+      classId: String(this.model.classId),
       date: this.model.date,
       time: this.model.time || (new Date()).toTimeString().substring(0,5),
       status: this.model.status,
@@ -121,6 +133,7 @@ showSuccess: any;
       teacherName: teacher ? (teacher.teacherName || `${teacher.firstName || ''} ${teacher.lastName || ''}`) : '',
       className: cls ? (cls.className + ' (Grade ' + (cls.grade ?? '') + ')') : ''
     };
+    console.log("Selected Class ID:", this.model.classId);
 
     this.attendanceService.add(payload).subscribe({
       next: () => {
@@ -137,7 +150,9 @@ showSuccess: any;
       }
     });
   }
-
+  onClassChange(event: any) {
+    console.log("Selected Class ID:", this.model.classId);
+  }
   delete(attId: string) {
     if (!confirm('Delete this attendance entry?')) return;
     this.attendanceService.delete(attId).subscribe({

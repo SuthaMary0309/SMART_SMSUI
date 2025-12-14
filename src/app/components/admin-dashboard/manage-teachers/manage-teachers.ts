@@ -21,8 +21,7 @@ throw new Error('Method not implemented.');
     teacherName: '',
     phoneNo: '',
     address: '',
-    email: '',
-    userID: ''
+    email: ''
   };
 
   editMode: boolean = false;
@@ -54,8 +53,8 @@ throw new Error('Method not implemented.');
       teacherName: this.teacher.teacherName,
       phoneNo: this.teacher.phoneNo,
       address: this.teacher.address,
-      email: this.teacher.email,
-      userID: this.teacher.userID
+      email: this.teacher.email
+     
     };
 
     const request$ = this.editMode
@@ -84,7 +83,7 @@ throw new Error('Method not implemented.');
       phoneNo: t.phoneNo,
       address: t.address,
       email: t.email,
-      userID: t.userID
+      
     };
   }
 
@@ -103,7 +102,7 @@ throw new Error('Method not implemented.');
       phoneNo: '',
       address: '',
       email: '',
-      userID: '11111111-1111-1111-1111-111111111111'
+    
     };
     this.editMode = false;
     this.editID = '';

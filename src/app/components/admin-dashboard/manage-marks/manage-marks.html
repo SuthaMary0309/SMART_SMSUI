@@ -4,9 +4,16 @@
 
   <form (ngSubmit)="isEditMode ? updateMarks() : addMarks()" class="marks-form">
 
-    <div>
+    <div class="input-group">
+      <i class="bi bi-building"></i>
       <label>Grade:</label>
-      <input type="number" [(ngModel)]="marks.grade" name="grade" required />
+      <select [(ngModel)]="marks.grade" name="grade" required  (change)="onClassChange($event)">
+        <option value="" disabled>-- Select Class --</option>
+        <option *ngFor="let c of classes" [value]="c.grade">
+            {{ c.grade }}
+        </option>
+      </select>    
+      <span class="select-arrow">▼</span>
     </div>
 
     <div>
@@ -17,12 +24,12 @@
     <!-- STUDENT DROPDOWN -->
     <div>
       <label>Student:</label>
-      <select [(ngModel)]="marks.studentID" name="studentID" required (change)="onStudentChange($event)">
-        <option value="" disabled selected>Select Student</option>
-        <option *ngFor="let s of students" [value]="s.studentID">
-          {{ s.firstName }} {{ s.lastName }}
+      <select [(ngModel)]="marks.studentID" name="studentID" required>
+        <option value="" disabled selected>-- Select Student --</option>
+        <option *ngFor="let s of students" [value]="s.studentID ?? s.studentId" (change)="onStudentChange($event)">
+          {{ s.studentName }}
         </option>
-      </select>
+      </select> 
     </div>
 
     <!-- EXAM DROPDOWN -->
@@ -63,9 +70,9 @@
         <td>{{ m.grade }}</td>
         <td>{{ m.mark }}</td>
 
-        <td>{{ m.student?.firstName }} {{ m.student?.lastName }}</td>
+        <td>{{getStudentName( m.studentID) }}</td>
 
-        <td>{{ m.exam?.examName }}</td>
+        <td>{{getExamName( m.exam?.examName )}}</td>
 
         <td>
           <button (click)="editMarks(m)">Edit</button>
