@@ -19,7 +19,7 @@ export interface AttendanceRequest {
   providedIn: 'root'
 })
 export class AttendanceService {
-  private api = 'http://localhost:5283/api/attendance';
+  private api = 'https://smartsms.runasp.net/api/attendance';
 
   constructor(private http: HttpClient) {}
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ParentService {
-  private base = 'http://localhost:5283/api/parent';
+  private base = 'https://smartsms.runasp.net/api/parent';
 
   constructor(private http: HttpClient) {}
 

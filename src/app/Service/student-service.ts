@@ -12,7 +12,7 @@ export class StudentService {
   }
 
  
-  private api = "http://localhost:5283/api/student";
+  private api = "https://smartsms.runasp.net/api/student";
 
   constructor(private http: HttpClient) { }
 
@@ -36,7 +36,7 @@ export class StudentService {
     return this.http.delete(this.api + "/delete/" + id);
   }
   getAllUsers(role?: string) {
-    let url = `http://localhost:5283/api/user/get-all`;
+    let url = `https://smartsms.runasp.net/api/user/get-all`;
     if (role) url += `?role=${role}`;
     return this.http.get(url);
   }
