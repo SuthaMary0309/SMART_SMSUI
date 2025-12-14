@@ -1,10 +1,39 @@
-<div>
-    <h2>Send Email</h2>
-  
-    <input type="email" placeholder="Recipient Email" [(ngModel)]="emailData.to" />
-    <input type="text" placeholder="Subject" [(ngModel)]="emailData.subject" />
-    <textarea placeholder="Message" [(ngModel)]="emailData.body"></textarea>
-  
-    <button (click)="send()">Send Email</button>
+<div class="email-wrapper">
+
+  <h2 class="title">📧 Send Email</h2>
+
+  <div class="form-group">
+    <label>Recipient Email</label>
+    <input 
+      type="email" 
+      placeholder="Enter recipient email"
+      [(ngModel)]="emailData.to" 
+      class="input-box"
+    />
   </div>
-  
+
+  <div class="form-group">
+    <label>Subject</label>
+    <input 
+      type="text" 
+      placeholder="Enter subject"
+      [(ngModel)]="emailData.subject" 
+      class="input-box"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea 
+      placeholder="Type your message here..."
+      [(ngModel)]="emailData.body" 
+      class="textarea-box"
+      rows="6"
+    ></textarea>
+  </div>
+
+  <button class="send-btn" (click)="send()">Send Email</button>
+
+  <p class="status-msg">{{ message }}</p>
+
+</div>

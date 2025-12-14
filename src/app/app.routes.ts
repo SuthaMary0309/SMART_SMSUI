@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { StudentDashboardComponent } from "./components/student-dashboard/student-dashboard";
@@ -12,6 +13,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPassword } from './components/reset-password/reset-password';
 import { EditProfileComponent } from './components/student-dashboard/profile/edit-profile/edit-profile';
 import { Exam } from './components/student-dashboard/exam/exam';
+
 import { ManageTeachers } from './components/admin-dashboard/manage-teachers/manage-teachers';
 import { ManageStudents } from './components/teacher-dashboard/manage-students/manage-students';
 import { ManageClass } from './components/admin-dashboard/manage-class/manage-class';
@@ -25,6 +27,7 @@ import { ManageReports } from './components/admin-dashboard/manage-reports/manag
 import { ManageProfile } from './components/admin-dashboard/manage-profile/manage-profile';
 import { RoleGuard } from './role-guard';
 import { ParentDashboard } from './components/parent-dashboard/parent-dashboard';
+import { AdminLayoutComponent } from './components/admin-dashboard/admin-layout/admin-layout';
 import { AuthGuard } from './auth-guard';
 import { AiAssistant } from './components/home/ai-assistant/ai-assistant';
 import { TeacherDashboard } from './components/teacher-dashboard/teacher-dashboard';
@@ -36,6 +39,14 @@ import { StudentExamsComponent } from './student-dashboard/student-exams-compone
 export const routes: Routes = [
   // Public routes (no authentication required)
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'student-dashboard', component: StudentDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'student-profile', component: StudentProfile, canActivate: [AuthGuard] },
+  { path: 'reports', component: Reports, canActivate: [AuthGuard] },
+  { path: 'attendance', component: Attendance, canActivate: [AuthGuard] },
   { path: 'home', component: Home },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -44,6 +55,25 @@ export const routes: Routes = [
   { path: 'ai-assistant', component: AiAssistant },
 
   // Admin Layout with protected children
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'exam-results', component: Exam },
+
+  // SIMPLE PAGES
+  { path: 'teachers', component: ManageTeachers },
+  { path: 'students', component: ManageStudents },
+  { path: 'class', component: ManageClass },
+  { path: 'attendance_2', component: ManageAttendance },
+  { path: 'subject', component: ManageSubject },
+  { path: 'notification', component: ManageNotification },
+  { path: 'exam', component: ManageExam },
+  { path: 'marks', component: ManageMarks },
+  { path: 'email', component: ManageEmail },
+  { path: 'parent', component: ManageParent },
+  { path: 'report', component: ManageReports },
+  { path: 'profile', component: ManageProfile },
+
+  // ⭐ NEW ADMIN PANEL (Sidebar + Topbar Layout)
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -157,6 +187,7 @@ export const routes: Routes = [
   // Fallback - redirect to login
   { path: '**', redirectTo: 'login' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],

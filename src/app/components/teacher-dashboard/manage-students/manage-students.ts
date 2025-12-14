@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-manage-students',
   standalone: true,
   imports: [FormsModule,CommonModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './manage-students.html',
   styleUrl: './manage-students.css',
 })
