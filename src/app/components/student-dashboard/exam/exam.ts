@@ -8,6 +8,8 @@ import { StudentService } from '../../../Service/student-service';
   selector: 'app-student-exams',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  selector: 'app-exam',
+  imports: [],
   templateUrl: './exam.html',
   styleUrls: ['./exam.css']
 })

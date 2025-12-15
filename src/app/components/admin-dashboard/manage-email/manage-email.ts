@@ -17,6 +17,7 @@ export class ManageEmail {
     subject: '',
     body: ''
   };
+message: any;
 
   constructor(private emailService: EmailService) {}
 
@@ -39,3 +40,4 @@ export class ManageEmail {
   }
 
 }
+
