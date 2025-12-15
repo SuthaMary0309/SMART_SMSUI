@@ -1,11 +1,7 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TeacherService } from '../../Service/teacher-service';
 import { StudentService } from '../../Service/student-service';
 import { ExamService } from '../../Service/exam-service';
@@ -15,17 +11,23 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
-  selector: 'app-teacher-dashboard',
+  selector: 'app-admin-dashboard',
+  templateUrl: './/teacher-dashboard.html',
+  styleUrls: ['.//teacher-dashboard.css'],
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './teacher-dashboard.html',
-  styleUrl: './teacher-dashboard.css',
+  imports: [CommonModule, FormsModule,RouterLink]
 })
 export class TeacherDashboard implements OnInit, AfterViewInit {
+
   @ViewChild('barChart') barChartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('doughnutChart') doughnutChartRef!: ElementRef<HTMLCanvasElement>;
 
-  name = '';
+  // Admin Specific
+  adminName: string = '';
+  showLogoutPopup: boolean = false;
+  activeView: string = 'dashboard';
+
+  // Data & Charts (from Teacher Dashboard)
   students: any[] = [];
   teachers: any[] = [];
   exams: any[] = [];
@@ -44,6 +46,7 @@ export class TeacherDashboard implements OnInit, AfterViewInit {
   });
 
   constructor(
+    private router: Router,
     private teacherService: TeacherService,
     private studentService: StudentService,
     private examService: ExamService,
@@ -51,10 +54,7 @@ export class TeacherDashboard implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.name =
-      localStorage.getItem('name') ||
-      localStorage.getItem('username') ||
-      'Teacher';
+    this.adminName = localStorage.getItem("name") || localStorage.getItem("username") || "Teacher";
     this.loadAllData();
   }
 
@@ -202,5 +202,19 @@ export class TeacherDashboard implements OnInit, AfterViewInit {
 
   getRecentStudents() {
     return this.students.slice(0, 5);
+  }
+
+  // Logout
+  openLogoutPopup() {
+    this.showLogoutPopup = true;
+  }
+
+  confirmLogout() {
+    this.showLogoutPopup = false;
+    this.router.navigate(['/login']);
+  }
+
+  cancelLogout() {
+    this.showLogoutPopup = false;
   }
 }

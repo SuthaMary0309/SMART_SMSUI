@@ -12,13 +12,18 @@
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 15px 40px rgba(0, 208, 255, 0.6);
-  z-index: 1000;
+  z-index: 1999;
   transition: all 0.4s ease;
 }
 
 .chatbot-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 20px 50px rgba(0, 208, 255, 0.8);
+}
+
+.chatbot-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .chatbot-btn img {
@@ -46,34 +51,50 @@
   right: 0;
 }
 
-/* Popup Overlay */
+/* Popup Overlay - Transparent to show background */
 .ai-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
+  background: transparent;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   z-index: 2000;
+  pointer-events: none;
 }
 
-/* Chat Box */
+/* Chat Box - Bottom Right Position */
 .ai-box {
-  width: 90%;
-  max-width: 500px;
-  height: 70vh;
-  background: rgba(10, 25, 60, 0.9);
-  border-radius: 32px;
+  width: 400px;
+  max-width: calc(100vw - 40px);
+  height: 600px;
+  max-height: calc(100vh - 120px);
+  background: rgba(10, 25, 60, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px 24px 0 24px;
   border: 3px solid rgba(0, 208, 255, 0.6);
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -10px 60px rgba(0, 208, 255, 0.4), 0 20px 80px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  margin: 0 20px 100px 20px;
+  pointer-events: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Close Button */
@@ -179,15 +200,40 @@
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .ai-box {
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    height: 70vh;
+    max-height: 70vh;
+    margin: 0 10px 90px 10px;
+    border-radius: 24px 24px 0 0;
+  }
+  
+  .chatbot-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .chatbot-btn img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
 @media (max-width: 576px) {
   .ai-box {
-    height: 85vh;
-    width: 95%;
+    height: 75vh;
+    max-height: 75vh;
   }
+  
   .input-box {
     flex-direction: column;
     gap: 15px;
   }
+  
   .input-box button {
     margin-left: 0;
     width: 100%;

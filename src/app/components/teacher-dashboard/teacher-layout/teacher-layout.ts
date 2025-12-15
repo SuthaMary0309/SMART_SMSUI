@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AiAssistant } from '../../home/ai-assistant/ai-assistant';
 
 @Component({
   selector: 'app-teacher-layout',
-  imports: [FormsModule,CommonModule,RouterModule],
+  imports: [FormsModule,CommonModule,RouterModule, AiAssistant],
   templateUrl: './teacher-layout.html',
   styleUrl: './teacher-layout.css',
   standalone: true

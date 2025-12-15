@@ -95,7 +95,7 @@ export const routes: Routes = [
   {
     path: 'teacher-dashboard',
     component: TeacherDashboard,
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { roles: ['Teacher'] }
   },
   {

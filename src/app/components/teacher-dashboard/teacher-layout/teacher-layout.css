@@ -18,6 +18,30 @@
     height: 100%;
     z-index: 1000;
     box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5);
+    transition: width 0.3s ease;
+  }
+  
+  /* Collapsed Sidebar */
+  .admin-sidebar.collapsed {
+    width: 80px;
+  }
+  
+  .admin-sidebar.collapsed .logo-section,
+  .admin-sidebar.collapsed .menu-header,
+  .admin-sidebar.collapsed .menu-item span {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+  }
+  
+  .admin-sidebar.collapsed .menu-item a {
+    justify-content: center;
+    padding: 20px 0;
+  }
+  
+  .admin-sidebar.collapsed .logo {
+    font-size: 24px;
   }
   
   .logo-section {
@@ -31,10 +55,42 @@
     font-weight: 900;
     background: linear-gradient(90deg, #00d0ff, #00aaff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba(0, 208, 255, 0.5);
   }
   
+  /* Toggle Button */
+  .toggle-btn {
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 208, 255, 0.3);
+    border: 2px solid rgba(0, 208, 255, 0.5);
+    border-radius: 50%;
+    color: #00d0ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 208, 255, 0.3);
+  }
+  
+  .toggle-btn:hover {
+    background: rgba(0, 208, 255, 0.5);
+    border-color: #00d0ff;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 208, 255, 0.5);
+  }
+  
+  .toggle-btn i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+  }
   
   /* Scrollable Menu */
   .sidebar-scroll {
@@ -131,6 +187,12 @@
     margin-left: 300px;
     flex: 1;
     min-height: 100vh;
+    transition: margin-left 0.3s ease;
+  }
+  
+  /* When sidebar is collapsed, adjust content margin */
+  .admin-layout.sidebar-collapsed .dashboard-content {
+    margin-left: 80px;
   }
   
   .topbar {

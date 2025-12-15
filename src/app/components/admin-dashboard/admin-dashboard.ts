@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component,OnInit,AfterViewInit, ViewChild,ElementRef,} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentService } from '../../Service/student-service';
 import { TeacherService } from '../../Service/teacher-service';

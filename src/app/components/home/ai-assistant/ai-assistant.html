@@ -1,5 +1,5 @@
 <!-- Floating Chatbot Button -->
-<div class="chatbot-btn" (click)="toggleChat()">
+<div class="chatbot-btn" [class.hidden]="showChat" (click)="toggleChat()">
   <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="AI Assistant">
 </div>
 

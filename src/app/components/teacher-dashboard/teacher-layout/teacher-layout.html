@@ -1,6 +1,6 @@
-<div class="admin-layout">
+<div class="admin-layout" [class.sidebar-collapsed]="isCollapsed">
     <!-- Scrollable Sidebar -->
-    <div class="admin-sidebar">
+    <div class="admin-sidebar" [class.collapsed]="isCollapsed">
       <div class="logo-section">
         <h3 class="logo">EDU LINK</h3>
       </div>
@@ -14,89 +14,89 @@
   
           <!-- Dashboard -->
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/dashboard">
+            <a routerLink="/teacher/dashboard">
               <i class="bi bi-speedometer2"></i>
               <span>Dashboard</span>
             </a>
           </li>
-  
+
           <!-- Core Management -->
           <li class="menu-header">CORE MANAGEMENT</li>
       
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/students">
+            <a routerLink="/teacher/students">
               <i class="bi bi-person-badge-fill"></i>
               <span>Manage Students</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/class">
+            <a routerLink="/teacher/class">
               <i class="bi bi-building"></i>
               <span>Manage Classes</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/subject">
+            <a routerLink="/teacher/subject">
               <i class="bi bi-journal-text"></i>
               <span>Manage Subjects</span>
             </a>
           </li>
-  
+
           <!-- Academic -->
           <li class="menu-header">ACADEMIC</li>
           
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/exam">
+            <a routerLink="/teacher/exam">
               <i class="bi bi-bar-chart-fill"></i>
               <span>Manage Exams</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/marks">
+            <a routerLink="/teacher/marks">
               <i class="bi bi-clipboard-check"></i>
               <span>Manage Marks</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/attendance">
+            <a routerLink="/teacher/attendance">
               <i class="bi bi-calendar-check-fill"></i>
               <span>Attendance</span>
             </a>
           </li>
-  
+
           <!-- Communication -->
           <li class="menu-header">COMMUNICATION</li>
           
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/notification">
+            <a routerLink="/teacher/notification">
               <i class="bi bi-bell-fill"></i>
               <span>Notifications</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/email">
+            <a routerLink="/teacher/email">
               <i class="bi bi-envelope-fill"></i>
               <span>Email System</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/parent">
+            <a routerLink="/teacher/parent">
               <i class="bi bi-person-heart"></i>
               <span>Parent Portal</span>
             </a>
           </li>
-  
+
           <!-- Reports & Profile -->
           <li class="menu-header">OTHERS</li>
           
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/report">
+            <a routerLink="/teacher/report">
               <i class="bi bi-file-earmark-bar-graph"></i>
               <span>Reports</span>
             </a>
           </li>
           <li class="menu-item" routerLinkActive="active">
-            <a routerLink="/admin/profile">
+            <a routerLink="/teacher/profile">
               <i class="bi bi-person-circle"></i>
               <span>My Profile</span>
             </a>
@@ -116,10 +116,10 @@
     <!-- Main Content -->
     <div class="dashboard-content">
       <div class="topbar">
-        <h4>Admin Panel</h4>
+        <h4>TEACHER PANEL</h4>
         <div class="profile-box">
           <i class="bi bi-bell-fill me-3"></i>
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-pic" alt="Admin" />
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-pic" alt="Teacher" />
         </div>
       </div>
   
@@ -127,4 +127,7 @@
         <router-outlet></router-outlet>
       </div>
     </div>
+    
+    <!-- AI Assistant Chatbot -->
+    <app-ai-assistant></app-ai-assistant>
   </div>
